@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06080c">
+  <title>Gold Live Analyzer</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=0.9.3">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><h1>Gold Live Analyzer</h1><p>XAUUSD LIVE • contexte technique complet • aucune exécution automatique</p></div>
+      <div class="statusline"><span class="badge" id="connectionBadge" data-status="connecting">CTRADER NON CONNECTÉ</span><span class="pill" id="modeLabel">—</span><span class="pill">STRATÉGIES <b id="strategiesCount">0</b></span><a class="btn auth-connect" id="ctraderConnect" href="/api/auth/login">CONNECTER CTRADER</a><button class="btn auth-disconnect" id="ctraderDisconnect" type="button" hidden>DÉCONNECTER</button></div>
+    </header>
+
+    <nav class="app-nav" aria-label="Navigation principale">
+      <button class="app-nav-btn active" type="button" data-app-target="strategies">STRATÉGIES</button>
+      <button class="app-nav-btn" type="button" data-app-target="market">MARCHÉ</button>
+      <button class="app-nav-btn" type="button" data-app-target="diagnostic">DIAGNOSTIC</button>
+    </nav>
+
+    <section class="strategy-workspace" aria-label="Cockpit des stratégies">
+      <div class="strategy-workspace-head decision-workspace-head">
+        <div><span class="eyebrow">MES STRATÉGIES</span><h2>Décider vite. Vérifier ensuite.</h2><p>Une route n’affiche un plan exploitable qu’après validation complète. Un signal validé reste mémorisé 15 minutes pour te laisser le temps de le prendre.</p></div>
+      </div>
+
+      <div class="strategy-overview-grid" role="tablist" aria-label="Choisir une stratégie">
+        <button class="strategy-overview-card active" type="button" data-strategy-target="strategyPanel" role="tab" aria-selected="true">
+          <div class="overview-top"><span class="route-kicker">R01</span><span class="overview-state" id="r01OverviewState" data-state="searching">RECHERCHE</span></div>
+          <strong>Liquidity Sweep Reversal</strong>
+          <div class="overview-count"><b id="r01TabScore">0 / 14</b><span>validations</span></div>
+          <p><span>Biais</span><b id="r01OverviewBias">—</b></p>
+          <p><span>Prochaine étape</span><b id="r01OverviewNext">Liquidité externe qualifiée</b></p>
+        </button>
+        <button class="strategy-overview-card" type="button" data-strategy-target="strategyPanelR02" role="tab" aria-selected="false">
+          <div class="overview-top"><span class="route-kicker">R02</span><span class="overview-state" id="r02OverviewState" data-state="searching">RECHERCHE</span></div>
+          <strong>Balance Breakout</strong>
+          <div class="overview-count"><b id="r02TabScore">0 / 13</b><span>validations</span></div>
+          <p><span>Biais</span><b id="r02OverviewBias">BUY uniquement</b></p>
+          <p><span>Prochaine étape</span><b id="r02OverviewNext">Balance H1 mature</b></p>
+        </button>
+        <button class="strategy-overview-card" type="button" data-strategy-target="strategyPanelR03" role="tab" aria-selected="false">
+          <div class="overview-top"><span class="route-kicker">R03</span><span class="overview-state" id="r03OverviewState" data-state="searching">RECHERCHE</span></div>
+          <strong>Trend Pullback Continuation</strong>
+          <div class="overview-count"><b id="r03TabScore">0 / 12</b><span>validations</span></div>
+          <p><span>Biais</span><b id="r03OverviewBias">—</b></p>
+          <p><span>Prochaine étape</span><b id="r03OverviewNext">Alignement H4 / H1 / M15</b></p>
+        </button>
+      </div>
+
+      <article class="card strategy-cockpit active strategy-decision-page" id="strategyPanel" data-strategy-view="R01">
+        <header class="route-detail-head">
+          <div><span class="route-kicker">R01</span><h3>Liquidity Sweep / Failed Auction Reversal</h3><p>Liquidité → sweep/reclaim → shift M1 → displacement/FVG → retest → trade.</p></div>
+          <span class="strategy-stage technical-stage" id="r01Stage" data-stage="SEARCHING">SEARCHING</span>
+        </header>
+
+        <section class="decision-hero" id="r01Decision" data-state="waiting">
+          <div class="decision-status"><span>ÉTAT DE LA ROUTE</span><strong>○ RECHERCHE</strong><p id="r01DecisionText">Le moteur recherche une liquidité externe qualifiée.</p></div>
+          <div class="decision-score"><strong id="r01Score">0 / 14</strong><span id="r01ScoreLabel">validations obligatoires</span><div class="strategy-progress-track"><i id="r01ProgressBar" style="width:0%"></i></div><small id="r01ProgressText">14 encore requises</small></div>
+          <div class="decision-bias"><span>BIAIS ACTUEL</span><b id="r01Direction">—</b><small id="r01Reason">Recherche d’un sweep qualifié sur liquidité externe.</small></div>
+        </section>
+
+        <section class="next-step-card"><span>PROCHAINE ÉTAPE ATTENDUE</span><strong id="r01NextStep">Liquidité externe qualifiée → sweep et reclaim</strong></section>
+
+        <section class="strategy-ticket plan-card" id="r01Ticket" data-ready="false">
+          <div class="ticket-title"><div><span>PLAN DE TRADE</span><small id="r01SignalStatus">Aucun signal validé pour le moment.</small></div><strong id="r01TicketSide">—</strong></div>
+          <div class="ticket-grid"><div><span>Entrée</span><b id="r01TicketEntry">—</b></div><div><span>Stop loss</span><b id="r01TicketSL">—</b></div><div><span>TP1</span><b id="r01TicketTP1">—</b></div><div><span>TP2</span><b id="r01TicketTP2">—</b></div><div><span>R:R TP1</span><b id="r01TicketRR1">—</b></div><div><span>R:R TP2</span><b id="r01TicketRR2">—</b></div></div>
+          <small id="r01StopLogic">Le plan apparaît uniquement après validation complète. Un signal validé est conservé 15 minutes.</small>
+        </section>
+
+        <section class="route-flow-section">
+          <div class="section-heading"><div><span>PARCOURS DU SETUP</span><b>Où en est R01 ?</b></div></div>
+          <div class="route-timeline" id="r01Timeline"></div>
+        </section>
+
+        <section class="route-blockers-section">
+          <div class="section-heading"><div><span>LECTURE RAPIDE</span><b>Pourquoi le setup n’est pas encore prêt ?</b></div><small>Gris = pas encore applicable • rouge = blocage réel • vert = validé</small></div>
+          <div class="condition-groups" id="r01ConditionSummary"></div>
+        </section>
+
+        <section class="strategy-chart-card simplified-chart-card">
+          <div class="strategy-chart-head"><div><span>GRAPHIQUE R01</span><b id="r01ChartTitle">M5 — contexte, liquidité, ATR & ADX</b></div><div class="strategy-chart-actions"><div class="strategy-chart-tabs"><button class="btn active" type="button" data-r01-tf="M5">M5 CONTEXTE</button><button class="btn" type="button" data-r01-tf="M1">M1 TRIGGER</button></div><button class="btn route-layer-toggle" type="button" data-route-layers="R01" aria-pressed="false">CALQUES AVANCÉS</button></div></div>
+          <div class="strategy-chart-wrap" id="r01Chart"><canvas aria-label="Graphique autonome de la stratégie R01"></canvas></div>
+          <div class="strategy-chart-footer"><div class="r01-indicator-tags" id="r01IndicatorTags"><span data-condition="key_liquidity">Liquidité</span><span data-condition="sweep_reclaim">Sweep / reclaim</span><span data-condition="micro_shift">Shift M1</span><span data-condition="momentum_flip">FVG / displacement</span><span data-condition="entry_retest">Retest</span><span data-condition="risk_geometry">Risque</span></div><small id="r01ChartHint">Vue propre par défaut. Active les calques avancés uniquement pour approfondir.</small></div>
+        </section>
+
+        <details class="technical-details">
+          <summary>Afficher le détail technique R01 <span>checklist complète, diagnostic et logique du plan</span></summary>
+          <div class="technical-details-body">
+            <div class="strategy-summary strategy-summary-wide"><div><span>Liquidité</span><b id="r01Level">—</b></div><div><span>Zone entrée</span><b id="r01Entry">—</b></div><div><span>R:R TP2</span><b id="r01RR">—</b></div><div><span>Statut moteur</span><b>R01</b></div></div>
+            <div class="strategy-conditions strategy-conditions-grid" id="r01Conditions" aria-live="polite"></div>
+            <div class="strategy-plan" id="r01Plan" hidden></div>
+          </div>
+        </details>
+        <p class="context-note strategy-footnote">Aucune exécution automatique. Pour un SELL, le SL broker est surveillé sur l’ASK.</p>
+      </article>
+
+      <article class="card strategy-cockpit strategy-decision-page" id="strategyPanelR02" data-strategy-view="R02" hidden>
+        <header class="route-detail-head">
+          <div><span class="route-kicker">R02</span><h3>Balance Breakout / Acceptance</h3><p>Balance H1 → pression → breakout M5 → acceptation → retest → reprise M1 → trade.</p></div>
+          <span class="strategy-stage technical-stage" id="r02Stage" data-stage="SEARCHING">SEARCHING</span>
+        </header>
+
+        <section class="decision-hero" id="r02Decision" data-state="waiting">
+          <div class="decision-status"><span>ÉTAT DE LA ROUTE</span><strong>○ RECHERCHE</strong><p id="r02DecisionText">Le moteur recherche une balance H1 mature.</p></div>
+          <div class="decision-score"><strong id="r02Score">0 / 13</strong><span>validations obligatoires</span><div class="strategy-progress-track"><i id="r02ProgressBar" style="width:0%"></i></div><small id="r02ProgressText">13 encore requises</small></div>
+          <div class="decision-bias"><span>BIAIS ACTUEL</span><b id="r02Direction">BUY uniquement</b><small id="r02Reason">Recherche d’une balance H1 mature avec pression acheteuse au bord haut.</small></div>
+        </section>
+
+        <section class="next-step-card"><span>PROCHAINE ÉTAPE ATTENDUE</span><strong id="r02NextStep">Balance H1 mature → pression acheteuse au bord haut</strong></section>
+
+        <section class="strategy-ticket plan-card" id="r02Ticket" data-ready="false">
+          <div class="ticket-title"><div><span>PLAN DE TRADE</span><small id="r02SignalStatus">Aucun signal validé pour le moment.</small></div><strong id="r02TicketSide">—</strong></div>
+          <div class="ticket-grid"><div><span>Entrée ASK</span><b id="r02TicketEntry">—</b></div><div><span>Stop loss</span><b id="r02TicketSL">—</b></div><div><span>TP1</span><b id="r02TicketTP1">—</b></div><div><span>TP2</span><b id="r02TicketTP2">—</b></div><div><span>Risque ATR M5</span><b id="r02TicketRisk">—</b></div><div><span>Signal M1</span><b id="r02TicketSignal">—</b></div></div>
+          <small id="r02StopLogic">BUY : entrée sur ASK ; SL structurel déclenché sur BID. Un signal validé est conservé 15 minutes.</small>
+        </section>
+
+        <section class="route-flow-section">
+          <div class="section-heading"><div><span>PARCOURS DU SETUP</span><b>Où en est R02 ?</b></div></div>
+          <div class="route-timeline" id="r02Timeline"></div>
+        </section>
+
+        <section class="route-blockers-section">
+          <div class="section-heading"><div><span>LECTURE RAPIDE</span><b>Pourquoi le setup n’est pas encore prêt ?</b></div><small>Gris = pas encore applicable • rouge = blocage réel • vert = validé</small></div>
+          <div class="condition-groups" id="r02ConditionSummary"></div>
+        </section>
+
+        <section class="strategy-chart-card simplified-chart-card">
+          <div class="strategy-chart-head"><div><span>GRAPHIQUE R02</span><b id="r02ChartTitle">M5 — breakout, acceptation, retest, ATR & ADX</b></div><div class="strategy-chart-actions"><div class="strategy-chart-tabs"><button class="btn" type="button" data-r02-tf="H1">H1 BALANCE</button><button class="btn active" type="button" data-r02-tf="M5">M5 SETUP</button><button class="btn" type="button" data-r02-tf="M1">M1 TRIGGER</button></div><button class="btn route-layer-toggle" type="button" data-route-layers="R02" aria-pressed="false">CALQUES AVANCÉS</button></div></div>
+          <div class="strategy-chart-wrap" id="r02Chart"><canvas aria-label="Graphique autonome de la stratégie R02"></canvas></div>
+          <div class="strategy-chart-footer"><div class="r01-indicator-tags" id="r02IndicatorTags"><span data-condition="balance">Balance H1</span><span data-condition="edge_pressure">Pression</span><span data-condition="acceptance">Acceptation</span><span data-condition="retest">Retest</span><span data-condition="m1_resume">Reprise M1</span><span data-condition="risk_geometry">Risque</span></div><small id="r02ChartHint">Vue propre par défaut. Active les calques avancés uniquement pour approfondir.</small></div>
+        </section>
+
+        <details class="technical-details">
+          <summary>Afficher le détail technique R02 <span>checklist complète, diagnostic et logique du plan</span></summary>
+          <div class="technical-details-body">
+            <div class="strategy-summary strategy-summary-wide"><div><span>Balance H1</span><b id="r02Balance">—</b></div><div><span>Entrée live</span><b id="r02Entry">—</b></div><div><span>TP2</span><b id="r02RR">—</b></div><div><span>Statut moteur</span><b>R02</b></div></div>
+            <div class="strategy-conditions strategy-conditions-grid" id="r02Conditions" aria-live="polite"></div>
+            <div class="strategy-plan" id="r02Plan" hidden></div>
+          </div>
+        </details>
+        <p class="context-note strategy-footnote">R02 n’exécute aucun ordre. BUY utilise l’ASK comme entrée exécutable et le BID comme déclencheur du SL.</p>
+      </article>
+
+      <article class="card strategy-cockpit strategy-decision-page" id="strategyPanelR03" data-strategy-view="R03" hidden>
+        <header class="route-detail-head">
+          <div><span class="route-kicker">R03 · RESEARCH SHADOW</span><h3>Trend Pullback Continuation</h3><p>Tendance HTF → impulsion M5 → pullback faible → zone utile → micro-BOS/MSS M1 → reprise → trade.</p></div>
+          <span class="strategy-stage technical-stage" id="r03Stage" data-stage="SEARCHING">SEARCHING</span>
+        </header>
+
+        <section class="decision-hero" id="r03Decision" data-state="waiting">
+          <div class="decision-status"><span>ÉTAT DE LA ROUTE</span><strong>○ RECHERCHE</strong><p id="r03DecisionText">Le moteur recherche une tendance H4/H1/M15 propre.</p></div>
+          <div class="decision-score"><strong id="r03Score">0 / 12</strong><span>validations obligatoires</span><div class="strategy-progress-track"><i id="r03ProgressBar" style="width:0%"></i></div><small id="r03ProgressText">12 encore requises</small></div>
+          <div class="decision-bias"><span>BIAIS ACTUEL</span><b id="r03Direction">—</b><small id="r03Reason">Recherche d’une tendance alignée avant tout pullback.</small></div>
+        </section>
+
+        <section class="next-step-card"><span>PROCHAINE ÉTAPE ATTENDUE</span><strong id="r03NextStep">Alignement H4/H1/M15 → impulsion M5 qualifiée</strong></section>
+
+        <section class="strategy-ticket plan-card" id="r03Ticket" data-ready="false">
+          <div class="ticket-title"><div><span>PLAN DE TRADE</span><small id="r03SignalStatus">Aucun signal validé pour le moment.</small></div><strong id="r03TicketSide">—</strong></div>
+          <div class="ticket-grid"><div><span>Entrée live</span><b id="r03TicketEntry">—</b></div><div><span>Stop loss</span><b id="r03TicketSL">—</b></div><div><span>TP1 structurel</span><b id="r03TicketTP1">—</b></div><div><span>TP2</span><b id="r03TicketTP2">—</b></div><div><span>Risque ATR M5</span><b id="r03TicketRisk">—</b></div><div><span>Signal M1</span><b id="r03TicketSignal">—</b></div></div>
+          <small id="r03StopLogic">SL derrière l’extrême réel du pullback + buffer ATR. Jamais élargi pour faire passer le filtre. Signal mémorisé 15 minutes après validation.</small>
+        </section>
+
+        <section class="route-flow-section">
+          <div class="section-heading"><div><span>PARCOURS DU SETUP</span><b>Où en est R03 ?</b></div></div>
+          <div class="route-timeline" id="r03Timeline"></div>
+        </section>
+
+        <section class="route-blockers-section">
+          <div class="section-heading"><div><span>LECTURE RAPIDE</span><b>Pourquoi le pullback n’est pas encore tradable ?</b></div><small>Gris = pas encore applicable • rouge = blocage réel • vert = validé</small></div>
+          <div class="condition-groups" id="r03ConditionSummary"></div>
+        </section>
+
+        <section class="strategy-chart-card simplified-chart-card">
+          <div class="strategy-chart-head"><div><span>GRAPHIQUE R03</span><b id="r03ChartTitle">M5 — impulsion, pullback, zones utiles & risque</b></div><div class="strategy-chart-actions"><div class="strategy-chart-tabs"><button class="btn" type="button" data-r03-tf="H4">H4</button><button class="btn" type="button" data-r03-tf="H1">H1</button><button class="btn" type="button" data-r03-tf="M15">M15</button><button class="btn active" type="button" data-r03-tf="M5">M5 PULLBACK</button><button class="btn" type="button" data-r03-tf="M1">M1 TRIGGER</button></div><button class="btn route-layer-toggle" type="button" data-route-layers="R03" aria-pressed="false">CALQUES AVANCÉS</button></div></div>
+          <div class="strategy-chart-wrap" id="r03Chart"><canvas aria-label="Graphique autonome de la stratégie R03"></canvas></div>
+          <div class="strategy-chart-footer"><div class="r01-indicator-tags" id="r03IndicatorTags"><span data-condition="htf_trend">Tendance HTF</span><span data-condition="impulse">Impulsion</span><span data-condition="pullback_weak">Pullback faible</span><span data-condition="useful_zone">Zone utile</span><span data-condition="m1_resume">Reprise M1</span><span data-condition="risk_geometry">Risque</span></div><small id="r03ChartHint">Vue propre par défaut. R03 reste en RESEARCH SHADOW tant que le replay historique propre n’est pas figé.</small></div>
+        </section>
+
+        <details class="technical-details">
+          <summary>Afficher le détail technique R03 <span>checklist complète, ratios énergie/volume et logique du plan</span></summary>
+          <div class="technical-details-body">
+            <div class="strategy-summary strategy-summary-wide"><div><span>Tendance HTF</span><b id="r03Trend">—</b></div><div><span>Zone utile</span><b id="r03Zone">—</b></div><div><span>Entrée live</span><b id="r03Entry">—</b></div><div><span>R:R TP2</span><b id="r03RR">—</b></div></div>
+            <div class="strategy-conditions strategy-conditions-grid" id="r03Conditions" aria-live="polite"></div>
+            <div class="strategy-plan" id="r03Plan" hidden></div>
+          </div>
+        </details>
+        <p class="context-note strategy-footnote">R03 est en RESEARCH / SHADOW : aucune exécution automatique et aucune performance historique annoncée avant replay du dataset canonique. BUY entre sur ASK ; SELL entre sur BID et son SL structurel est protégé pour le déclenchement ASK.</p>
+      </article>
+    </section>
+
+    <section class="grid" id="marketDiagnosticView">
+      <article class="card">
+        <div class="chart-head">
+          <div>
+            <div class="symbol-row"><strong id="symbolLabel">XAUUSD</strong><span class="pill" id="stage">Initialisation</span></div>
+            <div class="quote"><span>BID <b id="bid">—</b></span><span>ASK <b id="ask">—</b></span><span>SPREAD <b id="spread">—</b></span></div>
+          </div>
+          <div class="controls" aria-label="Unités de temps">
+            <button class="btn" data-tf="M1">M1</button><button class="btn active" data-tf="M5">M5</button><button class="btn" data-tf="M15">M15</button><button class="btn" data-tf="M30">M30</button><button class="btn" data-tf="H1">H1</button><button class="btn" data-tf="H4">H4</button>
+            <button class="btn" id="zoomIn" title="Zoom +">＋</button><button class="btn" id="zoomOut" title="Zoom -">−</button><button class="btn" id="resetView">RESET</button>
+          </div>
+        </div>
+        <div class="indicator-strip" aria-label="Contexte technique">
+          <div class="indicator-cell"><span>Tendance</span><b id="trendMetric">—</b></div>
+          <div class="indicator-cell"><span>Structure</span><b id="structureMetric">—</b></div>
+          <div class="indicator-cell"><span>RSI 14</span><b id="rsiMetric">—</b></div>
+          <div class="indicator-cell"><span>ATR 14</span><b id="atrMetric">—</b></div>
+          <div class="indicator-cell"><span>ADX / régime</span><b id="adxMetric">—</b></div>
+          <div class="indicator-cell"><span>DOM</span><b id="domMetric">—</b></div>
+          <div class="indicator-cell"><span>Volume Profile</span><b id="profileMetric">—</b></div>
+          <div class="indicator-cell"><span>Macro risk</span><b id="macroRiskMetric">—</b></div>
+          <div class="indicator-cell"><span>VWAP Δ</span><b id="vwapMetric">—</b></div>
+          <div class="indicator-cell"><span>ADR utilisé</span><b id="adrMetric">—</b></div>
+          <div class="indicator-cell"><span>FVG actives</span><b id="fvgMetric">—</b></div>
+          <div class="indicator-cell"><span>OB actifs</span><b id="obMetric">—</b></div>
+          <div class="indicator-cell"><span>BUY zones</span><b id="buyZoneMetric">—</b></div>
+          <div class="indicator-cell"><span>SELL zones</span><b id="sellZoneMetric">—</b></div>
+          <div class="indicator-cell auto-focus-cell"><span>Focus AUTO</span><b id="autoFocusMetric">—</b></div>
+        </div>
+        <div class="chart-wrap" id="chart"><canvas aria-label="Graphique XAUUSD LIVE avec structure, liquidité, Order Blocks, FVG, volume profile, order flow et contexte autonome"></canvas></div>
+        <div class="chart-footer"><span id="chartHint">En attente des bougies…</span><span>Molette = zoom • glisser = historique • double clic = reset</span></div>
+      </article>
+
+      <aside class="side">
+        <section class="card section"><h2>État du moteur</h2><div class="metric-grid"><div class="metric"><span>API cTrader</span><b id="healthText">—</b></div><div class="metric"><span>Session</span><b id="authText">Non connectée</b></div><div class="metric"><span>Exécution</span><b id="executionStatus">DÉSACTIVÉ</b></div><div class="metric"><span>Marché</span><b>XAUUSD LIVE</b></div></div><div class="oauth-note" id="oauthNote">Connexion lecture seule via le portail officiel cTrader.</div></section>
+
+        <section class="card section"><h2>Moteur visuel autonome</h2>
+          <div class="auto-controller">
+            <div class="auto-controller-head"><button class="btn active" id="autoMode" type="button">AUTO</button><button class="btn" id="manualMode" type="button">MANUEL</button><span class="auto-count" id="autoCount">—</span></div>
+            <b id="autoFocus">Analyse du contexte…</b><small id="autoReasons">Le moteur choisira automatiquement les calques utiles au contexte actuel.</small>
+          </div>
+          <div class="layers layer-groups">
+          <label class="layer"><span>Structure <small id="structureLayerStatus">BOS / CHOCH / MSS • —</small></span><input type="checkbox" data-family="structure" checked></label>
+          <label class="layer"><span>Liquidité externe <small id="liquidityLayerStatus">EQH/EQL • BSL/SSL • sweeps • —</small></span><input type="checkbox" data-family="liquidity" checked></label>
+          <label class="layer"><span>Liquidité interne <small id="internalLiquidityLayerStatus">micro-swings non pris • —</small></span><input type="checkbox" data-family="internalLiquidity" checked></label>
+          <label class="layer"><span>Order Blocks <small id="obLayerStatus">actifs / mitigés • —</small></span><input type="checkbox" data-family="orderBlocks" checked></label>
+          <label class="layer"><span>FVG / iFVG <small id="fvgLayerStatus">FVG / iFVG • —</small></span><input type="checkbox" data-family="fvg" checked></label>
+          <label class="layer"><span>BUY / SELL zones <small id="poiLayerStatus">confluence OB + FVG • BUY — • SELL —</small></span><input type="checkbox" data-family="poi" checked></label>
+          <label class="layer"><span>Fibonacci automatique <small id="fibLayerStatus">swing confirmé • 23.6/38.2/50/61.8/78.6 • —</small></span><input type="checkbox" data-family="fibonacci"></label>
+          <label class="layer"><span>Premium / Discount <small id="pdLayerStatus">EQ 50 % • —</small></span><input type="checkbox" data-family="premiumDiscount"></label>
+          <label class="layer"><span>Niveaux HTF <small id="htfLayerStatus">PDH/PDL/PWH/PWL + opens • —</small></span><input type="checkbox" data-family="htf" checked></label>
+          <label class="layer"><span>Sessions <small id="sessionsLayerStatus">Asie / Londres / New York • —</small></span><input type="checkbox" data-family="sessions"></label>
+          <label class="layer"><span>EMA 20 / 50 / 200 <small id="trendLayerStatus">tendance • —</small></span><input type="checkbox" data-family="trend" checked></label>
+          <label class="layer"><span>VWAP <small id="vwapLayerStatus">pondéré volume broker • —</small></span><input type="checkbox" data-family="vwap" checked></label>
+          <label class="layer"><span>Anchored VWAP <small id="avwapLayerStatus">Daily / NY / swing / structure • —</small></span><input type="checkbox" data-family="avwap"></label>
+          <label class="layer"><span>Volume Profile <small id="volumeProfileLayerStatus">POC / VAH / VAL / HVN / LVN • —</small></span><input type="checkbox" data-family="volumeProfile"></label>
+          <label class="layer"><span>Order Flow / DOM <small id="orderFlowLayerStatus">Level II • bid/ask imbalance • walls • —</small></span><input type="checkbox" data-family="orderFlow"></label>
+          <label class="layer"><span>ADX / DMI <small id="adxLayerStatus">force de tendance • +DI / -DI • —</small></span><input type="checkbox" data-family="adx"></label>
+          <label class="layer"><span>Compression / Expansion <small id="volatilityLayerStatus">Bollinger Band Width • —</small></span><input type="checkbox" data-family="volatilityRegime"></label>
+          <label class="layer"><span>Contexte macro Gold <small id="macroLayerStatus">Dollar / taux / calendrier officiel • —</small></span><input type="checkbox" data-family="macro"></label>
+          <label class="layer"><span>RSI 14 <small id="rsiLayerStatus">oscillateur 30 / 50 / 70 • —</small></span><input type="checkbox" data-family="rsi" checked></label>
+          <label class="layer"><span>ATR 14 <small id="atrLayerStatus">volatilité • —</small></span><input type="checkbox" data-family="atr" checked></label>
+        </div><div class="layer-actions layer-actions-3"><button class="btn" id="cleanLayers" type="button">VUE PROPRE</button><button class="btn" id="showAllLayers" type="button">TOUT AFFICHER</button><button class="btn" id="hideAllLayers" type="button">TOUT MASQUER</button></div><p class="auto-note">En mode AUTO, les cases sont pilotées par le moteur et changent avec le marché. Passe en MANUEL uniquement si tu veux forcer l’affichage.</p></section>
+
+        <section class="card section"><h2>Contexte macro Gold autonome</h2>
+          <div class="macro-grid">
+            <div class="metric"><span>Dollar / DXY proxy</span><b id="macroDxy">—</b></div>
+            <div class="metric"><span>US 10Y</span><b id="macroUs10y">—</b></div>
+            <div class="metric"><span>Real yield 10Y</span><b id="macroReal10y">—</b></div>
+            <div class="metric"><span>Biais macro</span><b id="macroBias">—</b></div>
+          </div>
+          <div class="macro-next"><span>Prochain risque majeur</span><b id="macroNext">—</b></div>
+          <p class="context-note">Sources publiques officielles quand disponibles : FRED, BLS, BEA et Federal Reserve. Le moteur masque cette couche si les sources sont indisponibles ou non pertinentes.</p>
+        </section>
+
+        <section class="card section"><h2>Lecture du graphique</h2><div class="legend-grid">
+          <span><i class="legend buy"></i>BUY / bullish</span><span><i class="legend sell"></i>SELL / bearish</span><span><i class="legend fvg"></i>FVG</span><span><i class="legend ifvg"></i>iFVG</span><span><i class="legend htf"></i>Niveaux HTF</span><span><i class="legend fib"></i>Fibonacci</span><span><i class="legend internal"></i>Liquidité interne</span><span><i class="legend session"></i>Range session</span><span><i class="legend vp"></i>Volume Profile</span><span><i class="legend dom"></i>DOM wall</span><span><i class="legend avwap"></i>Anchored VWAP</span>
+        </div><p class="context-note">Ces tracés décrivent le contexte du marché. R01, R02 et R03 utilisent ensuite des combinaisons strictes ; aucun indicateur isolé ne déclenche une entrée.</p></section>
+
+        <section class="card section"><h2>Journal technique</h2><div class="logbox" id="logs" aria-live="polite"></div></section>
+      </aside>
+    </section>
+
+  </main>
+  <script type="module" src="/assets/app.js?v=0.9.3"></script>
+</body>
+</html>

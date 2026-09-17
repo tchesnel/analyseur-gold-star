@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-09-16T20:08:58.645Z",
+  "volumeTransitions": {
+    "buy": [
+      {
+        "v": 40,
+        "stage": "ENTRY_READY",
+        "reason": null,
+        "ratio": 0.15384615384615385,
+        "retrace": null
+      },
+      {
+        "v": 210,
+        "stage": "INVALIDATED",
+        "reason": "PULLBACK_NOT_WEAK",
+        "ratio": 0.8803418803418803,
+        "retrace": null
+      }
+    ],
+    "sell": [
+      {
+        "v": 40,
+        "stage": "ENTRY_READY",
+        "reason": null,
+        "ratio": 0.15384615384615385,
+        "retrace": null
+      },
+      {
+        "v": 210,
+        "stage": "INVALIDATED",
+        "reason": "PULLBACK_NOT_WEAK",
+        "ratio": 0.8803418803418803,
+        "retrace": null
+      }
+    ]
+  },
+  "depthTransitions": {
+    "buy": [
+      {
+        "low": 105.2,
+        "stage": "DETECTED",
+        "reason": null,
+        "ratio": null,
+        "retrace": null
+      },
+      {
+        "low": 104.3,
+        "stage": "ENTRY_READY",
+        "reason": null,
+        "ratio": null,
+        "retrace": 0.3076923076923077
+      },
+      {
+        "low": 103.6,
+        "stage": "CONFIRMED",
+        "reason": null,
+        "ratio": null,
+        "retrace": null
+      },
+      {
+        "low": 102.7,
+        "stage": "INVALIDATED",
+        "reason": "PULLBACK_NOT_WEAK",
+        "ratio": null,
+        "retrace": 0.553846153846153
+      },
+      {
+        "low": 101.8,
+        "stage": "INVALIDATED",
+        "reason": "RETRACE_TOO_DEEP",
+        "ratio": null,
+        "retrace": 0.6923076923076923
+      },
+      {
+        "low": 99.8,
+        "stage": "INVALIDATED",
+        "reason": "STRUCTURE_BROKEN",
+        "ratio": null,
+        "retrace": 1
+      }
+    ],
+    "sell": [
+      {
+        "high": 114.8,
+        "stage": "DETECTED",
+        "reason": null,
+        "ratio": null,
+        "retrace": null
+      },
+      {
+        "high": 115.7,
+        "stage": "ENTRY_READY",
+        "reason": null,
+        "ratio": null,
+        "retrace": 0.3076923076923077
+      },
+      {
+        "high": 116.5,
+        "stage": "CONFIRMED",
+        "reason": null,
+        "ratio": null,
+        "retrace": null
+      },
+      {
+        "high": 117.3,
+        "stage": "INVALIDATED",
+        "reason": "PULLBACK_NOT_WEAK",
+        "ratio": null,
+        "retrace": 0.553846153846153
+      },
+      {
+        "high": 118.2,
+        "stage": "INVALIDATED",
+        "reason": "RETRACE_TOO_DEEP",
+        "ratio": null,
+        "retrace": 0.6923076923076923
+      },
+      {
+        "high": 120.2,
+        "stage": "INVALIDATED",
+        "reason": "STRUCTURE_BROKEN",
+        "ratio": null,
+        "retrace": 1
+      }
+    ]
+  },
+  "checks": {
+    "buyVolumeNoRearmAfterInvalidation": true,
+    "sellVolumeNoRearmAfterInvalidation": true,
+    "buyStructureBreakInvalidated": true,
+    "sellStructureBreakInvalidated": true
+  }
+}

@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:#05080d;color:#e5e7eb;font-family:system-ui}#wrap{width:1400px;height:820px;padding:18px;box-sizing:border-box}.head{height:48px;display:flex;gap:22px;align-items:center;font-weight:700}.muted{color:#94a3b8;font-weight:500}#chart{height:740px;border:1px solid #1f2937;background:#080b10;position:relative}canvas{display:block;width:100%;height:100%}
+</style></head><body><div id="wrap"><div class="head"><span id="title">Adaptive zones audit</span><span class="muted" id="note"></span></div><div id="chart"><canvas></canvas></div></div>
+<script type="module">
+import {GoldChart} from './assets/chart.js';
+import {buildAdaptivePois} from './engine/visual-analysis.js';
+const root=document.querySelector('#chart'); const chart=new GoldChart(root); chart.setDigits(2);
+const t0=Date.UTC(2026,8,15,12); const bars=[]; let p=102;
+for(let i=0;i<120;i++){const drift=Math.sin(i/8)*.22 + (i>65?.035:-.01); const o=p; const c=o+drift; const hi=Math.max(o,c)+.35+(i%9===0?.25:0); const lo=Math.min(o,c)-.35-(i%11===0?.2:0); bars.push({time:t0+i*300000,open:o,high:hi,low:lo,close:c,volume:150+i}); p=c;}
+chart.setBars(bars);
+const mode=new URLSearchParams(location.search).get('mode')||'confirmed'; const last=bars.at(-1).time;
+let price=102.7,obs,fvgs,ifvgs=[];
+if(mode==='confirmed'||mode==='live'){
+ obs=[
+  {side:'buy',low:98.4,high:99.6,startTime:bars[68].time,active:true,mitigated:false,sourceEvent:'BOS'},
+  {side:'sell',low:105.1,high:106.2,startTime:bars[82].time,active:true,mitigated:false,sourceEvent:'MSS'}
+ ];
+ fvgs=[
+  {side:'buy',low:99.1,high:100.2,startTime:bars[70].time,kind:'fvg',state:'active'},
+  {side:'sell',low:104.6,high:105.7,startTime:bars[84].time,kind:'fvg',state:'active'}
+ ];
+ price=mode==='live'?105.35:102.7;
+ document.querySelector('#title').textContent=mode==='live'?'SELL ZONE LIVE':'BUY + SELL confirmed zones';
+ document.querySelector('#note').textContent=mode==='live'?'price moved inside SELL zone → LIVE':'both sides must stay visible';
+}else{
+ obs=[{side:'sell',low:105.1,high:106.2,startTime:bars[82].time,active:true,mitigated:false,sourceEvent:'BOS'}];
+ fvgs=[{side:'buy',low:99.1,high:100.2,startTime:bars[70].time,kind:'fvg',state:'active'}];
+ price=102.7; document.querySelector('#title').textContent='Fallback candidates'; document.querySelector('#note').textContent='no confirmed confluence → candidates are dashed, never fake zones';
+}
+const adaptive=buildAdaptivePois({obs,fvgs,ifvgs,price,atr:1.5,bars,lastTime:last});
+chart.setOverlays({zones:[...adaptive.confirmed,...adaptive.candidates],lines:[],markers:[],series:[],bands:[],oscillators:{rsi:{points:[]},atr:{points:[]}}});
+chart.setFamilies({structure:false,liquidity:false,orderBlocks:false,fvg:false,poi:true,premiumDiscount:false,htf:false,sessions:false,trend:false,vwap:false,rsi:false,atr:false});
+chart.setQuote({bid:price,ask:price+.1,spread:.1,timestamp:Date.now()});
+window.__audit={adaptive,price};
+</script></body></html>

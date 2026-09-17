@@ -1,0 +1,29 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Audit R02</title><link rel="stylesheet" href="./assets/styles.css?v=0.7.1"><style>body{padding:18px}.audit-grid{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:16px;align-items:start}.chart-wrap{height:760px}.audit-title{margin:0 0 8px;color:#e5edf7;font:700 16px system-ui}.audit-note{color:#7890aa;font:11px system-ui;margin:0 0 12px}.badge-buy{color:#34d399}@media(max-width:1000px){.audit-grid{grid-template-columns:1fr}.chart-wrap{height:620px}}</style></head><body>
+<h1 class="audit-title">R02 — Balance Breakout / Acceptance — contrôle déterministe v0.7.1</h1><p class="audit-note" id="modeNote">Fixture d’audit locale : aucune donnée présentée comme LIVE.</p>
+<div class="audit-grid"><article class="card"><div class="chart-wrap" id="chart"><canvas></canvas></div></article><aside class="card section strategy-card"><h2>Moteur stratégique</h2>
+<div class="strategy-head"><div><b>R02 — Balance Breakout / Acceptance</b><small>BUY-only calibré • balance H1 → pression → character change → acceptation → retest → reprise M1</small></div><span class="strategy-stage" id="r02Stage">—</span></div>
+<div class="strategy-summary"><div><span>Direction</span><b id="r02Direction">—</b></div><div><span>Balance</span><b id="r02Balance">—</b></div><div><span>Entrée</span><b id="r02Entry">—</b></div><div><span>R:R TP2</span><b id="r02RR">—</b></div></div>
+<p class="strategy-reason" id="r02Reason">—</p><div class="strategy-conditions" id="r02Conditions"></div><div class="strategy-plan" id="r02Plan"></div></aside></div>
+<script type="module">
+import {GoldChart} from './assets/chart.js?v=0.7.1';
+import {allFamilies} from './assets/layer-state.js?v=0.7.1';
+import {buildVisualAnalysis} from './engine/visual-analysis.js?v=0.7.1';
+import {evaluateR02} from './strategies/r02-balance-breakout-acceptance.js?v=0.7.1';
+import {buildR02BuySnapshot,buildR02SellSnapshot} from './tests/helpers/r02-fixture.js?v=0.7.1';
+const q=new URLSearchParams(location.search),mode=q.get('mode')||'entry';
+const event=Date.parse('2026-09-15T14:00:00Z');
+let snap;
+if(mode==='invalid') snap=buildR02BuySnapshot({reenter:true});
+else if(mode==='macro') snap=buildR02BuySnapshot({macroRisk:'critical'});
+else if(mode==='sell') snap=buildR02SellSnapshot();
+else snap=buildR02BuySnapshot();
+const stageMinute={detected:5,accepted:10,retest:15,entry:16};
+if(stageMinute[mode]){snap.now=event+stageMinute[mode]*60_000;snap.quote.timestamp=snap.now;}
+const visual=buildVisualAnalysis(snap,'M5'),result=evaluateR02(snap,{trigger:'audit'}),chart=new GoldChart(document.querySelector('#chart'));
+const shown=(snap.bars.M5??[]).filter(b=>Number(b.time)+300_000<=Number(snap.quote.timestamp??snap.now));
+chart.setBars(shown);chart.setQuote(snap.quote);chart.setOverlays(visual.overlays);chart.setStrategyOverlays(result.overlays);const f=allFamilies(false);Object.assign(f,{structure:true,liquidity:true,volumeProfile:true,trend:true,vwap:true,avwap:true,adx:true,volatilityRegime:true,rsi:false,atr:false});chart.setFamilies(f);
+const $=s=>document.querySelector(s),p=result.plan;$('#r02Stage').textContent=result.stage;$('#r02Stage').dataset.stage=result.stage;$('#r02Direction').textContent=(result.direction??'—').toUpperCase();$('#r02Balance').textContent=p?.balance?`${p.balance.lower.toFixed(2)}–${p.balance.upper.toFixed(2)}`:'—';$('#r02Entry').textContent=Number.isFinite(p?.entry)?p.entry.toFixed(2):'—';$('#r02RR').textContent=Number.isFinite(p?.rr2)?p.rr2.toFixed(2):'—';$('#r02Reason').textContent=result.reason;
+const box=$('#r02Conditions');for(const c of result.conditions){const row=document.createElement('div');row.className='strategy-condition';row.dataset.pass=String(c.passed);row.dataset.required=String(c.required!==false);row.innerHTML=`<i>${c.passed?'✓':c.required===false?'·':'×'}</i><div><b>${c.label}</b><small>${c.value??''}</small></div>`;box.append(row);}
+const plan=$('#r02Plan');if(p){plan.innerHTML=`<b>${String(p.direction??'').toUpperCase()} · ${result.stage}</b><br>SL ${p.stop.toFixed(2)} · TP1 ${p.tp1.price.toFixed(2)} · TP2 ${p.tp2.price.toFixed(2)}<br>Boundary ${p.boundary.toFixed(2)} · measured ${p.measuredMove.toFixed(2)}`;}else plan.textContent='Aucun plan actif.';
+$('#modeNote').textContent=`Fixture audit ${mode.toUpperCase()} — status ${result.status}, stage ${result.stage}. R02 SELL est volontairement désactivée.`;
+</script></body></html>

@@ -1,0 +1,105 @@
+{
+  "config": {
+    "balance_hours": 60,
+    "min_width_atr_h1": 4.0,
+    "max_width_atr_h1": 12.0,
+    "max_efficiency": 0.32,
+    "edge_fraction": 0.35,
+    "pressure_closes": 5,
+    "penetration_atr_m5": 0.1,
+    "min_break_range_atr": 1.3,
+    "min_volume_ratio": 1.2,
+    "rearm_bars": 6,
+    "adx_rise_bars": 5,
+    "min_adx_rise": 1.0,
+    "acceptance_buffer_atr": 0.08,
+    "acceptance_closes": 2,
+    "acceptance_max_bars": 4,
+    "reentry_invalidation_atr": 0.1,
+    "retest_max_bars": 12,
+    "retest_band_atr": 0.35,
+    "resume_proxy_bars": 4,
+    "resume_proxy_range_atr": 0.7,
+    "stop_buffer_atr": 0.12,
+    "min_risk_atr": 0.5,
+    "max_risk_atr": 3.0,
+    "target_rr": 2.25,
+    "hold_bars": 144,
+    "cost_per_oz": 0.3
+  },
+  "all": {
+    "n": 45,
+    "expectancy": 0.691528779938328,
+    "pf": 2.402952491202363,
+    "total_r": 31.11879509722476,
+    "win_rate": 0.5555555555555556,
+    "max_dd": 2.3782923995614276
+  },
+  "development_2021_2023": {
+    "n": 18,
+    "expectancy": 0.6568640520293483,
+    "pf": 2.284336800248751,
+    "total_r": 11.82355293652827,
+    "win_rate": 0.5555555555555556,
+    "max_dd": 2.3782923995614276
+  },
+  "oos_2024_2026": {
+    "n": 27,
+    "expectancy": 0.7146385985443146,
+    "pf": 2.487112301778669,
+    "total_r": 19.295242160696493,
+    "win_rate": 0.5555555555555556,
+    "max_dd": 2.272179165622754
+  },
+  "by_year": {
+    "2021": {
+      "n": 3,
+      "expectancy": 0.9728560079603875,
+      "pf": 3.4140067271147956,
+      "total_r": 2.9185680238811624,
+      "win_rate": 0.6666666666666666,
+      "max_dd": 1.209014039231537
+    },
+    "2022": {
+      "n": 6,
+      "expectancy": 1.019354216137522,
+      "pf": 3.758146643477663,
+      "total_r": 6.116125296825132,
+      "win_rate": 0.6666666666666666,
+      "max_dd": 1.1120312549838967
+    },
+    "2023": {
+      "n": 9,
+      "expectancy": 0.309873290646886,
+      "pf": 1.4825459716239249,
+      "total_r": 2.7888596158219743,
+      "win_rate": 0.4444444444444444,
+      "max_dd": 2.3782923995614276
+    },
+    "2024": {
+      "n": 11,
+      "expectancy": 0.9680944397415557,
+      "pf": 3.445659004464809,
+      "total_r": 10.649038837157113,
+      "win_rate": 0.6363636363636364,
+      "max_dd": 1.1498201712623013
+    },
+    "2025": {
+      "n": 13,
+      "expectancy": 0.6531278230149263,
+      "pf": 2.2954233137092084,
+      "total_r": 8.490661699194042,
+      "win_rate": 0.5384615384615384,
+      "max_dd": 2.272179165622755
+    },
+    "2026": {
+      "n": 3,
+      "expectancy": 0.051847208115112675,
+      "pf": 1.075273296036329,
+      "total_r": 0.15554162434533803,
+      "win_rate": 0.3333333333333333,
+      "max_dd": 1.0458539282834813
+    }
+  },
+  "limitation": "M5-only dataset: LIVE M1 resumption is represented by a causal M5 proxy."
+}

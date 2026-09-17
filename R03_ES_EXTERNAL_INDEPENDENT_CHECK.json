@@ -1,0 +1,60 @@
+{
+  "source_file": "R03_ES_EXTERNAL_ROBUSTNESS_TRADES.csv",
+  "source_sha256": "5beda7fe0986ef53a2072d926c304fff8c8aa75b691e846f7a448b02ce867a83",
+  "independent_metrics": {
+    "FULL": {
+      "trades": 310,
+      "win_rate_pct": 26.451612903225808,
+      "expectancy_R": -0.4322039374743431,
+      "profit_factor": 0.5164752026458375,
+      "net_R": -133.98322061704636,
+      "max_dd_R": 141.57790795369476
+    },
+    "DEV_2020_2023": {
+      "trades": 187,
+      "win_rate_pct": 26.203208556149733,
+      "expectancy_R": -0.44244416896209837,
+      "profit_factor": 0.50425977883768,
+      "net_R": -82.7370595959124,
+      "max_dd_R": 85.78705904290442
+    },
+    "VAL_2024_2025": {
+      "trades": 88,
+      "win_rate_pct": 22.727272727272727,
+      "expectancy_R": -0.5659701435551998,
+      "profit_factor": 0.4096003834865483,
+      "net_R": -49.80537263285758,
+      "max_dd_R": 52.299028456101645
+    },
+    "SEALED_2026": {
+      "trades": 35,
+      "win_rate_pct": 37.142857142857146,
+      "expectancy_R": -0.04116538252218175,
+      "profit_factor": 0.9442465715814153,
+      "net_R": -1.4407883882763612,
+      "max_dd_R": 5.985476277932712
+    },
+    "BUY": {
+      "trades": 181,
+      "win_rate_pct": 23.204419889502763,
+      "expectancy_R": -0.5618804618354755,
+      "profit_factor": 0.4164102854066816,
+      "net_R": -101.70036359222107,
+      "max_dd_R": 107.12252743787408
+    },
+    "SELL": {
+      "trades": 129,
+      "win_rate_pct": 31.007751937984494,
+      "expectancy_R": -0.25025470561880064,
+      "profit_factor": 0.6860560681237112,
+      "net_R": -32.28285702482528,
+      "max_dd_R": 45.04351709451354
+    }
+  },
+  "overlapping_trades": 0,
+  "legacy_target_order_anomalies": 40,
+  "parameter_grid_rows": 243,
+  "grid_positive_dev_and_val_expectancy": 0,
+  "grid_pf_gt1_dev_and_val": 0,
+  "interpretation": "Independent recomputation from generated trade ledger. Legacy target-order anomalies are fixed in v0.9.2 plan construction; they did not change the ES full-exit TP2/SL falsification result."
+}
