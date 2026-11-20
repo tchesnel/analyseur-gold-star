@@ -24,9 +24,14 @@ window.CONTENU = {
   marque: "HEGO STUDIO",
   activite: { pt: "Web & Social Media", fr: "Web & Social Média", en: "Web & Social Media" },
   pays: "Portugal · France",
-  telephone: "+351 900 000 000",   // À REMPLACER : affiché tel quel
-  whatsapp: "351900000000",        // À REMPLACER : même numéro, chiffres seulement, 351 devant
-  email: "ola@example.com",        // À REMPLACER
+  email: "hello.hegostudio@gmail.com",   // adresse affichée ET qui reçoit les demandes du formulaire
+
+  // Formulaire de contact : les demandes arrivent par e-mail (service gratuit FormSubmit).
+  // Après l'activation (voir le guide), FormSubmit t'envoie un code : colle-le ici
+  // pour que ton adresse n'apparaisse plus dans le code du formulaire. Sinon, laisse "".
+  formulaireCode: "",
+  formulaireSujet: "Nouvelle demande de devis",   // objet des e-mails que tu reçois
+
   instagram: "",                   // À REMPLACER : ex. "https://instagram.com/hegostudio" (vide = caché)
   instagramPseudo: "",             // ex. "@hegostudio"
   livroReclamacoes: true,          // lien "Livro de Reclamações" en bas de page (obligatoire au Portugal)
@@ -213,7 +218,7 @@ window.CONTENU = {
           { pt: "Alojamento e domínio", fr: "Hébergement et nom de domaine", en: "Hosting and domain" },
           { pt: "Segurança e cópias de segurança", fr: "Sécurité et sauvegardes", en: "Security and backups" },
           { pt: "Até 1 hora de alterações por mês", fr: "Jusqu'à 1 heure de modifications par mois", en: "Up to 1 hour of changes per month" },
-          { pt: "Apoio por WhatsApp", fr: "Assistance par WhatsApp", en: "Support on WhatsApp" }
+          { pt: "Apoio por email", fr: "Assistance par e-mail", en: "Support by email" }
         ],
         texte: {
           pt: "Compromisso de 12 meses, depois mês a mês.",
@@ -456,9 +461,9 @@ window.CONTENU = {
       {
         titre: { pt: "Acompanhamento", fr: "Suivi", en: "Follow-up" },
         texte: {
-          pt: "Depois de publicar, continuamos disponíveis por WhatsApp para qualquer alteração.",
-          fr: "Après la mise en ligne, nous restons joignables sur WhatsApp pour toute modification.",
-          en: "Once it's live, we stay available on WhatsApp for any changes."
+          pt: "Depois de publicar, continuamos disponíveis por email para qualquer alteração.",
+          fr: "Après la mise en ligne, nous restons joignables par e-mail pour toute modification.",
+          en: "Once it's live, we stay available by email for any changes."
         }
       }
     ]
@@ -573,9 +578,9 @@ window.CONTENU = {
   },
 
   /* -------------------------------------------------------------------
-     13. PETITS TEXTES (boutons, formulaire, messages WhatsApp)
-     {nom}, {commerce}, {service}, {message}, {formule} sont remplacés
-     automatiquement : ne les traduis pas.
+     13. PETITS TEXTES (boutons, formulaire)
+     {formule}, {commerce} et {email} sont remplacés automatiquement :
+     ne les traduis pas.
      ------------------------------------------------------------------- */
   textes: {
     desde:           { pt: "desde", fr: "dès", en: "from" },
@@ -587,32 +592,40 @@ window.CONTENU = {
     voirSite:        { pt: "Ver o site", fr: "Voir le site", en: "View site" },
     fictif:          { pt: "Fictício", fr: "Fictif", en: "Made-up" },
     economie:        { pt: "Poupa", fr: "Économisez", en: "Save" },
-    whatsapp:        { pt: "WhatsApp", fr: "WhatsApp", en: "WhatsApp" },
     email:           { pt: "Email", fr: "E-mail", en: "Email" },
+    instagram:       { pt: "Instagram · mensagem privada", fr: "Instagram · message privé", en: "Instagram · direct message" },
     zone:            { pt: "Onde trabalhamos", fr: "Où nous travaillons", en: "Where we work" },
     menu:            { pt: "Menu", fr: "Menu", en: "Menu" },
     champNom:        { pt: "Nome", fr: "Nom", en: "Name" },
-    champCommerce:   { pt: "Empresa ou marca", fr: "Entreprise ou marque", en: "Business or brand" },
+    champEmail:      { pt: "Email", fr: "E-mail", en: "Email" },
+    champCommerce:   { pt: "Empresa ou marca (opcional)", fr: "Entreprise ou marque (facultatif)", en: "Business or brand (optional)" },
     champService:    { pt: "Serviço", fr: "Service", en: "Service" },
-    champMessage:    { pt: "Mensagem (opcional)", fr: "Message (facultatif)", en: "Message (optional)" },
-    envoyer:         { pt: "Enviar por WhatsApp", fr: "Envoyer sur WhatsApp", en: "Send on WhatsApp" },
-    ouEmail:         { pt: "ou enviar por email", fr: "ou envoyer par e-mail", en: "or send by email" },
-    champManquant:   { pt: "Indique o seu nome e a sua empresa.", fr: "Indiquez votre nom et votre entreprise.", en: "Please enter your name and business." },
+    champMessage:    { pt: "Mensagem", fr: "Message", en: "Message" },
+    autre:           { pt: "Outro pedido", fr: "Autre demande", en: "Something else" },
+    envoyer:         { pt: "Enviar pedido", fr: "Envoyer la demande", en: "Send request" },
+    envoiEnCours:    { pt: "A enviar…", fr: "Envoi en cours…", en: "Sending…" },
+    confidentialite: {
+      pt: "Os seus dados servem apenas para responder ao seu pedido.",
+      fr: "Vos données servent uniquement à répondre à votre demande.",
+      en: "Your details are only used to reply to your request."
+    },
+    merciTitre:      { pt: "Pedido enviado. Obrigado!", fr: "Demande envoyée. Merci !", en: "Request sent. Thank you!" },
+    merciTexte: {
+      pt: "Recebemos a sua mensagem e respondemos por email em 24 horas.",
+      fr: "Nous avons bien reçu votre message et vous répondons par e-mail sous 24 heures.",
+      en: "We've received your message and will reply by email within 24 hours."
+    },
+    champManquant:   { pt: "Indique o seu nome e um email válido.", fr: "Indiquez votre nom et une adresse e-mail valide.", en: "Please enter your name and a valid email address." },
+    echec: {
+      pt: "O envio não funcionou. Escreva-nos diretamente para {email}.",
+      fr: "L'envoi n'a pas fonctionné. Écrivez-nous directement à {email}.",
+      en: "Sending didn't work. Please email us directly at {email}."
+    },
     livro:           { pt: "Livro de Reclamações", fr: "Livre de réclamations", en: "Complaints Book" },
-    messageGeneral: {
-      pt: "Olá HEGO STUDIO! Gostava de pedir um orçamento.",
-      fr: "Bonjour HEGO STUDIO ! J'aimerais demander un devis.",
-      en: "Hello HEGO STUDIO! I'd like to request a quote."
-    },
     messageFormule: {
-      pt: "Olá! Tenho interesse no {formule}. Podemos falar?",
-      fr: "Bonjour ! Je suis intéressé(e) par l'offre {formule}. Pouvons-nous en parler ?",
-      en: "Hello! I'm interested in the {formule}. Can we talk?"
-    },
-    messageFormulaire: {
-      pt: "Olá! Sou {nom}, de {commerce}. Interesse: {service}. {message}",
-      fr: "Bonjour ! Je suis {nom}, de {commerce}. Intéressé(e) par : {service}. {message}",
-      en: "Hello! I'm {nom} from {commerce}. Interested in: {service}. {message}"
+      pt: "Olá! Tenho interesse no {formule}.",
+      fr: "Bonjour ! Je suis intéressé(e) par l'offre {formule}.",
+      en: "Hello! I'm interested in the {formule}."
     },
     messageDemo: {
       pt: "Olá! Vi o exemplo “{commerce}” no vosso site e gostava de um site assim.",

@@ -17,9 +17,7 @@
   var L = TEXTES[lang];
 
   var nomDemo = document.body.getAttribute("data-demo") || document.title;
-  var modele = (C.textes && C.textes.messageDemo && (C.textes.messageDemo[lang] || C.textes.messageDemo.pt)) ||
-    "Olá! Vi o exemplo “{commerce}” no seu site e gostava de um site assim para o meu negócio.";
-  var wa = "https://wa.me/" + String(C.whatsapp || "").replace(/\D/g, "") + "?text=" + encodeURIComponent(modele.replace("{commerce}", nomDemo));
+  var wa = "../index.html?demo=" + encodeURIComponent(nomDemo) + "#contact";
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   var style = document.createElement("style");
@@ -45,7 +43,7 @@
   b.innerHTML =
     '<a href="../index.html#exemples">← ' + esc(L.retour) + "</a>" +
     "<span>" + esc(L.texte) + " <b>" + esc(C.marque || "") + "</b> · " + esc(L.fictif) + "</span>" +
-    '<a class="demo-cta" href="' + wa + '" target="_blank" rel="noopener">' + esc(L.cta) + "</a>";
+    '<a class="demo-cta" href="' + wa + '">' + esc(L.cta) + "</a>";
   document.body.insertBefore(b, document.body.firstChild);
 
   var toast = null;
@@ -55,7 +53,7 @@
     toast.className = "demo-toast";
     toast.setAttribute("role", "status");
     toast.innerHTML = "<p style=\"margin:0\">" + esc(L.toast) + "</p><div>" +
-      '<a href="' + wa + '" target="_blank" rel="noopener">' + esc(L.cta) + "</a>" +
+      '<a href="' + wa + '">' + esc(L.cta) + "</a>" +
       '<button type="button">' + esc(L.fermer) + "</button></div>";
     toast.querySelector("button").addEventListener("click", function () { toast.remove(); toast = null; });
     document.body.appendChild(toast);

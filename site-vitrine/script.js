@@ -44,8 +44,9 @@
     return isNaN(n) ? Infinity : n;
   }
   function affPrix(prix) { return typeof prix === "number" ? euros(prix) : t(prix).replace(/ €$/, " €"); }
-  function lienWa(message) {
-    return "https://wa.me/" + String(C.whatsapp || "").replace(/\D/g, "") + (message ? "?text=" + encodeURIComponent(message) : "");
+  function demande(service, formule, classe) {
+    return '<a class="btn ' + classe + '" href="#contact" data-demande="' + esc(service) + '"' + (formule ? ' data-formule="' + esc(formule) + '"' : "") + ">" +
+      esc(t(X.choisir)) + ico("fleche") + "</a>";
   }
   function ext(href) { return ' href="' + esc(href) + '" target="_blank" rel="noopener"'; }
   function choisirLangue() {
@@ -171,7 +172,7 @@
     );
   }
 
-  function carte(f, unite, W) {
+  function carte(f, unite, W, service) {
     var nom = t(f.nom);
     var mensuel = f.mensuel && W
       ? '<p class="carte-mensuel">+ ' + esc(affPrix(f.mensuel)) + esc(t(W.unite)) + " <span>" + esc(t(W.libelleMensuel)) + "</span></p>"
@@ -184,7 +185,7 @@
       "<p>" + riche(f.description) + "</p>" +
       '<ul class="inclus">' + (f.inclus || []).map(function (i) { return "<li>" + riche(i) + "</li>"; }).join("") + "</ul>" +
       (t(f.note) ? '<p class="carte-note">' + riche(f.note) + "</p>" : "") +
-      '<a class="btn btn--ligne"' + ext(lienWa(remplir(X.messageFormule, { formule: nom }))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a>" +
+      demande(service, nom, "btn--ligne") +
       "</article>"
     );
   }
@@ -193,25 +194,25 @@
     var O = T.onglets || {};
     var W = T.web || {}, S = T.social || {}, V = T.video || {}, P = T.pack, M = W.maintenance;
 
-    var panWeb = '<div class="cartes">' + (W.formules || []).map(function (f) { return carte(f, "", W); }).join("") + "</div>" +
+    var panWeb = '<div class="cartes">' + (W.formules || []).map(function (f) { return carte(f, "", W, "web"); }).join("") + "</div>" +
       (M ? '<div class="maintenance"><h3>' + riche(M.titre) + '</h3><ul>' +
         (M.elements || []).map(function (e) { return "<li>" + riche(e) + "</li>"; }).join("") + "</ul>" +
         (t(M.texte) ? '<p class="doux">' + riche(M.texte) + "</p>" : "") + "</div>" : "");
 
-    var panSocial = '<div class="cartes">' + (S.formules || []).map(function (f) { return carte(f, t(S.unite)); }).join("") + "</div>" +
+    var panSocial = '<div class="cartes">' + (S.formules || []).map(function (f) { return carte(f, t(S.unite), null, "social"); }).join("") + "</div>" +
       (t(S.note) ? '<p class="note">' + riche(S.note) + "</p>" : "");
 
     var panVideo = '<div class="liste-prix">' + (V.liste || []).map(function (v) {
       return "<div><h3>" + esc(t(v.nom)) + "</h3><p>" + riche(v.detail) + '</p><div class="prix">' +
         (t(v.prefixe) ? "<small>" + esc(t(v.prefixe)) + "</small>" : "") + "<strong>" + esc(affPrix(v.prix)) + "</strong></div></div>";
     }).join("") + "</div>" +
-      '<div class="panneau-action"><a class="btn btn--plein"' + ext(lienWa(t(X.messageGeneral))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div>";
+      '<div class="panneau-action">' + demande("video", "", "btn--plein") + "</div>";
 
     var pack = P && P.afficher
       ? '<div class="pack sombre"><div><p class="surtitre">' + esc(t(P.etiquette)) + "</p><h3>" + riche(P.titre) + '</h3><p class="pack-texte">' + riche(P.texte) + "</p></div>" +
         '<div class="pack-prix"><div class="prix"><strong>' + esc(affPrix(P.prix)) + "</strong>" + (P.ancienPrix ? "<del>" + esc(affPrix(P.ancienPrix)) + "</del>" : "") + "</div>" +
         (P.ancienPrix ? '<span class="pack-economie">' + esc(t(X.economie)) + " " + euros(nombre(P.ancienPrix) - nombre(P.prix)) + "</span>" : "") +
-        '<a class="btn btn--plein"' + ext(lienWa(remplir(X.messageFormule, { formule: t(P.etiquette) }))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div></div>"
+        demande("pack", t(P.etiquette), "btn--plein") + "</div></div>"
       : "";
 
     var panneaux = [["web", panWeb], ["social", panSocial], ["video", panVideo]];
@@ -295,24 +296,28 @@
     var K = C.contact;
     var O = T.onglets || {};
     var canaux =
-      '<li><a' + ext(lienWa(t(X.messageGeneral))) + "><small>" + esc(t(X.whatsapp)) + "</small><strong>" + esc(C.telephone) + "</strong>" + ico("diagonale") + "</a></li>" +
-      (C.instagram ? '<li><a' + ext(C.instagram) + "><small>Instagram</small><strong>" + esc(C.instagramPseudo || "Instagram") + "</strong>" + ico("diagonale") + "</a></li>" : "") +
-      '<li><a href="mailto:' + esc(C.email) + '"><small>' + esc(t(X.email)) + "</small><strong>" + esc(C.email) + "</strong>" + ico("diagonale") + "</a></li>" +
+      '<li><a href="mailto:' + esc(C.email) + '"><small>' + esc(t(X.email)) + "</small><strong class=\"sans-maj\">" + esc(C.email) + "</strong>" + ico("diagonale") + "</a></li>" +
+      (C.instagram ? '<li><a' + ext(C.instagram) + "><small>" + esc(t(X.instagram)) + "</small><strong>" + esc(C.instagramPseudo || "Instagram") + "</strong>" + ico("diagonale") + "</a></li>" : "") +
       '<li><div class="canal"><small>' + esc(t(X.zone)) + "</small><strong>" + esc(t(K.zone)) + "</strong></div></li>";
-    var options = [t(O.web), t(O.social), t(O.video), T.pack && T.pack.afficher ? t(T.pack.etiquette) : ""].filter(Boolean)
-      .map(function (o) { return "<option>" + esc(o) + "</option>"; }).join("");
+    var options = [["web", t(O.web)], ["social", t(O.social)], ["video", t(O.video)], ["pack", T.pack && T.pack.afficher ? t(T.pack.etiquette) : ""], ["autre", t(X.autre)]]
+      .filter(function (o) { return o[1]; })
+      .map(function (o) { return '<option value="' + o[0] + '">' + esc(o[1]) + "</option>"; }).join("");
     return (
       '<section class="bande sombre contact" id="contact"><div class="wrap">' +
       '<div class="contact-grille"><div>' + tete(null, K.titre, K.texte) + '<ul class="canaux">' + canaux + "</ul></div>" +
       '<form class="formulaire" id="formulaire" novalidate>' +
-        '<div class="champ"><label for="f-nom">' + esc(t(X.champNom)) + '</label><input id="f-nom" name="nom" autocomplete="name"></div>' +
+        '<div class="champ"><label for="f-nom">' + esc(t(X.champNom)) + '</label><input id="f-nom" name="nom" autocomplete="name" required></div>' +
+        '<div class="champ"><label for="f-email">' + esc(t(X.champEmail)) + '</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>' +
         '<div class="champ"><label for="f-commerce">' + esc(t(X.champCommerce)) + '</label><input id="f-commerce" name="commerce" autocomplete="organization"></div>' +
         '<div class="champ"><label for="f-service">' + esc(t(X.champService)) + '</label><select id="f-service" name="service">' + options + "</select></div>" +
         '<div class="champ"><label for="f-message">' + esc(t(X.champMessage)) + '</label><textarea id="f-message" name="message"></textarea></div>' +
-        '<p class="erreur" id="f-erreur" role="alert" hidden>' + esc(t(X.champManquant)) + "</p>" +
-        '<button class="btn btn--plein" type="submit">' + ico("message") + esc(t(X.envoyer)) + "</button>" +
-        '<a class="lien-email" id="f-email" href="mailto:' + esc(C.email) + '">' + esc(t(X.ouEmail)) + "</a>" +
-      "</form></div></div></section>"
+        '<input class="piege" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+        '<p class="erreur" id="f-erreur" role="alert" hidden></p>' +
+        '<button class="btn btn--plein" type="submit" id="f-envoyer">' + esc(t(X.envoyer)) + ico("fleche") + "</button>" +
+        '<p class="mentions">' + esc(t(X.confidentialite)) + "</p>" +
+      "</form>" +
+      '<div class="merci" id="f-merci" role="status" hidden><p class="surtitre">' + esc(C.marque) + "</p><h3>" + esc(t(X.merciTitre)) + '</h3><p class="doux">' + esc(t(X.merciTexte)) + "</p></div>" +
+      "</div></div></section>"
     );
   }
 
@@ -325,8 +330,7 @@
       (C.livroReclamacoes ? "<a" + ext("https://www.livroreclamacoes.pt") + ">" + esc(t(X.livro)) + "</a>" : "") +
       "<span>" + esc(t(C.pied.cookies)) + "</span></div>" +
       "<span>© " + new Date().getFullYear() + " " + esc(C.marque) + "</span>" +
-      "</div></footer>" +
-      '<a class="wa-flottant"' + ext(lienWa(t(X.messageGeneral))) + ' aria-label="WhatsApp">' + ico("message") + "</a>"
+      "</div></footer>"
     );
   }
 
@@ -385,26 +389,77 @@
       });
     });
 
-    // Formulaire → WhatsApp (ou e-mail)
+    // Boutons "Demander un devis" → formulaire prérempli
     var form = document.getElementById("formulaire");
+    function preremplir(service, formule) {
+      if (service && form.service.querySelector('option[value="' + service + '"]')) form.service.value = service;
+      if (formule) form.message.value = remplir(X.messageFormule, { formule: formule });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll("[data-demande]"), function (el) {
+      el.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        preremplir(el.getAttribute("data-demande"), el.getAttribute("data-formule"));
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+        setTimeout(function () { try { form.nom.focus({ preventScroll: true }); } catch (e) {} }, 700);
+      });
+    });
+    try {
+      var demo = new URLSearchParams(location.search).get("demo");
+      if (demo) { form.service.value = "web"; form.message.value = remplir(X.messageDemo, { commerce: demo }); }
+    } catch (e) {}
+
+    // Envoi du formulaire → e-mail (FormSubmit)
     var err = document.getElementById("f-erreur");
-    var lienMail = document.getElementById("f-email");
-    function valeurs() {
-      return { nom: form.nom.value.trim(), commerce: form.commerce.value.trim(), service: form.service.value, message: form.message.value.trim() };
-    }
-    function texte() { return remplir(X.messageFormulaire, valeurs()); }
-    function majMail() {
-      lienMail.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(C.marque + " · " + (valeurs().commerce || valeurs().service)) + "&body=" + encodeURIComponent(texte());
-    }
-    form.addEventListener("input", function () { err.hidden = true; majMail(); });
-    form.addEventListener("change", majMail);
+    var bouton = document.getElementById("f-envoyer");
+    var merci = document.getElementById("f-merci");
+    function erreur(texte) { err.textContent = texte; err.hidden = false; }
+    form.addEventListener("input", function () { err.hidden = true; });
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var v = valeurs();
-      if (!v.nom || !v.commerce) { err.hidden = false; (v.nom ? form.commerce : form.nom).focus(); return; }
-      var url = lienWa(texte());
-      var w = window.open(url, "_blank");
-      if (w) { try { w.opener = null; } catch (e) {} } else { window.location.href = url; }
+      var v = {
+        nom: form.nom.value.trim(), email: form.email.value.trim(), commerce: form.commerce.value.trim(),
+        service: form.service.options[form.service.selectedIndex].text, message: form.message.value.trim()
+      };
+      if (!v.nom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) {
+        erreur(t(X.champManquant));
+        (v.nom ? form.email : form.nom).focus();
+        return;
+      }
+      if (form._honey.value) return;
+      var adresse = "https://formsubmit.co/ajax/" + String(C.formulaireCode || C.email).trim();
+      var donnees = {
+        _subject: (C.formulaireSujet || "Nouvelle demande") + " · " + v.nom + (v.commerce ? " (" + v.commerce + ")" : ""),
+        _template: "table",
+        _captcha: "false",
+        _replyto: v.email,
+        "Nom": v.nom,
+        "E-mail": v.email,
+        "Entreprise": v.commerce || "—",
+        "Service": v.service,
+        "Message": v.message || "—",
+        "Langue": lang.toUpperCase()
+      };
+      bouton.disabled = true;
+      bouton.textContent = t(X.envoiEnCours);
+      fetch(adresse, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(donnees)
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok && String(res.j.success) !== "false") {
+            form.hidden = true;
+            merci.hidden = false;
+          } else {
+            throw new Error(res.j && res.j.message);
+          }
+        })
+        .catch(function () {
+          bouton.disabled = false;
+          bouton.innerHTML = esc(t(X.envoyer)) + ico("fleche");
+          erreur(remplir(X.echec, { email: C.email }));
+        });
     });
   }
 

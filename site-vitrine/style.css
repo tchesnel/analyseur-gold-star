@@ -38,6 +38,7 @@ body {
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 41; background: var(--papier); }
+[hidden] { display: none !important; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 p { margin: 0; }
@@ -286,6 +287,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .canaux a, .canaux .canal { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 20px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--trait); text-decoration: none; }
 .canaux small { font: 400 .72rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--doux); }
 .canaux strong { grid-column: 1; font: 800 clamp(1rem, .8rem + .9vw, 1.5rem)/1.15 var(--f-large); font-stretch: 112%; text-transform: uppercase; overflow-wrap: anywhere; }
+.canaux .sans-maj { text-transform: none; font-stretch: 100%; }
 .canaux .ico { grid-column: 2; grid-row: 1 / span 2; width: 24px; height: 24px; transition: transform .3s var(--courbe); }
 .canaux a:hover .ico { transform: translate(4px, -4px); }
 .formulaire { display: grid; gap: 26px; min-width: 0; }
@@ -302,7 +304,11 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .champ textarea { min-height: 90px; resize: vertical; }
 .erreur { color: #ff9b90; font-size: .92rem; }
 .formulaire .btn { width: 100%; }
-.lien-email { justify-self: center; font: 400 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--doux); }
+.formulaire .btn:disabled { opacity: .6; cursor: wait; }
+.mentions { font-size: .82rem; color: var(--doux); }
+.piege { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.merci { display: grid; gap: 16px; align-content: start; padding: clamp(28px, 4vw, 44px); border: 1px solid var(--trait); }
+.merci h3 { font: 600 clamp(1.6rem, 1.1rem + 1.6vw, 2.4rem)/1.1 var(--f-texte); font-stretch: 108%; letter-spacing: -0.03em; }
 
 /* Pied de page */
 .pied { border-top: 1px solid var(--trait); padding-block: 44px calc(44px + env(safe-area-inset-bottom, 0px)); font-size: .85rem; color: var(--doux); }
@@ -313,15 +319,6 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .pied-liens { display: flex; flex-wrap: wrap; gap: 8px 28px; justify-content: center; }
 .pied a { color: var(--texte); }
 
-/* Bouton WhatsApp flottant */
-.wa-flottant {
-  position: fixed; z-index: 35; right: calc(18px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--noir); color: var(--papier); box-shadow: 0 0 0 1px rgba(245, 245, 242, .22), 0 14px 30px -10px rgba(0, 0, 0, .5); transition: transform .3s var(--courbe);
-}
-.wa-flottant:hover { transform: scale(1.07); }
-.wa-flottant .ico { width: 26px; height: 26px; }
-html.menu-ouvert .wa-flottant { display: none; }
 
 .panne { max-width: 640px; margin: 64px auto; padding: 28px; border: 2px solid #c0392b; color: var(--noir); font-family: system-ui, sans-serif; }
 

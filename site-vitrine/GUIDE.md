@@ -50,21 +50,39 @@ Pour vérifier avant de publier, double-clique sur `index.html` : le site s'ouvr
 
 Dans `contenu.js`, tout en haut :
 
-- [ ] `telephone` : ton numéro tel qu'il s'affiche, par exemple `"+351 912 345 678"`.
-- [ ] `whatsapp` : le **même numéro**, en chiffres seulement, par exemple `"351912345678"`.
-- [ ] `email`
-- [ ] `instagram` et `instagramPseudo`
+- [x] `email` : déjà réglé sur `hello.hegostudio@gmail.com` (c'est aussi l'adresse qui reçoit les demandes).
+- [ ] `instagram` et `instagramPseudo` : le lien de ton compte et ton pseudo, pour que les clients puissent t'écrire en message privé.
+- [ ] Le formulaire : à activer une fois le site en ligne (voir l'étape 4 ci-dessous).
+
+Aucun numéro de téléphone n'apparaît sur le site.
 - [ ] Section **9. QUI SOMMES-NOUS** : vérifie que les phrases te correspondent (langues parlées, façon de travailler).
 - [ ] Section **7. RÉALISATIONS** : vérifie les textes de Cysta, Loggio et Vila Haritza.
 - [ ] Section **6. TARIFS** → `note` : adapte la mention de TVA à ton statut (à voir avec ton comptable).
 
 Dans `index.html`, dans le bloc encadré tout en haut :
 
-- [ ] Remplace `https://example.com` par l'adresse de ton site (2 endroits). C'est ce qui affiche l'image d'aperçu quand tu envoies le lien sur WhatsApp ou Instagram.
+- [ ] Remplace `https://example.com` par l'adresse de ton site (2 endroits). C'est ce qui affiche l'image d'aperçu quand tu partages le lien (Instagram, WhatsApp, e-mail).
 
 ---
 
-## 4. Les tarifs en place
+## 4. Recevoir les demandes du formulaire par e-mail
+
+Le formulaire utilise **FormSubmit** (formsubmit.co), un service gratuit et sans inscription qui transfère chaque demande vers `hello.hegostudio@gmail.com`.
+
+**À faire une seule fois, juste après la mise en ligne :**
+
+1. Ouvre ton site en ligne et envoie-toi une demande de test avec le formulaire. La toute première fois, le site affichera peut-être un message d'erreur : c'est normal.
+2. Dans Gmail, tu reçois un e-mail de FormSubmit intitulé « Activate Form » (regarde aussi dans **Spam** ou **Promotions**).
+3. Clique sur **Activate Form**.
+4. Renvoie un test : la demande arrive dans ta boîte, avec un tableau propre (nom, e-mail, entreprise, service, message).
+
+**Pour masquer ton adresse dans le code (facultatif) :** après l'activation, FormSubmit t'envoie un code aléatoire. Colle-le dans `contenu.js` → `formulaireCode: "ton-code"`, puis remets le zip en ligne.
+
+**Conseil :** dans Gmail, crée un filtre « De : FormSubmit » → libellé « Devis HEGO » et étoile, pour ne rater aucune demande.
+
+---
+
+## 5. Les tarifs en place
 
 **Sites web** : création (payée une fois) + maintenance mensuelle (engagement de 12 mois, puis au mois)
 
@@ -74,7 +92,7 @@ Dans `index.html`, dans le bloc encadré tout en haut :
 | Site Professionnel (jusqu'à 6 pages, mis en avant) | 690 € | 25 €/mois |
 | Boutique en ligne | dès 990 € | 35 €/mois |
 
-La maintenance comprend l'hébergement, le nom de domaine, la sécurité, les sauvegardes, jusqu'à 1 heure de modifications par mois et l'assistance WhatsApp. Pour une boutique, l'abonnement à la plateforme de vente est payé directement par le client.
+La maintenance comprend l'hébergement, le nom de domaine, la sécurité, les sauvegardes, jusqu'à 1 heure de modifications par mois et l'assistance par e-mail. Pour une boutique, l'abonnement à la plateforme de vente est payé directement par le client.
 
 **Réseaux sociaux** : engagement de 3 mois, puis préavis de 30 jours
 
@@ -103,7 +121,7 @@ Les montants « dès… » en haut de page se mettent à jour tout seuls quand t
 
 ---
 
-## 5. Remplacer les photos
+## 6. Remplacer les photos
 
 - **Réalisations :** chaque projet a une capture au format paysage (environ 1000 × 700 px, en JPG) dans `images/realisations/`. Le nom du fichier se règle dans `contenu.js` → section 7 → `image`.
 - **Pour ajouter un projet :** copie un bloc `{ nom: "Cysta", ... }`, colle-le après le dernier (avec une virgule entre les deux), puis change les textes, le lien et l'image. Les projets s'affichent en alternance gauche / droite.
@@ -111,18 +129,18 @@ Les montants « dès… » en haut de page se mettent à jour tout seuls quand t
 
 ---
 
-## 6. Nom de domaine
+## 7. Nom de domaine
 
 1. Achète le domaine chez un registraire (PTisp, Amen.pt, OVHcloud ou Cloudflare). Compte environ 10 à 30 € par an selon l'extension, à vérifier.
 2. Dans Cloudflare : ton projet Pages → **Custom domains** → ajoute le domaine et suis les instructions.
-3. Mets à jour l'adresse dans `index.html` (étape 3).
+3. Mets à jour l'adresse dans `index.html` (étape 3), puis refais un test du formulaire.
 
 ---
 
-## 7. Ce que fait le site
+## 8. Ce que fait le site
 
-- **Chaque bouton « Demander un devis »** ouvre WhatsApp avec un message déjà écrit qui précise l'offre choisie, dans la langue du client.
-- **Le formulaire** envoie le nom, l'entreprise et le service choisi sur WhatsApp, ou par e-mail.
+- **Chaque bouton « Demander un devis »** fait descendre au formulaire, avec le service et l'offre choisie déjà remplis.
+- **Le formulaire** t'envoie la demande par e-mail (nom, e-mail, entreprise, service, message, langue du visiteur). Tu n'as qu'à cliquer sur « Répondre » dans Gmail pour écrire au client.
 - **Les 3 sites d'exemple** (boulangerie, barbier, restaurant) montrent aux commerçants ce qu'ils peuvent obtenir.
 - **Aucun cookie et polices hébergées sur le site** : pas besoin de bandeau cookies (RGPD).
 - **Bandeau d'offre** : prêt à l'emploi dans `contenu.js` → section 2 (`afficher: true` pour l'activer).
