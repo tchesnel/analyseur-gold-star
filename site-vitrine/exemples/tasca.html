@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tasca da Esquina · Exemplo</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face { font-family: "Alegreya"; src: url("../polices/alegreya.woff2") format("woff2"); font-weight: 400 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Alegreya"; src: url("../polices/alegreya-italic.woff2") format("woff2"); font-weight: 400 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../polices/figtree.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+/* Layout: a tasca's paper menu. Wine-red masthead, the week's "pratos do dia" board with today lit up, then the ementa. */
+:root {
+  --papel: #fbf8f1; --papel-2: #f1ebdd; --tinta: #1f1a16; --vinho: #7b1e2b; --azeitona: #4a5a2c; --linha: #ddd3bf; --suave: #6b6156;
+  --wa: #13804a;
+  --f-titre: "Alegreya", Georgia, "Times New Roman", serif;
+  --f-texte: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 400 17px/1.6 var(--f-texte); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--f-titre); font-weight: 800; line-height: 1.02; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1080px; margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 700 16px/1 var(--f-texte); padding: 15px 22px; border-radius: 10px; text-decoration: none; border: 2px solid currentColor; }
+.btn--plein { background: var(--papel); color: var(--vinho); border-color: var(--papel); }
+
+.cabecalho { background: var(--vinho); color: var(--papel); }
+.cabecalho .barra { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 72px; border-bottom: 1px solid rgba(251, 248, 241, .25); }
+.marque { font: italic 700 26px/1 var(--f-titre); text-decoration: none; }
+nav { display: flex; gap: 24px; font-weight: 600; }
+nav a { text-decoration: none; opacity: .85; }
+nav a:hover { opacity: 1; }
+.hero { padding-block: clamp(48px, 8vw, 96px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.hero h1 { font-size: clamp(48px, 8vw, 96px); }
+.hero h1 em { font-weight: 500; }
+.hero p { font-size: 19px; margin: 20px 0 28px; max-width: 42ch; opacity: .9; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.menu-dia { border: 2px solid var(--papel); border-radius: 16px; padding: 24px; text-align: center; }
+.menu-dia small { display: block; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
+.menu-dia strong { display: block; font: 800 64px/1 var(--f-titre); margin: 8px 0; font-variant-numeric: tabular-nums; }
+.menu-dia p { margin: 0; font-size: 15px; }
+.toalha { height: 18px; background: repeating-conic-gradient(var(--vinho) 0 25%, var(--papel) 0 50%) 0 0 / 18px 18px; opacity: .9; }
+
+section h2 { font-size: clamp(36px, 5vw, 54px); margin-bottom: 8px; }
+.sub { color: var(--suave); margin-bottom: 28px; }
+.semana { padding-block: 72px; }
+.dias { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; list-style: none; padding: 0; margin: 0; }
+.dia { background: var(--papel-2); border-radius: 14px; padding: 18px 16px; display: grid; gap: 6px; align-content: start; position: relative; }
+.dia small { font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 12px; color: var(--suave); }
+.dia b { font: 700 21px/1.15 var(--f-titre); }
+.dia.hoje { background: var(--vinho); color: var(--papel); }
+.dia.hoje small { color: rgba(251, 248, 241, .8); }
+.dia.hoje::after { content: "Hoje"; position: absolute; top: -10px; right: 12px; background: #f2b705; color: var(--tinta); font: 800 11px/1 var(--f-texte); letter-spacing: .08em; text-transform: uppercase; padding: 5px 8px; border-radius: 5px; }
+.nota-dia { margin-top: 16px; color: var(--suave); font-size: 15px; }
+
+.ementa { background: var(--papel-2); padding-block: 72px; }
+.grelha { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+.grelha h3 { font-size: 28px; color: var(--vinho); font-style: italic; font-weight: 700; border-bottom: 2px solid var(--vinho); padding-bottom: 8px; margin-bottom: 6px; }
+.precos { list-style: none; margin: 0; padding: 0; }
+.precos li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--linha); }
+.precos b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.precos small { display: block; color: var(--suave); font-size: 14px; }
+
+.info { padding-block: 72px; }
+.info .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.info h3 { font-size: 26px; margin-bottom: 12px; }
+.info p { color: var(--suave); }
+.info .btn { margin-top: 16px; color: var(--vinho); }
+.info .btn--wa { background: var(--wa); color: #fff; border-color: var(--wa); }
+footer { background: var(--tinta); color: #d8d0c2; font-size: 14px; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 900px) {
+  .dias { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; }
+  .grelha, .info .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  nav { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero .actions .btn { flex: 1 1 100%; }
+  .dias { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body data-demo="Tasca da Esquina">
+<div class="cabecalho">
+  <div class="wrap">
+    <div class="barra">
+      <a class="marque" href="#">Tasca da Esquina</a>
+      <nav><a href="#semana">Pratos do dia</a><a href="#ementa">Ementa</a><a href="#info">Reservas</a></nav>
+    </div>
+    <div class="hero">
+      <div>
+        <h1>Comida de casa, <em>à moda antiga.</em></h1>
+        <p>Desde 1974 na esquina do largo. Petiscos, pratos do dia e vinho da casa, como antigamente.</p>
+        <div class="actions">
+          <a class="btn btn--plein" href="#" data-demo>Reservar mesa</a>
+          <a class="btn" href="#ementa">Ver a ementa</a>
+        </div>
+      </div>
+      <div class="menu-dia">
+        <small>Menu do dia</small>
+        <strong>9,50 €</strong>
+        <p>Sopa, prato do dia, bebida e café</p>
+      </div>
+    </div>
+  </div>
+  <div class="toalha" aria-hidden="true"></div>
+</div>
+
+<main>
+  <section class="semana" id="semana">
+    <div class="wrap">
+      <h2>Pratos do dia</h2>
+      <p class="sub">Ao almoço, de segunda a sábado. Enquanto houver.</p>
+      <ul class="dias" id="dias">
+        <li class="dia" data-dia="1"><small>Segunda</small><b>Feijoada à transmontana</b></li>
+        <li class="dia" data-dia="2"><small>Terça</small><b>Bacalhau à Brás</b></li>
+        <li class="dia" data-dia="3"><small>Quarta</small><b>Arroz de pato</b></li>
+        <li class="dia" data-dia="4"><small>Quinta</small><b>Cozido à portuguesa</b></li>
+        <li class="dia" data-dia="5"><small>Sexta</small><b>Polvo à lagareiro</b></li>
+        <li class="dia" data-dia="6"><small>Sábado</small><b>Caldeirada de peixe</b></li>
+      </ul>
+      <p class="nota-dia" id="nota-dia" hidden>Hoje é domingo: estamos fechados. Até amanhã!</p>
+    </div>
+  </section>
+
+  <section class="ementa" id="ementa">
+    <div class="wrap">
+      <h2>Ementa</h2>
+      <p class="sub">Preços com IVA incluído.</p>
+      <div class="grelha">
+        <div>
+          <h3>Petiscos</h3>
+          <ul class="precos">
+            <li><span>Pataniscas de bacalhau</span><b>6,00 €</b></li>
+            <li><span>Moelas estufadas</span><b>5,50 €</b></li>
+            <li><span>Pica-pau</span><b>7,50 €</b></li>
+            <li><span>Amêijoas à Bulhão Pato</span><b>12,00 €</b></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Pratos</h3>
+          <ul class="precos">
+            <li><span>Bitoque<small>Com ovo, batata frita e salada</small></span><b>10,00 €</b></li>
+            <li><span>Arroz de pato</span><b>11,00 €</b></li>
+            <li><span>Bacalhau à Brás</span><b>11,50 €</b></li>
+            <li><span>Polvo à lagareiro</span><b>16,00 €</b></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Doces e vinho</h3>
+          <ul class="precos">
+            <li><span>Arroz doce</span><b>3,00 €</b></li>
+            <li><span>Mousse de chocolate</span><b>3,00 €</b></li>
+            <li><span>Baba de camelo</span><b>3,50 €</b></li>
+            <li><span>Vinho da casa<small>Jarro de 0,5 L</small></span><b>5,00 €</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info" id="info">
+    <div class="wrap">
+      <div>
+        <h3>Horário</h3>
+        <p>Segunda a sábado<br>12:00 – 15:00 · 19:00 – 22:30<br>Domingo encerrado</p>
+      </div>
+      <div>
+        <h3>Reservas</h3>
+        <p>Grupos e almoços de empresa. Reserve por WhatsApp ou telefone.</p>
+        <a class="btn btn--wa" href="#" data-demo>Reservar por WhatsApp</a>
+      </div>
+      <div>
+        <h3>Morada</h3>
+        <p>Largo do Exemplo, 3<br>1100-000 Lisboa<br>Aceitamos MB WAY e cartão.</p>
+        <a class="btn" href="#" data-demo>Abrir no mapa</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© Tasca da Esquina</span><span>Livro de Reclamações</span></div>
+</footer>
+
+<script>
+  // Met en avant le plat du jour selon le jour de la semaine
+  (function () {
+    var j = new Date().getDay();
+    var el = document.querySelector('[data-dia="' + j + '"]');
+    if (el) el.classList.add("hoje"); else document.getElementById("nota-dia").hidden = false;
+  })();
+</script>
+<script src="../contenu.js"></script>
+<script src="bandeau.js"></script>
+</body>
+</html>

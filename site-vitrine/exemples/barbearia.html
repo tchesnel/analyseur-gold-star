@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Barbearia Navalha · Exemplo</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face { font-family: "Oswald"; src: url("../polices/oswald.woff2") format("woff2"); font-weight: 200 700; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../polices/figtree.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+/* Layout: a classic barber shop. Dark room, barber-pole stripe as the one bold gesture, price board as a timetable. */
+:root {
+  --carvao: #141414; --carvao-2: #1f1f1f; --osso: #f1ece4; --cinza: #a3a09a; --vermelho: #c8102e; --azul: #1d3f8f; --linha: #333;
+  --wa: #13804a;
+  --f-titre: "Oswald", "Arial Narrow", Impact, sans-serif;
+  --f-texte: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--carvao); color: var(--osso); font: 400 17px/1.6 var(--f-texte); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--f-titre); font-weight: 600; text-transform: uppercase; line-height: .98; margin: 0; letter-spacing: .01em; }
+p { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 600 15px/1 var(--f-titre); letter-spacing: .08em; text-transform: uppercase; padding: 16px 22px; border-radius: 4px; text-decoration: none; border: 2px solid var(--osso); }
+.btn--wa { background: var(--wa); border-color: var(--wa); color: #fff; }
+.poste { background: repeating-linear-gradient(135deg, var(--vermelho) 0 18px, var(--osso) 18px 36px, var(--azul) 36px 54px, var(--osso) 54px 72px); }
+
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
+.marque { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 700 26px/1 var(--f-titre); letter-spacing: .12em; text-transform: uppercase; }
+.marque i { width: 12px; height: 34px; border-radius: 6px; }
+nav { display: flex; gap: 26px; font: 500 15px/1 var(--f-titre); letter-spacing: .1em; text-transform: uppercase; }
+nav a { text-decoration: none; color: var(--cinza); }
+nav a:hover { color: var(--osso); }
+
+.hero { padding-block: 40px 80px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 48px; align-items: stretch; }
+.hero h1 { font-size: clamp(56px, 11vw, 132px); }
+.hero h1 span { color: var(--vermelho); }
+.hero p { font-size: 19px; color: var(--cinza); max-width: 44ch; margin: 24px 0 32px; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero .poste { border-radius: 60px; min-height: 360px; box-shadow: inset 0 0 0 8px var(--carvao-2), inset 12px 0 20px rgba(0, 0, 0, .35); background-size: 101.82px 101.82px; animation: rodar 2.4s linear infinite; }
+@keyframes rodar { to { background-position: 0 101.82px; } }
+
+.faixa { height: 14px; }
+
+section h2 { font-size: clamp(40px, 6vw, 64px); margin-bottom: 32px; }
+.servicos { padding-block: 80px; }
+.lista { display: grid; border-top: 2px solid var(--osso); }
+.servico { display: grid; grid-template-columns: minmax(0, 1fr) 90px 90px; gap: 16px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--linha); }
+.servico h3 { font-size: 24px; letter-spacing: .03em; }
+.servico p { color: var(--cinza); font-size: 15px; margin-top: 6px; text-transform: none; }
+.servico span { color: var(--cinza); font-variant-numeric: tabular-nums; text-align: right; }
+.servico b { font: 600 26px/1 var(--f-titre); text-align: right; font-variant-numeric: tabular-nums; }
+
+.equipa { background: var(--carvao-2); padding-block: 80px; }
+.barbeiros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.barbeiro { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center; padding: 24px; border: 1px solid var(--linha); border-radius: 8px; }
+.barbeiro .foto { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font: 700 36px/1 var(--f-titre); background: var(--carvao); border: 3px solid var(--vermelho); }
+.barbeiro h3 { font-size: 28px; }
+.barbeiro p { color: var(--cinza); }
+
+.marcar { padding-block: 80px; }
+.marcar .caixa { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.marcar .grande { font-size: 22px; color: var(--cinza); margin-bottom: 28px; max-width: 36ch; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+td { padding: 14px 0; border-bottom: 1px solid var(--linha); }
+td:last-child { text-align: right; font-weight: 700; }
+.fechado td:last-child { color: var(--vermelho); }
+.morada { margin-top: 24px; color: var(--cinza); }
+footer { border-top: 1px solid var(--linha); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: var(--cinza); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 760px) {
+  nav { display: none; }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr) 44px; gap: 20px; }
+  .hero .poste { min-height: 260px; }
+  .hero .actions .btn { flex: 1 1 100%; }
+  .servico { grid-template-columns: minmax(0, 1fr) auto; }
+  .servico span { grid-column: 1; grid-row: 2; text-align: left; font-size: 14px; }
+  .servico b { grid-column: 2; grid-row: 1; }
+  .barbeiros, .marcar .caixa { grid-template-columns: minmax(0, 1fr); }
+  .barbeiro { grid-template-columns: 72px minmax(0, 1fr); }
+  .barbeiro .foto { width: 72px; height: 72px; font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .hero .poste { animation: none; } }
+</style>
+</head>
+<body data-demo="Barbearia Navalha">
+<header>
+  <div class="wrap">
+    <a class="marque" href="#"><i class="poste"></i>Navalha</a>
+    <nav><a href="#servicos">Serviços</a><a href="#equipa">Equipa</a><a href="#marcar">Marcações</a></nav>
+    <a class="btn btn--wa" href="#" data-demo>Marcar</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Corte, barba <span>&amp;</span> conversa.</h1>
+        <p>Barbearia clássica no centro do Porto. Sem pressas e sempre com marcação, para não esperar.</p>
+        <div class="actions">
+          <a class="btn btn--wa" href="#" data-demo>Marcar por WhatsApp</a>
+          <a class="btn" href="#servicos">Ver preços</a>
+        </div>
+      </div>
+      <div class="poste" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <div class="faixa poste" aria-hidden="true"></div>
+
+  <section class="servicos" id="servicos">
+    <div class="wrap">
+      <h2>Serviços e preços</h2>
+      <div class="lista">
+        <div class="servico"><div><h3>Corte clássico</h3><p>Tesoura ou máquina, lavagem incluída</p></div><span>30 min</span><b>12 €</b></div>
+        <div class="servico"><div><h3>Corte + barba</h3><p>O mais pedido</p></div><span>50 min</span><b>18 €</b></div>
+        <div class="servico"><div><h3>Barba com toalha quente</h3><p>Navalha, óleo e bálsamo</p></div><span>25 min</span><b>9 €</b></div>
+        <div class="servico"><div><h3>Degradê</h3><p>Fade com acabamento à navalha</p></div><span>40 min</span><b>15 €</b></div>
+        <div class="servico"><div><h3>Corte criança</h3><p>Até aos 12 anos</p></div><span>20 min</span><b>10 €</b></div>
+        <div class="servico"><div><h3>Pai e filho</h3><p>Dois cortes seguidos</p></div><span>50 min</span><b>20 €</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="equipa" id="equipa">
+    <div class="wrap">
+      <h2>A equipa</h2>
+      <div class="barbeiros">
+        <div class="barbeiro"><div class="foto">R</div><div><h3>Rui</h3><p>15 anos de tesoura. Cortes clássicos e barbas à navalha.</p></div></div>
+        <div class="barbeiro"><div class="foto">T</div><div><h3>Tiago</h3><p>Especialista em degradês e cortes modernos.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="marcar" id="marcar">
+    <div class="wrap caixa">
+      <div>
+        <h2>Marque em 30 segundos</h2>
+        <p class="grande">Envie-nos o dia e a hora que prefere. Confirmamos logo pelo WhatsApp.</p>
+        <a class="btn btn--wa" href="#" data-demo>Marcar por WhatsApp</a>
+        <p class="morada">Rua do Exemplo, 45 · 4000-000 Porto</p>
+      </div>
+      <table>
+        <tr class="fechado"><td>Segunda</td><td>Encerrado</td></tr>
+        <tr><td>Terça a sexta</td><td>10:00 – 20:00</td></tr>
+        <tr><td>Sábado</td><td>09:00 – 18:00</td></tr>
+        <tr class="fechado"><td>Domingo</td><td>Encerrado</td></tr>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© Barbearia Navalha</span><span>Livro de Reclamações</span></div>
+</footer>
+
+<script src="../contenu.js"></script>
+<script src="bandeau.js"></script>
+</body>
+</html>

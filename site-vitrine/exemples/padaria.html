@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Padaria do Bairro · Exemplo</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face { font-family: "Young Serif"; src: url("../polices/young-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../polices/figtree.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+/* Layout: a neighbourhood bakery's counter: golden hero, the day's bake times, then the price board. */
+:root {
+  --farinha: #fffaf2; --massa: #f5e8d3; --crosta: #3b1f12; --dourado: #e0a526; --caramelo: #a85a1c; --linha: #ead8bd;
+  --wa: #13804a;
+  --f-titre: "Young Serif", Georgia, "Times New Roman", serif;
+  --f-texte: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--farinha); color: var(--crosta); font: 400 17px/1.6 var(--f-texte); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--f-titre); font-weight: 400; line-height: 1.05; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1080px; margin-inline: auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+.btn { display: inline-flex; align-items: center; gap: 8px; font: 700 16px/1 var(--f-texte); padding: 15px 22px; border-radius: 999px; text-decoration: none; border: 2px solid var(--crosta); }
+.btn--wa { background: var(--wa); border-color: var(--wa); color: #fff; }
+.btn--ligne { background: transparent; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
+.marque { font: 400 24px/1 var(--f-titre); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.marque svg { width: 34px; height: 34px; }
+nav { display: flex; gap: 24px; font-weight: 600; }
+nav a { text-decoration: none; }
+nav a:hover { color: var(--caramelo); }
+.ouvert { font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+.ouvert::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #2f9e44; box-shadow: 0 0 0 4px rgba(47, 158, 68, .2); }
+
+.hero { padding-block: 12px 64px; }
+.hero-boite { background: var(--dourado); border-radius: 28px; padding: clamp(28px, 6vw, 72px); display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; position: relative; overflow: hidden; }
+.hero h1 { font-size: clamp(42px, 7vw, 84px); letter-spacing: -0.01em; }
+.hero p { font-size: 19px; margin: 20px 0 28px; max-width: 46ch; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.selo { justify-self: center; width: min(260px, 100%); aspect-ratio: 1; border-radius: 50%; background: var(--crosta); color: var(--massa); display: grid; place-items: center; text-align: center; padding: 28px; position: relative; }
+.selo::before { content: ""; position: absolute; inset: 10px; border-radius: 50%; border: 2px dashed rgba(245, 232, 211, .5); }
+.selo small { display: block; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+.selo strong { display: block; font: 400 54px/1 var(--f-titre); color: var(--dourado); margin: 6px 0; }
+
+.fornadas { padding-block: 8px 72px; }
+.fornadas h2, .produtos h2, .info h2 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 24px; }
+.horas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.hora { background: var(--massa); border-radius: 18px; padding: 22px; display: grid; gap: 4px; }
+.hora b { font: 400 40px/1 var(--f-titre); font-variant-numeric: tabular-nums; color: var(--caramelo); }
+.hora span { font-weight: 600; }
+
+.produtos { background: var(--crosta); color: var(--massa); padding-block: 72px; }
+.produtos h2 { color: #fff; }
+.colunas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 64px; }
+.colunas h3 { font-size: 26px; color: var(--dourado); margin-bottom: 10px; }
+.precos { list-style: none; margin: 0; padding: 0; }
+.precos li { display: flex; align-items: baseline; gap: 10px; padding: 11px 0; border-bottom: 1px solid rgba(245, 232, 211, .15); }
+.precos li::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted rgba(245, 232, 211, .3); transform: translateY(-4px); }
+.precos b { order: 2; font-variant-numeric: tabular-nums; color: #fff; }
+.precos small { display: block; color: rgba(245, 232, 211, .7); font-size: 14px; }
+
+.encomendas { padding-block: 72px; }
+.encomendas .wrap > div { border: 2px solid var(--crosta); border-radius: 24px; padding: clamp(24px, 5vw, 48px); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; }
+.encomendas h2 { font-size: clamp(30px, 4vw, 42px); margin-bottom: 10px; }
+
+.info { padding-block: 0 72px; }
+.info .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+td { padding: 12px 0; border-bottom: 1px solid var(--linha); }
+td:last-child { text-align: right; font-weight: 700; }
+.mapa { border-radius: 20px; min-height: 240px; position: relative; overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent 38%, #fff 38% 42%, transparent 42%),
+    linear-gradient(0deg, transparent 55%, #fff 55% 60%, transparent 60%),
+    linear-gradient(35deg, transparent 72%, #fff 72% 75%, transparent 75%),
+    #e9e2d3; }
+.mapa::after { content: ""; position: absolute; left: 40%; top: 45%; width: 26px; height: 26px; margin: -26px 0 0 -13px; background: #c0392b; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: inset 0 0 0 7px #c0392b, inset 0 0 0 13px #fff; }
+.morada { margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+footer { background: var(--massa); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 760px) {
+  nav { display: none; }
+  .hero-boite { grid-template-columns: minmax(0, 1fr); }
+  .selo { width: 200px; justify-self: start; }
+  .selo strong { font-size: 42px; }
+  .horas { grid-template-columns: minmax(0, 1fr); }
+  .colunas, .info .wrap, .encomendas .wrap > div { grid-template-columns: minmax(0, 1fr); }
+  .hero .actions .btn { flex: 1 1 100%; justify-content: center; }
+}
+</style>
+</head>
+<body data-demo="Padaria do Bairro">
+<header>
+  <div class="wrap">
+    <a class="marque" href="#">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="17" fill="#e0a526"/><path d="M17 7c-1 4-1 8 0 12M17 19c-3-2-5-2-7-1M17 19c3-2 5-2 7-1M17 14c-3-2-5-2-6-1M17 14c3-2 5-2 6-1M17 19v8" stroke="#3b1f12" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      Padaria do Bairro
+    </a>
+    <nav><a href="#produtos">Pão e bolos</a><a href="#encomendas">Encomendas</a><a href="#info">Horário</a></nav>
+    <span class="ouvert">Aberto até às 19h30</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-boite">
+        <div>
+          <h1>Pão quente desde as 7h da manhã.</h1>
+          <p>Padaria de bairro desde 1987. Massa-mãe, forno a lenha e os pastéis de nata da receita da D. Rosa.</p>
+          <div class="actions">
+            <a class="btn btn--wa" href="#" data-demo>Encomendar por WhatsApp</a>
+            <a class="btn btn--ligne" href="#info">Ver horário</a>
+          </div>
+        </div>
+        <div class="selo"><div><small>Desde</small><strong>1987</strong><small>no bairro</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fornadas">
+    <div class="wrap">
+      <h2>Fornadas do dia</h2>
+      <div class="horas">
+        <div class="hora"><b>07:00</b><span>Pão, papo-secos e broa</span></div>
+        <div class="hora"><b>12:00</b><span>Pão alentejano e centeio</span></div>
+        <div class="hora"><b>17:00</b><span>Pão quente para o jantar</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="produtos" id="produtos">
+    <div class="wrap">
+      <h2>Pão e bolos</h2>
+      <div class="colunas">
+        <div>
+          <h3>Padaria</h3>
+          <ul class="precos">
+            <li><span>Papo-seco</span><b>0,25 €</b></li>
+            <li><span>Broa de milho<small>Receita de Avintes</small></span><b>2,50 €</b></li>
+            <li><span>Pão de centeio</span><b>2,80 €</b></li>
+            <li><span>Pão alentejano<small>Massa-mãe, 800 g</small></span><b>3,20 €</b></li>
+            <li><span>Bola de carne</span><b>4,50 €</b></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Pastelaria</h3>
+          <ul class="precos">
+            <li><span>Pastel de nata</span><b>1,20 €</b></li>
+            <li><span>Bolo de arroz</span><b>1,10 €</b></li>
+            <li><span>Pão de Deus</span><b>1,30 €</b></li>
+            <li><span>Bola de Berlim<small>Com ou sem creme</small></span><b>1,40 €</b></li>
+            <li><span>Café</span><b>0,80 €</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="encomendas" id="encomendas">
+    <div class="wrap">
+      <div>
+        <div>
+          <h2>Bolos de aniversário e encomendas</h2>
+          <p>Peça até às 18h do dia anterior. Guardamos o seu pão para a hora que quiser.</p>
+        </div>
+        <a class="btn btn--wa" href="#" data-demo>Encomendar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="info" id="info">
+    <div class="wrap">
+      <div>
+        <h2>Horário</h2>
+        <table>
+          <tr><td>Segunda a sexta</td><td>07:00 – 19:30</td></tr>
+          <tr><td>Sábado</td><td>07:00 – 19:30</td></tr>
+          <tr><td>Domingo e feriados</td><td>07:00 – 13:00</td></tr>
+        </table>
+        <p style="margin-top:16px">Aceitamos MB WAY e cartão.</p>
+      </div>
+      <div>
+        <h2>Onde estamos</h2>
+        <div class="mapa" role="img" aria-label="Mapa"></div>
+        <div class="morada"><span>Rua do Exemplo, 12 · 1100-000 Lisboa</span><a class="btn btn--ligne" href="#" data-demo>Abrir no mapa</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© Padaria do Bairro</span><span>Livro de Reclamações</span></div>
+</footer>
+
+<script src="../contenu.js"></script>
+<script src="bandeau.js"></script>
+</body>
+</html>
