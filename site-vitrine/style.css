@@ -31,7 +31,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--h-entete) + 8px); -webkit-text-size-adjust: 100%; }
-html.menu-ouvert, html.menu-ouvert body { overflow: hidden; }
+html.menu-ouvert { overflow: hidden; }
 body {
   margin: 0; background: var(--papier); color: var(--noir);
   font: 400 1.0625rem/1.65 var(--f-texte);
@@ -104,6 +104,9 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .menu-btn { display: none; background: none; border: 1px solid var(--trait); color: var(--texte); width: 46px; height: 46px; align-items: center; justify-content: center; cursor: pointer; }
 .menu-btn .ico { width: 22px; height: 22px; }
 .entete.ouvert .menu-btn { background: var(--noir); color: var(--papier); border-color: var(--noir); }
+.menu-btn .ico-menu, .menu-btn .ico-fermer { display: grid; place-items: center; }
+.menu-btn .ico-fermer, .entete.ouvert .menu-btn .ico-menu { display: none; }
+.entete.ouvert .menu-btn .ico-fermer { display: grid; }
 
 /* ---------- Mots décalés (comme le logo HE / GO) ---------- */
 .decale { display: grid; gap: .16em; }
@@ -348,8 +351,8 @@ html[lang="en"] .temoignage blockquote p::after { content: "”"; }
   .entete-actions { margin-left: auto; }
   .entete.ouvert .nav {
     display: flex; flex-direction: column; gap: 0; margin: 0;
-    position: absolute; top: 100%; left: 0; right: 0;
-    height: calc(100vh - var(--h-entete)); height: calc(100dvh - var(--h-entete));
+    position: fixed; left: 0; right: 0; bottom: 0;
+    top: var(--haut-panneau, calc(var(--h-entete) + env(safe-area-inset-top, 0px)));
     padding: 8px var(--gouttiere-d) calc(32px + env(safe-area-inset-bottom, 0px)) var(--gouttiere-g);
     background: var(--papier); border-top: 1px solid var(--trait); overflow-y: auto; overscroll-behavior: contain;
     animation: panneau .35s var(--courbe) both;

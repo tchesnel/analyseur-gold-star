@@ -75,7 +75,8 @@
     fleche: '<path d="M4 12h16M14 6l6 6-6 6"/>',
     diagonale: '<path d="M7 17L17 7M8 7h9v9"/>',
     message: '<path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.4L3.5 20.5l1.5-4.6a8.4 8.4 0 1 1 15.5-4.3z"/>',
-    menu: '<path d="M3 8h18M3 16h18"/>'
+    menu: '<path d="M3 8h18M3 16h18"/>',
+    fermer: '<path d="M5 5l14 14M19 5L5 19"/>'
   };
   function ico(nom) {
     return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true">' + traces[nom] + "</svg>";
@@ -111,7 +112,7 @@
       "</nav>" +
       '<div class="entete-actions"><div class="langues-entete">' + choix + "</div>" +
       '<a class="btn btn--plein btn--petit" href="#contact">' + esc(t(C.accueil.boutonPrincipal)) + "</a>" +
-      '<button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="' + esc(t(X.menu)) + '">' + ico("menu") + "</button>" +
+      '<button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="' + esc(t(X.menu)) + '"><span class="ico-menu">' + ico("menu") + '</span><span class="ico-fermer">' + ico("fermer") + "</span></button>" +
       "</div></div></header>"
     );
   }
@@ -374,6 +375,11 @@
     var ent = document.getElementById("entete");
     var btn = document.getElementById("menuBtn");
     function basculer(ouvert) {
+      if (ouvert) {
+        // le panneau s'ouvre juste sous la barre du haut, où qu'on soit dans la page
+        var bas = Math.max(0, Math.round(ent.getBoundingClientRect().bottom));
+        document.documentElement.style.setProperty("--haut-panneau", bas + "px");
+      }
       ent.classList.toggle("ouvert", ouvert);
       document.documentElement.classList.toggle("menu-ouvert", ouvert);
       btn.setAttribute("aria-expanded", String(ouvert));
