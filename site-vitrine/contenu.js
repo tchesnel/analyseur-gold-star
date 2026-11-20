@@ -1,337 +1,479 @@
 /* =====================================================================
-   CONTENU DU SITE — C'EST LE SEUL FICHIER À MODIFIER
+   HEGO STUDIO — CONTENU DU SITE
+   C'EST LE SEUL FICHIER À MODIFIER
    =====================================================================
 
-   Comment ça marche :
-   - Chaque texte existe en 3 langues, côte à côte :
-       pt = portugais (langue par défaut du site)
-       fr = français
-       en = anglais
-   - Tu modifies uniquement ce qui est ENTRE LES GUILLEMETS "...".
-   - Garde la virgule à la fin des lignes et ne supprime pas les { } [ ].
-   - Pour mettre un mot en valeur (surligné en jaune) : *entoure-le d'étoiles*.
-   - Si tu écris un texte simple sans pt/fr/en (ex. prix: "350 €"),
-     il s'affiche pareil dans toutes les langues.
+   - Chaque texte existe en 3 langues côte à côte :
+       pt = portugais (langue par défaut) · fr = français · en = anglais
+   - Modifie uniquement ce qui est ENTRE LES GUILLEMETS "...".
+   - Garde la virgule en fin de ligne, ne supprime pas les { } [ ].
+   - *Entre étoiles* = mot écrit en italique élégant (police Bodoni).
+   - Un texte simple sans pt/fr/en s'affiche pareil dans les 3 langues.
+   - Les prix "à partir de" du haut de page sont calculés tout seuls
+     à partir des tarifs : tu n'as à les changer qu'à un seul endroit.
 
-   Si la page devient blanche après une modification : il manque
-   sûrement une virgule ou un guillemet. Annule ta dernière modif
-   et recommence (voir le GUIDE.md).
+   Page blanche après une modif ? Il manque une virgule ou un guillemet :
+   annule ta dernière modification (voir GUIDE.md).
    ===================================================================== */
 
 window.CONTENU = {
 
   /* -------------------------------------------------------------------
-     1. TES INFORMATIONS — à remplacer en premier
+     1. TES INFORMATIONS
      ------------------------------------------------------------------- */
-  marque: "Montra",                  // nom de ton activité (logo, onglet du navigateur)
-  nom: "Nome Apelido",               // ton prénom et ton nom
-  telephone: "+351 900 000 000",     // affiché tel quel sur le site
-  whatsapp: "351900000000",          // MÊME numéro : chiffres uniquement, 351 devant, sans + ni espaces
-  email: "ola@example.com",
-  instagram: "",                     // ex. "https://instagram.com/tonprofil" — laisse "" pour le cacher
-  photo: "",                         // ex. "images/moi.jpg" — laisse "" pour afficher tes initiales
-  livroReclamacoes: true,            // lien "Livro de Reclamações" en bas de page (obligatoire au Portugal)
+  marque: "HEGO STUDIO",
+  activite: { pt: "Web & Social Media", fr: "Web & Social Média", en: "Web & Social Media" },
+  pays: "Portugal · France",
+  telephone: "+351 900 000 000",   // À REMPLACER — affiché tel quel
+  whatsapp: "351900000000",        // À REMPLACER — même numéro, chiffres seulement, 351 devant
+  email: "ola@example.com",        // À REMPLACER
+  instagram: "",                   // À REMPLACER — ex. "https://instagram.com/hegostudio" (vide = caché)
+  instagramPseudo: "",             // ex. "@hegostudio"
+  livroReclamacoes: true,          // lien "Livro de Reclamações" en bas de page (obligatoire au Portugal)
 
-  // Langues proposées. La première est celle par défaut.
-  // Mets ["pt"] si tu ne veux que le portugais (le sélecteur de langue disparaît).
+  // Langues proposées, la première est celle par défaut. ["pt"] = portugais uniquement.
   langues: ["pt", "fr", "en"],
 
-  // Couleurs du site (codes hexadécimaux, ex. trouvés sur https://htmlcolorcodes.com)
-  couleurs: {
-    principale: "#1f4aa8",           // bleu azulejo
-    accent: "#f2b705"                // jaune des trams de Lisbonne
-  },
-
   /* -------------------------------------------------------------------
-     2. OFFRE DE LANCEMENT — petit bandeau tout en haut
+     2. OFFRE DE LANCEMENT (bandeau tout en haut)
      ------------------------------------------------------------------- */
   offre: {
-    afficher: true,                  // false pour cacher le bandeau
+    afficher: true,
     texte: {
-      pt: "Oferta de lançamento: −20% para os primeiros 5 negócios.",
-      fr: "Offre de lancement : −20 % pour les 5 premiers commerces.",
-      en: "Launch offer: 20% off for the first 5 businesses."
+      pt: "Oferta de lançamento · −20% para os 5 primeiros clientes",
+      fr: "Offre de lancement · −20 % pour les 5 premiers clients",
+      en: "Launch offer · 20% off for our first 5 clients"
     }
   },
 
   /* -------------------------------------------------------------------
-     3. MENU DU HAUT
+     3. MENU
      ------------------------------------------------------------------- */
   menu: {
-    pourquoi: { pt: "Porquê um site", fr: "Pourquoi un site", en: "Why a website" },
-    tarifs:   { pt: "Preços",         fr: "Tarifs",           en: "Prices" },
-    exemples: { pt: "Exemplos",       fr: "Exemples",         en: "Examples" },
-    etapes:   { pt: "Como funciona",  fr: "Comment ça marche", en: "How it works" },
-    contact:  { pt: "Contacto",       fr: "Contact",          en: "Contact" }
+    services:     { pt: "Serviços",  fr: "Services",     en: "Services" },
+    tarifs:       { pt: "Preços",    fr: "Tarifs",       en: "Pricing" },
+    realisations: { pt: "Trabalhos", fr: "Réalisations", en: "Work" },
+    studio:       { pt: "Estúdio",   fr: "Studio",       en: "Studio" },
+    contact:      { pt: "Contacto",  fr: "Contact",      en: "Contact" }
   },
 
   /* -------------------------------------------------------------------
-     4. EN-TÊTE (le grand titre en haut de page)
+     4. HAUT DE PAGE
+     lignes : les 3 grands mots, décalés comme ton logo
      ------------------------------------------------------------------- */
   accueil: {
-    surtitre: {
-      pt: "Sites para pequenos negócios em Portugal",
-      fr: "Sites web pour les petits commerces au Portugal",
-      en: "Websites for small businesses in Portugal"
-    },
-    titre: {
-      pt: "A montra do seu negócio, *aberta 24 horas.*",
-      fr: "La vitrine de votre commerce, *ouverte 24 h/24.*",
-      en: "Your shop window, *open 24 hours a day.*"
+    lignes: [
+      "Web",
+      "Social",
+      { pt: "Vídeo", fr: "Vidéo", en: "Video" }
+    ],
+    phrase: {
+      pt: "O look de uma grande agência. *O preço de um estúdio independente.*",
+      fr: "L'image d'une grande agence. *Le prix d'un studio indépendant.*",
+      en: "The look of a big agency. *The price of an independent studio.*"
     },
     texte: {
-      pt: "Crio sites simples e bonitos para cafés, restaurantes, lojas, cabeleireiros e oficinas. Os seus clientes encontram-no no Google, veem o horário e falam consigo por WhatsApp.",
-      fr: "Je crée des sites simples et soignés pour les cafés, restaurants, boutiques, salons de coiffure et artisans. Vos clients vous trouvent sur Google, voient vos horaires et vous écrivent sur WhatsApp.",
-      en: "I build simple, good-looking websites for cafés, restaurants, shops, hair salons and workshops. Customers find you on Google, check your opening hours and message you on WhatsApp."
+      pt: "Sites, redes sociais e vídeos para marcas, restaurantes, lojas e profissionais em Portugal e em França.",
+      fr: "Sites, réseaux sociaux et vidéos pour les marques, restaurants, boutiques et indépendants au Portugal et en France.",
+      en: "Websites, social media and video for brands, restaurants, shops and professionals in Portugal and France."
     },
-    boutonPrincipal:  { pt: "Pedir orçamento grátis", fr: "Demander un devis gratuit", en: "Get a free quote" },
-    boutonSecondaire: { pt: "Ver exemplos",           fr: "Voir des exemples",         en: "See examples" },
-    points: [
-      { pt: "Pronto em 7 dias",          fr: "En ligne en 7 jours",      en: "Live in 7 days" },
-      { pt: "Preço fixo, sem surpresas", fr: "Prix fixe, sans surprise", en: "Fixed price, no surprises" },
-      { pt: "Feito para telemóvel",      fr: "Pensé pour le mobile",     en: "Built for mobile" }
-    ]
+    boutonPrincipal:  { pt: "Ver os preços",  fr: "Voir les tarifs",   en: "See pricing" },
+    boutonSecondaire: { pt: "Pedir orçamento", fr: "Demander un devis", en: "Get a quote" }
   },
 
+  // Mots qui défilent dans la bande blanche
+  defilement: [
+    { pt: "Sites web", fr: "Sites web", en: "Websites" },
+    { pt: "Redes sociais", fr: "Réseaux sociaux", en: "Social media" },
+    "Reels",
+    { pt: "Fotografia", fr: "Photographie", en: "Photography" },
+    { pt: "Criação de conteúdo", fr: "Création de contenu", en: "Content creation" },
+    { pt: "Vídeo de marca", fr: "Vidéo de marque", en: "Brand film" }
+  ],
+
   /* -------------------------------------------------------------------
-     5. POURQUOI UN SITE
-     icone possibles : "carte", "horloge", "message", "etoile", "telephone", "panier"
+     5. SERVICES (les 3 grandes lignes)
+     onglet : "web", "social" ou "video" → ouvre le bon onglet des tarifs
      ------------------------------------------------------------------- */
-  pourquoi: {
+  services: {
+    surtitre: { pt: "Serviços", fr: "Services", en: "Services" },
     titre: {
-      pt: "Antes de entrar na sua loja, os clientes procuram-no no telemóvel.",
-      fr: "Avant d'entrer dans votre boutique, vos clients vous cherchent sur leur téléphone.",
-      en: "Before they walk in, customers look you up on their phone."
+      pt: "Três especialidades. *Um só estúdio.*",
+      fr: "Trois expertises. *Un seul studio.*",
+      en: "Three crafts. *One studio.*"
     },
-    texte: {
-      pt: "Sem site, perde clientes para o negócio do lado que aparece no Google. Um site resolve isso de uma vez.",
-      fr: "Sans site, vous perdez des clients au profit du commerce d'à côté qui apparaît sur Google. Un site règle ça une bonne fois pour toutes.",
-      en: "Without a website, you lose customers to the business next door that shows up on Google. A website fixes that for good."
-    },
-    elements: [
+    liste: [
       {
-        icone: "carte",
-        titre: { pt: "Apareça no Google", fr: "Apparaissez sur Google", en: "Show up on Google" },
+        onglet: "web",
+        nom: { pt: "Sites web", fr: "Sites web", en: "Websites" },
         texte: {
-          pt: "Quando alguém procura “padaria perto de mim” ou “cabeleireiro no Porto”, o seu negócio aparece, com mapa e horário.",
-          fr: "Quand quelqu'un cherche « boulangerie près de moi » ou « coiffeur à Porto », votre commerce apparaît, avec la carte et les horaires.",
-          en: "When someone searches “bakery near me” or “hairdresser in Porto”, your business shows up with a map and opening hours."
-        }
+          pt: "Sites elegantes, rápidos e pensados para o telemóvel. Do site vitrine à loja online.",
+          fr: "Des sites élégants, rapides et pensés pour le mobile. Du site vitrine à la boutique en ligne.",
+          en: "Elegant, fast, mobile-first websites. From a showcase site to a full online shop."
+        },
+        tags: [
+          { pt: "Site vitrine", fr: "Site vitrine", en: "Showcase site" },
+          { pt: "Loja online", fr: "E-commerce", en: "Online shop" },
+          { pt: "SEO local", fr: "SEO local", en: "Local SEO" },
+          "Google Maps"
+        ]
       },
       {
-        icone: "horloge",
-        titre: { pt: "Informação sempre à mão", fr: "Les infos à portée de main", en: "Everything in one place" },
+        onglet: "social",
+        nom: { pt: "Redes sociais", fr: "Réseaux sociaux", en: "Social media" },
         texte: {
-          pt: "Horário, menu, preços e morada num só sítio. Menos chamadas a perguntar a mesma coisa.",
-          fr: "Horaires, carte, prix et adresse au même endroit. Moins d'appels pour poser les mêmes questions.",
-          en: "Opening hours, menu, prices and address in one spot. Fewer calls asking the same questions."
-        }
+          pt: "Gerimos o seu Instagram, Facebook e TikTok: estratégia, publicações, stories e resultados.",
+          fr: "On gère votre Instagram, Facebook et TikTok : stratégie, publications, stories et résultats.",
+          en: "We run your Instagram, Facebook and TikTok: strategy, posts, stories and results."
+        },
+        tags: ["Instagram", "Facebook", "TikTok", { pt: "Estratégia", fr: "Stratégie", en: "Strategy" }]
       },
       {
-        icone: "message",
-        titre: { pt: "Contacto direto por WhatsApp", fr: "Contact direct par WhatsApp", en: "Direct contact on WhatsApp" },
+        onglet: "video",
+        nom: { pt: "Vídeo & Reels", fr: "Vidéo & Reels", en: "Video & Reels" },
         texte: {
-          pt: "Um toque e o cliente fala consigo: encomendas, marcações e reservas, sem intermediários nem comissões.",
-          fr: "Un geste et le client vous écrit : commandes, rendez-vous et réservations, sans intermédiaire ni commission.",
-          en: "One tap and the customer is talking to you: orders, bookings and reservations, with no middleman and no commission."
-        }
-      },
-      {
-        icone: "etoile",
-        titre: { pt: "Uma imagem profissional", fr: "Une image professionnelle", en: "A professional image" },
-        texte: {
-          pt: "Um site cuidado inspira confiança. É o seu cartão de visita, aberto dia e noite.",
-          fr: "Un site soigné inspire confiance. C'est votre carte de visite, ouverte jour et nuit.",
-          en: "A well-made website builds trust. It's your business card, open day and night."
-        }
+          pt: "Reels, vídeos de marca e fotografia. Filmamos no seu espaço e entregamos tudo pronto a publicar.",
+          fr: "Reels, vidéos de marque et photo. On tourne chez vous et on livre tout prêt à publier.",
+          en: "Reels, brand films and photography. We shoot on location and deliver everything ready to post."
+        },
+        tags: ["Reels", { pt: "Fotografia", fr: "Photo", en: "Photography" }, { pt: "Vídeo de marca", fr: "Film de marque", en: "Brand film" }, { pt: "Bastidores", fr: "Coulisses", en: "Behind the scenes" }]
       }
     ]
   },
 
   /* -------------------------------------------------------------------
      6. TARIFS
-     populaire: true  → la formule est mise en avant
-     prefixe          → petit mot avant le prix (ex. "à partir de"), laisse "" sinon
      ------------------------------------------------------------------- */
   tarifs: {
+    surtitre: { pt: "Preços", fr: "Tarifs", en: "Pricing" },
     titre: {
-      pt: "Preços claros, combinados antes de começar",
-      fr: "Des prix clairs, fixés avant de commencer",
-      en: "Clear prices, agreed before we start"
+      pt: "Preços claros. *Sem surpresas.*",
+      fr: "Des prix clairs. *Sans surprise.*",
+      en: "Clear prices. *No surprises.*"
     },
     texte: {
-      pt: "Sem letras pequenas. Paga o site uma vez e, se quiser, uma pequena mensalidade para eu tratar de tudo.",
-      fr: "Pas de petites lignes. Vous payez le site une fois et, si vous le souhaitez, un petit abonnement pour que je m'occupe de tout.",
-      en: "No small print. You pay once for the website and, if you like, a small monthly fee so I take care of everything."
+      pt: "Qualidade de agência a preços de estúdio. Escolha um pacote ou monte o seu.",
+      fr: "La qualité d'une agence au prix d'un studio. Choisissez un forfait ou composez le vôtre.",
+      en: "Agency quality at studio prices. Pick a package or build your own."
     },
-    formules: [
-      {
-        nom: { pt: "Essencial", fr: "Essentiel", en: "Essential" },
-        prefixe: "",
-        prix: "350 €",
-        description: {
-          pt: "Uma página completa, ideal para começar.",
-          fr: "Une page complète, idéale pour démarrer.",
-          en: "One complete page, ideal to get started."
+    onglets: {
+      web:    { pt: "Sites web",     fr: "Sites web",       en: "Websites" },
+      social: { pt: "Redes sociais", fr: "Réseaux sociaux", en: "Social media" },
+      video:  { pt: "Vídeo & foto",  fr: "Vidéo & photo",   en: "Video & photo" }
+    },
+
+    /* ----- 6a. SITES WEB (prix payé une fois) ----- */
+    web: {
+      formules: [
+        {
+          nom: { pt: "Site Vitrine", fr: "Site Vitrine", en: "Showcase Site" },
+          prix: "349 €",
+          description: {
+            pt: "Uma página elegante para apresentar o seu negócio.",
+            fr: "Une page élégante pour présenter votre activité.",
+            en: "One elegant page to present your business."
+          },
+          inclus: [
+            { pt: "Site de 1 página, design à medida", fr: "Site d'1 page, design sur mesure", en: "1-page site, custom design" },
+            { pt: "Perfeito no telemóvel", fr: "Parfait sur mobile", en: "Perfect on mobile" },
+            { pt: "Botões WhatsApp, chamada e mapa", fr: "Boutons WhatsApp, appel et carte", en: "WhatsApp, call and map buttons" },
+            { pt: "Ficha Google Maps otimizada", fr: "Fiche Google Maps optimisée", en: "Optimised Google Maps listing" },
+            { pt: "Online em 7 dias", fr: "En ligne en 7 jours", en: "Live in 7 days" }
+          ]
         },
-        inclus: [
-          { pt: "Site de 1 página adaptado a telemóvel", fr: "Site d'1 page adapté au mobile",        en: "1-page site, mobile-friendly" },
-          { pt: "Horário, morada e mapa",                fr: "Horaires, adresse et carte",            en: "Opening hours, address and map" },
-          { pt: "Botões WhatsApp e telefone",            fr: "Boutons WhatsApp et téléphone",         en: "WhatsApp and call buttons" },
-          { pt: "Ficha Google Maps criada ou melhorada", fr: "Fiche Google Maps créée ou améliorée",  en: "Google Maps listing set up or improved" },
-          { pt: "Pronto em 7 dias",                      fr: "En ligne en 7 jours",                   en: "Live in 7 days" }
-        ]
-      },
-      {
-        nom: { pt: "Profissional", fr: "Professionnel", en: "Professional" },
-        populaire: true,
-        prefixe: "",
-        prix: "650 €",
-        description: {
-          pt: "Para mostrar tudo o que faz, com fotos e várias páginas.",
-          fr: "Pour montrer tout ce que vous faites, avec photos et plusieurs pages.",
-          en: "To show everything you do, with photos and several pages."
+        {
+          nom: { pt: "Site Pro", fr: "Site Pro", en: "Pro Site" },
+          populaire: true,
+          prix: "690 €",
+          description: {
+            pt: "Várias páginas para mostrar tudo o que faz.",
+            fr: "Plusieurs pages pour montrer tout ce que vous faites.",
+            en: "Several pages to show everything you do."
+          },
+          inclus: [
+            { pt: "Até 6 páginas", fr: "Jusqu'à 6 pages", en: "Up to 6 pages" },
+            { pt: "Galeria de fotos e vídeos", fr: "Galerie photos et vidéos", en: "Photo and video gallery" },
+            { pt: "Bilingue (ex.: PT + EN)", fr: "Bilingue (ex. FR + PT)", en: "Bilingual (e.g. EN + PT)" },
+            { pt: "Formulário de contacto e reservas", fr: "Formulaire de contact et réservations", en: "Contact and booking form" },
+            { pt: "SEO local para aparecer no Google", fr: "SEO local pour sortir sur Google", en: "Local SEO to rank on Google" },
+            { pt: "Online em 2 semanas", fr: "En ligne en 2 semaines", en: "Live in 2 weeks" }
+          ]
         },
-        inclus: [
-          { pt: "Tudo o que está no Essencial",           fr: "Tout ce qu'il y a dans Essentiel",       en: "Everything in Essential" },
-          { pt: "Até 5 páginas (serviços, menu, galeria)", fr: "Jusqu'à 5 pages (services, carte, galerie)", en: "Up to 5 pages (services, menu, gallery)" },
-          { pt: "Versão em inglês para turistas",         fr: "Version anglaise pour les touristes",    en: "English version for tourists" },
-          { pt: "Menu digital com código QR",             fr: "Carte digitale avec QR code",            en: "Digital menu with QR code" },
-          { pt: "Otimização para o Google (SEO local)",   fr: "Optimisation Google (référencement local)", en: "Local SEO for Google" }
-        ]
-      },
-      {
-        nom: { pt: "Loja online", fr: "Boutique en ligne", en: "Online shop" },
-        prefixe: { pt: "desde", fr: "à partir de", en: "from" },
-        prix: "1 200 €",
-        description: {
-          pt: "Para vender os seus produtos na internet.",
-          fr: "Pour vendre vos produits sur internet.",
-          en: "To sell your products online."
-        },
-        inclus: [
-          { pt: "Tudo o que está no Profissional",          fr: "Tout ce qu'il y a dans Professionnel",   en: "Everything in Professional" },
-          { pt: "Catálogo com fotos e preços",              fr: "Catalogue avec photos et prix",          en: "Catalogue with photos and prices" },
-          { pt: "Pagamento por MB WAY, Multibanco e cartão", fr: "Paiement MB WAY, Multibanco et carte",  en: "MB WAY, Multibanco and card payments" },
-          { pt: "Gestão simples de encomendas",             fr: "Gestion simple des commandes",           en: "Simple order management" },
-          { pt: "Formação para gerir a loja com autonomia",       fr: "Formation pour gérer la boutique vous-même", en: "Training to run the shop yourself" }
-        ]
+        {
+          nom: { pt: "Loja Online", fr: "Boutique en ligne", en: "Online Shop" },
+          prefixe: { pt: "desde", fr: "dès", en: "from" },
+          prix: "1 290 €",
+          description: {
+            pt: "Venda os seus produtos 24 horas por dia.",
+            fr: "Vendez vos produits 24 h/24.",
+            en: "Sell your products around the clock."
+          },
+          inclus: [
+            { pt: "Catálogo de produtos", fr: "Catalogue produits", en: "Product catalogue" },
+            { pt: "Pagamento MB WAY, Multibanco e cartão", fr: "Paiement MB WAY, Multibanco et carte", en: "MB WAY, Multibanco and card payments" },
+            { pt: "Gestão de encomendas e stock", fr: "Gestion des commandes et du stock", en: "Order and stock management" },
+            { pt: "Formação para gerir a loja", fr: "Formation pour gérer la boutique", en: "Training to run the shop" },
+            { pt: "Online em 3 a 4 semanas", fr: "En ligne en 3 à 4 semaines", en: "Live in 3 to 4 weeks" }
+          ]
+        }
+      ],
+      mensualite: {
+        afficher: true,
+        titre: { pt: "Alojamento & manutenção", fr: "Hébergement & maintenance", en: "Hosting & maintenance" },
+        prix: "15 €",
+        unite: { pt: "/mês", fr: "/mois", en: "/month" },
+        texte: {
+          pt: "Opcional. Alojamento, segurança, cópias de segurança e pequenas alterações (textos, preços, fotos).",
+          fr: "Facultatif. Hébergement, sécurité, sauvegardes et petites modifications (textes, prix, photos).",
+          en: "Optional. Hosting, security, backups and small edits (text, prices, photos)."
+        }
       }
-    ],
-    mensualite: {
-      afficher: true,
-      titre: { pt: "Manutenção tranquila", fr: "Maintenance sereine", en: "Worry-free maintenance" },
-      prix: "15 €",
+    },
+
+    /* ----- 6b. RÉSEAUX SOCIAUX (forfaits mensuels) -----
+       prix : un NOMBRE (sans €), ex. 149
+       photos / reels / reseaux : servent au calculateur pour proposer le bon forfait */
+    social: {
       unite: { pt: "/mês", fr: "/mois", en: "/month" },
-      texte: {
-        pt: "Alojamento, domínio .pt, cópias de segurança e pequenas alterações sempre que precisar (horário, preços, fotos).",
-        fr: "Hébergement, nom de domaine .pt, sauvegardes et petites modifications quand vous en avez besoin (horaires, prix, photos).",
-        en: "Hosting, .pt domain, backups and small changes whenever you need them (hours, prices, photos)."
+      formules: [
+        {
+          nom: { pt: "Essencial", fr: "Essentiel", en: "Essential" },
+          prix: 149, photos: 6, reels: 2, reseaux: 1,
+          description: {
+            pt: "Para marcar presença com regularidade.",
+            fr: "Pour être présent avec régularité.",
+            en: "To show up consistently."
+          },
+          inclus: [
+            { pt: "1 rede (Instagram ou Facebook)", fr: "1 réseau (Instagram ou Facebook)", en: "1 network (Instagram or Facebook)" },
+            { pt: "6 publicações foto ou carrossel", fr: "6 publications photo ou carrousel", en: "6 photo or carousel posts" },
+            { pt: "2 reels filmados e editados", fr: "2 reels tournés et montés", en: "2 reels shot and edited" },
+            { pt: "1 sessão de captação por mês (1 h)", fr: "1 séance de tournage par mois (1 h)", en: "1 shoot per month (1 h)" },
+            { pt: "Legendas, hashtags e calendário", fr: "Légendes, hashtags et calendrier", en: "Captions, hashtags and calendar" }
+          ]
+        },
+        {
+          nom: { pt: "Crescimento", fr: "Croissance", en: "Growth" },
+          populaire: true,
+          prix: 249, photos: 8, reels: 4, reseaux: 2,
+          description: {
+            pt: "Para crescer e trazer mais clientes.",
+            fr: "Pour grandir et attirer plus de clients.",
+            en: "To grow and bring in more customers."
+          },
+          inclus: [
+            { pt: "Instagram + Facebook", fr: "Instagram + Facebook", en: "Instagram + Facebook" },
+            { pt: "8 publicações foto ou carrossel", fr: "8 publications photo ou carrousel", en: "8 photo or carousel posts" },
+            { pt: "4 reels filmados e editados", fr: "4 reels tournés et montés", en: "4 reels shot and edited" },
+            { pt: "Stories todas as semanas", fr: "Stories chaque semaine", en: "Weekly stories" },
+            { pt: "1 sessão de captação por mês (2 h)", fr: "1 séance de tournage par mois (2 h)", en: "1 shoot per month (2 h)" },
+            { pt: "Relatório mensal de resultados", fr: "Rapport mensuel de résultats", en: "Monthly results report" }
+          ]
+        },
+        {
+          nom: { pt: "Premium", fr: "Premium", en: "Premium" },
+          prix: 449, photos: 12, reels: 8, reseaux: 3,
+          description: {
+            pt: "Para marcas que querem marcar a diferença.",
+            fr: "Pour les marques qui veulent faire la différence.",
+            en: "For brands that want to stand out."
+          },
+          inclus: [
+            { pt: "Instagram, Facebook e TikTok", fr: "Instagram, Facebook et TikTok", en: "Instagram, Facebook and TikTok" },
+            { pt: "12 publicações foto ou carrossel", fr: "12 publications photo ou carrousel", en: "12 photo or carousel posts" },
+            { pt: "8 reels filmados e editados", fr: "8 reels tournés et montés", en: "8 reels shot and edited" },
+            { pt: "Stories 3 vezes por semana", fr: "Stories 3 fois par semaine", en: "Stories 3 times a week" },
+            { pt: "2 sessões de captação por mês", fr: "2 séances de tournage par mois", en: "2 shoots per month" },
+            { pt: "Gestão de anúncios (orçamento à parte)", fr: "Gestion des publicités (budget en plus)", en: "Ad management (ad spend extra)" },
+            { pt: "Reunião mensal de estratégia", fr: "Point stratégie mensuel", en: "Monthly strategy meeting" }
+          ]
+        }
+      ],
+      note: {
+        pt: "Sem fidelização: pode parar quando quiser, com 30 dias de aviso.",
+        fr: "Sans engagement : vous arrêtez quand vous voulez, avec 30 jours de préavis.",
+        en: "No lock-in: stop whenever you like with 30 days' notice."
+      },
+
+      /* Calculateur "Composez votre pack"
+         prix = base + photos × prixPhoto + reels × prixReel + (réseaux − 1) × prixReseau
+         Le site compare automatiquement avec les forfaits ci-dessus (voir GUIDE.md). */
+      calculateur: {
+        afficher: true,
+        base: 49,          // gestion, calendrier, légendes + 1 séance de tournage
+        prixPhoto: 10,     // par publication photo / carrousel
+        prixReel: 30,      // par reel
+        prixReseau: 25,    // par réseau en plus du premier
+        photos: { min: 2, max: 20, depart: 8 },
+        reels:  { min: 0, max: 12, depart: 4 },
+        reseaux: { min: 1, max: 3, depart: 2 }
       }
     },
+
+    /* ----- 6c. VIDÉO & PHOTO À L'UNITÉ ----- */
+    video: {
+      liste: [
+        {
+          nom: { pt: "Reel", fr: "Reel", en: "Reel" },
+          detail: { pt: "Filmagem + edição, até 30 s", fr: "Tournage + montage, jusqu'à 30 s", en: "Shoot + edit, up to 30 s" },
+          prix: "69 €"
+        },
+        {
+          nom: { pt: "Pack 4 reels", fr: "Pack 4 reels", en: "4-reel pack" },
+          detail: { pt: "Filmados no mesmo dia", fr: "Tournés le même jour", en: "Shot on the same day" },
+          prix: "229 €"
+        },
+        {
+          nom: { pt: "Sessão fotográfica", fr: "Shooting photo", en: "Photo shoot" },
+          detail: { pt: "1 h, 20 fotos editadas", fr: "1 h, 20 photos retouchées", en: "1 h, 20 edited photos" },
+          prix: "99 €"
+        },
+        {
+          nom: { pt: "Fotografia de produto", fr: "Photo produit", en: "Product photography" },
+          detail: { pt: "Até 15 produtos, fundo neutro", fr: "Jusqu'à 15 produits, fond neutre", en: "Up to 15 products, plain background" },
+          prix: "120 €"
+        },
+        {
+          nom: { pt: "Vídeo de marca", fr: "Film de marque", en: "Brand film" },
+          detail: { pt: "60 a 90 s, guião + filmagem + edição", fr: "60 à 90 s, script + tournage + montage", en: "60–90 s, script + shoot + edit" },
+          prefixe: { pt: "desde", fr: "dès", en: "from" },
+          prix: "290 €"
+        },
+        {
+          nom: { pt: "Cobertura de evento", fr: "Couverture d'événement", en: "Event coverage" },
+          detail: { pt: "Meio dia, fotos + aftermovie", fr: "Demi-journée, photos + aftermovie", en: "Half day, photos + aftermovie" },
+          prefixe: { pt: "desde", fr: "dès", en: "from" },
+          prix: "249 €"
+        }
+      ]
+    },
+
+    /* ----- 6d. PACK LANCEMENT (toujours visible sous les onglets) ----- */
+    pack: {
+      afficher: true,
+      etiquette: { pt: "Pack Lançamento", fr: "Pack Lancement", en: "Launch Pack" },
+      titre: {
+        pt: "Site Vitrine + 3 meses de redes sociais *Essencial*",
+        fr: "Site Vitrine + 3 mois de réseaux sociaux *Essentiel*",
+        en: "Showcase Site + 3 months of *Essential* social media"
+      },
+      texte: {
+        pt: "Tudo para lançar o seu negócio online, de uma vez.",
+        fr: "Tout pour lancer votre activité en ligne, en une fois.",
+        en: "Everything to launch your business online, in one go."
+      },
+      prix: "599 €",
+      ancienPrix: "796 €"
+    },
+
     note: {
-      pt: "Pagamento em duas vezes: 50% no início, 50% na entrega. MB WAY ou transferência bancária.",
-      fr: "Paiement en deux fois : 50 % au début, 50 % à la livraison. MB WAY ou virement bancaire.",
-      en: "Pay in two parts: 50% upfront, 50% on delivery. MB WAY or bank transfer."
+      pt: "Sites: 50% no início, 50% na entrega. Redes sociais: pagamento mensal. MB WAY ou transferência.",
+      fr: "Sites : 50 % au début, 50 % à la livraison. Réseaux sociaux : paiement mensuel. MB WAY ou virement.",
+      en: "Websites: 50% upfront, 50% on delivery. Social media: billed monthly. MB WAY or bank transfer."
     }
   },
 
   /* -------------------------------------------------------------------
-     7. EXEMPLES DE SITES
-     Quand tu auras de vrais clients, remplace ces exemples par leurs sites :
-     lien: "https://site-du-client.pt", image: "images/capture-client.jpg"
+     7. RÉALISATIONS
+     Remplace les images par tes fichiers HD (dossier images/realisations/).
      ------------------------------------------------------------------- */
-  exemples: {
-    titre: { pt: "Exemplos de sites", fr: "Exemples de sites", en: "Example websites" },
-    texte: {
-      pt: "Três negócios fictícios, criados para mostrar como pode ficar o seu. Abra-os no telemóvel para os ver como os seus clientes.",
-      fr: "Trois commerces fictifs, créés pour montrer à quoi pourrait ressembler le vôtre. Ouvrez-les sur votre téléphone pour les voir comme vos clients.",
-      en: "Three made-up businesses, built to show what yours could look like. Open them on your phone to see them the way your customers will."
+  realisations: {
+    surtitre: { pt: "Trabalhos", fr: "Réalisations", en: "Work" },
+    titre: { pt: "Imagens que *vendem.*", fr: "Des images qui *vendent.*", en: "Visuals that *sell.*" },
+    projets: [
+      {
+        client: "Vila Haritza",
+        titre: { pt: "Lançamento da coleção Verão 2024", fr: "Lancement de la collection Été 2024", en: "Summer 2024 collection launch" },
+        type: { pt: "Reels · Fotografia · Bastidores", fr: "Reels · Photo · Coulisses", en: "Reels · Photography · Behind the scenes" },
+        lien: "",   // ex. lien vers le reel Instagram
+        images: [
+          "images/realisations/vila-haritza-1.jpg",
+          "images/realisations/vila-haritza-3.jpg",
+          "images/realisations/vila-haritza-2.jpg",
+          "images/realisations/vila-haritza-4.jpg"
+        ]
+      }
+    ],
+    exemplesTitre: { pt: "Exemplos de sites", fr: "Exemples de sites", en: "Website examples" },
+    exemplesTexte: {
+      pt: "Três negócios fictícios, criados para mostrar o resultado. Abra-os no telemóvel.",
+      fr: "Trois commerces fictifs, créés pour montrer le résultat. Ouvrez-les sur votre téléphone.",
+      en: "Three made-up businesses, built to show the result. Open them on your phone."
     },
-    liste: [
-      {
-        nom: "Padaria do Bairro",
-        type: { pt: "Padaria e pastelaria", fr: "Boulangerie-pâtisserie", en: "Bakery and pastry shop" },
-        lien: "exemples/padaria.html",
-        image: "images/exemplo-padaria.jpg"
-      },
-      {
-        nom: "Barbearia Navalha",
-        type: { pt: "Barbearia", fr: "Barbier", en: "Barber shop" },
-        lien: "exemples/barbearia.html",
-        image: "images/exemplo-barbearia.jpg"
-      },
-      {
-        nom: "Tasca da Esquina",
-        type: { pt: "Restaurante tradicional", fr: "Restaurant traditionnel", en: "Traditional restaurant" },
-        lien: "exemples/tasca.html",
-        image: "images/exemplo-tasca.jpg"
-      }
+    exemples: [
+      { nom: "Padaria do Bairro", type: { pt: "Padaria", fr: "Boulangerie", en: "Bakery" }, lien: "exemples/padaria.html", image: "images/exemplo-padaria.jpg" },
+      { nom: "Barbearia Navalha", type: { pt: "Barbearia", fr: "Barbier", en: "Barber shop" }, lien: "exemples/barbearia.html", image: "images/exemplo-barbearia.jpg" },
+      { nom: "Tasca da Esquina", type: { pt: "Restaurante", fr: "Restaurant", en: "Restaurant" }, lien: "exemples/tasca.html", image: "images/exemplo-tasca.jpg" }
     ]
   },
 
   /* -------------------------------------------------------------------
-     8. COMMENT ÇA MARCHE (les étapes, dans l'ordre)
+     8. MÉTHODE (étapes, dans l'ordre)
      ------------------------------------------------------------------- */
-  etapes: {
-    titre: { pt: "Como funciona", fr: "Comment ça marche", en: "How it works" },
-    liste: [
+  processus: {
+    surtitre: { pt: "Como trabalhamos", fr: "Notre méthode", en: "How we work" },
+    etapes: [
       {
-        titre: { pt: "Conversamos", fr: "On discute", en: "We talk" },
+        titre: { pt: "Briefing", fr: "Brief", en: "Briefing" },
         texte: {
-          pt: "Visito o seu negócio ou falamos por telefone. 20 minutos, sem compromisso.",
-          fr: "Je passe vous voir ou on s'appelle. 20 minutes, sans engagement.",
-          en: "I visit your business or we talk on the phone. 20 minutes, no commitment."
+          pt: "Falamos do seu negócio, dos seus objetivos e do seu público. Gratuito e sem compromisso.",
+          fr: "On parle de votre activité, de vos objectifs et de votre public. Gratuit et sans engagement.",
+          en: "We talk about your business, goals and audience. Free, no commitment."
         }
       },
       {
-        titre: { pt: "Proposta com preço fixo", fr: "Proposition à prix fixe", en: "Fixed-price proposal" },
+        titre: { pt: "Proposta", fr: "Proposition", en: "Proposal" },
         texte: {
-          pt: "Recebe uma proposta clara, com o preço final. Só avançamos se concordar.",
-          fr: "Vous recevez une proposition claire avec le prix final. Rien ne démarre sans votre accord.",
-          en: "You get a clear proposal with the final price. Nothing starts until you agree."
+          pt: "Recebe em 48 h uma proposta clara, com preço fixo.",
+          fr: "Vous recevez sous 48 h une proposition claire, à prix fixe.",
+          en: "Within 48 hours you get a clear, fixed-price proposal."
         }
       },
       {
-        titre: { pt: "Eu crio o site", fr: "Je crée le site", en: "I build the site" },
+        titre: { pt: "Criação", fr: "Création", en: "Creation" },
         texte: {
-          pt: "Trato de tudo: textos, fotos, design e domínio. Mostro-lhe o resultado antes de publicar.",
-          fr: "Je m'occupe de tout : textes, photos, design et nom de domaine. Je vous montre le résultat avant la mise en ligne.",
-          en: "I handle everything: text, photos, design and domain. You see the result before it goes live."
+          pt: "Design, filmagens e textos: tratamos de tudo e mostramos antes de publicar.",
+          fr: "Design, tournages et textes : on s'occupe de tout et on vous montre avant de publier.",
+          en: "Design, shoots and copy: we handle it all and show you before anything goes live."
         }
       },
       {
-        titre: { pt: "O site fica online", fr: "Le site est en ligne", en: "Your site goes live" },
+        titre: { pt: "Lançamento", fr: "Lancement", en: "Launch" },
         texte: {
-          pt: "Em cerca de 7 dias, o seu negócio está na internet. Continuo disponível para alterações.",
-          fr: "En 7 jours environ, votre commerce est sur internet. Je reste disponible pour les modifications.",
-          en: "In about 7 days your business is online. I stay available for any changes."
+          pt: "O seu site ou as suas redes ganham vida. Acompanhamos os resultados consigo.",
+          fr: "Votre site ou vos réseaux prennent vie. On suit les résultats avec vous.",
+          en: "Your site or socials go live, and we track the results with you."
         }
       }
     ]
   },
 
   /* -------------------------------------------------------------------
-     9. QUI SUIS-JE — vérifie et personnalise ces phrases !
+     9. LE STUDIO — vérifie que ces phrases te correspondent
      ------------------------------------------------------------------- */
-  apropos: {
-    titre: { pt: "Quem sou", fr: "Qui suis-je", en: "About me" },
+  studio: {
+    surtitre: { pt: "Estúdio", fr: "Studio", en: "Studio" },
+    titre: {
+      pt: "Uma imagem premium *não tem de custar uma fortuna.*",
+      fr: "Une image premium *n'a pas à coûter une fortune.*",
+      en: "A premium image *shouldn't cost a fortune.*"
+    },
     paragraphes: [
       {
-        pt: "Venho de França e vivo em Portugal. Gosto do comércio de bairro: as tascas, as padarias, as lojas onde nos tratam pelo nome.",
-        fr: "Je viens de France et je vis au Portugal. J'aime les commerces de quartier : les tascas, les boulangeries, les boutiques où l'on vous appelle par votre prénom.",
-        en: "I'm from France and I live in Portugal. I love neighbourhood businesses: the tascas, the bakeries, the shops where they call you by your name."
+        pt: "A HEGO STUDIO é um estúdio criativo entre Portugal e França. Criamos sites, conteúdos e vídeos para marcas, restaurantes, lojas e profissionais que querem uma imagem à altura do seu trabalho.",
+        fr: "HEGO STUDIO est un studio créatif entre le Portugal et la France. Nous créons des sites, des contenus et des vidéos pour les marques, restaurants, boutiques et indépendants qui veulent une image à la hauteur de leur travail.",
+        en: "HEGO STUDIO is a creative studio between Portugal and France. We make websites, content and video for brands, restaurants, shops and professionals who want an image that matches their work."
       },
       {
-        pt: "O meu trabalho é dar a estes negócios um lugar na internet, sem complicações e a um preço justo. Trabalho por conta própria: fala sempre diretamente comigo, do primeiro café até ao site online.",
-        fr: "Mon travail, c'est de donner à ces commerces une place sur internet, sans complications et à un prix juste. Je travaille à mon compte : vous parlez toujours directement avec moi, du premier café jusqu'à la mise en ligne.",
-        en: "My job is to give these businesses a place online, without the hassle and at a fair price. I work for myself, so you always deal with me directly, from the first coffee to the day your site goes live."
+        pt: "Sem intermediários nem estrutura pesada: fala diretamente com quem cria. É por isso que os nossos preços são justos.",
+        fr: "Pas d'intermédiaires ni de grosse structure : vous parlez directement avec ceux qui créent. C'est pour ça que nos prix restent justes.",
+        en: "No middlemen and no heavy overheads: you talk directly to the people who create. That's why our prices stay fair."
       }
     ],
     langues: {
-      pt: "Falo português, francês e inglês.",
-      fr: "Je parle portugais, français et anglais.",
-      en: "I speak Portuguese, French and English."
+      pt: "Falamos português, francês e inglês.",
+      fr: "Nous parlons portugais, français et anglais.",
+      en: "We speak Portuguese, French and English."
     }
   },
 
@@ -339,78 +481,54 @@ window.CONTENU = {
      10. QUESTIONS FRÉQUENTES
      ------------------------------------------------------------------- */
   faq: {
-    titre: { pt: "Perguntas frequentes", fr: "Questions fréquentes", en: "Frequently asked questions" },
+    surtitre: { pt: "Perguntas frequentes", fr: "Questions fréquentes", en: "FAQ" },
     liste: [
       {
-        question: {
-          pt: "Preciso de perceber de informática?",
-          fr: "Faut-il s'y connaître en informatique ?",
-          en: "Do I need to know about computers?"
-        },
+        question: { pt: "Quanto tempo demora um site?", fr: "Combien de temps pour un site ?", en: "How long does a website take?" },
         reponse: {
-          pt: "Não. Eu trato de tudo. Só precisa de me dar as informações do seu negócio e, se tiver, algumas fotos.",
-          fr: "Non. Je m'occupe de tout. Il vous suffit de me donner les informations sur votre commerce et, si vous en avez, quelques photos.",
-          en: "No. I take care of everything. You just give me your business details and a few photos if you have them."
+          pt: "Site Vitrine: 7 dias. Site Pro: cerca de 2 semanas. Loja online: 3 a 4 semanas, a contar da receção dos conteúdos.",
+          fr: "Site Vitrine : 7 jours. Site Pro : environ 2 semaines. Boutique en ligne : 3 à 4 semaines, à partir de la réception des contenus.",
+          en: "Showcase Site: 7 days. Pro Site: about 2 weeks. Online shop: 3 to 4 weeks from when we receive your content."
         }
       },
       {
-        question: {
-          pt: "Quanto tempo demora?",
-          fr: "Combien de temps ça prend ?",
-          en: "How long does it take?"
-        },
+        question: { pt: "Os pacotes de redes sociais têm fidelização?", fr: "Les forfaits réseaux sociaux sont-ils avec engagement ?", en: "Are the social media packages a long-term contract?" },
         reponse: {
-          pt: "Um site Essencial fica pronto cerca de 7 dias depois de eu receber as informações. Uma loja online demora 3 a 4 semanas.",
-          fr: "Un site Essentiel est prêt environ 7 jours après réception des informations. Une boutique en ligne prend 3 à 4 semaines.",
-          en: "An Essential site is ready about 7 days after I get your information. An online shop takes 3 to 4 weeks."
+          pt: "Não. Pode parar quando quiser, com 30 dias de aviso. Recomendamos 3 meses para ver resultados reais.",
+          fr: "Non. Vous arrêtez quand vous voulez, avec 30 jours de préavis. On conseille 3 mois pour voir de vrais résultats.",
+          en: "No. Stop whenever you like with 30 days' notice. We recommend 3 months to see real results."
         }
       },
       {
-        question: {
-          pt: "O site e o domínio ficam em meu nome?",
-          fr: "Le site et le nom de domaine sont-ils à mon nom ?",
-          en: "Are the website and domain in my name?"
-        },
+        question: { pt: "Onde fazem as filmagens?", fr: "Où se passent les tournages ?", en: "Where do you shoot?" },
         reponse: {
-          pt: "Sim. O domínio (por exemplo, oseunegocio.pt) é registado em seu nome. O site é seu.",
-          fr: "Oui. Le nom de domaine (par exemple votrecommerce.pt) est enregistré à votre nom. Le site vous appartient.",
-          en: "Yes. The domain (for example yourbusiness.pt) is registered in your name. The website is yours."
+          pt: "No seu espaço: loja, restaurante, atelier ou exterior. Em Portugal e em França.",
+          fr: "Chez vous : boutique, restaurant, atelier ou en extérieur. Au Portugal et en France.",
+          en: "At your place: shop, restaurant, studio or outdoors. In Portugal and France."
         }
       },
       {
-        question: {
-          pt: "E se quiser mudar o horário ou os preços?",
-          fr: "Et si je veux changer mes horaires ou mes prix ?",
-          en: "What if I want to change my hours or prices?"
-        },
+        question: { pt: "O orçamento de publicidade está incluído?", fr: "Le budget publicitaire est-il inclus ?", en: "Is ad spend included?" },
         reponse: {
-          pt: "Com a mensalidade, basta enviar-me uma mensagem e eu altero, normalmente no mesmo dia.",
-          fr: "Avec l'abonnement, il suffit de m'envoyer un message et je modifie, en général le jour même.",
-          en: "With the monthly plan, just send me a message and I'll update it, usually the same day."
+          pt: "Não. O valor pago ao Instagram ou ao Facebook é seu e decide quanto investir. No pacote Premium tratamos da criação e da gestão das campanhas.",
+          fr: "Non. Le montant payé à Instagram ou Facebook reste le vôtre, vous décidez combien investir. Dans le forfait Premium, on s'occupe de créer et de gérer les campagnes.",
+          en: "No. What you pay Instagram or Facebook is your own budget, and you decide how much. In the Premium package we create and manage the campaigns."
         }
       },
       {
-        question: {
-          pt: "A mensalidade é obrigatória?",
-          fr: "L'abonnement est-il obligatoire ?",
-          en: "Is the monthly fee mandatory?"
-        },
+        question: { pt: "O site fica em meu nome?", fr: "Le site est-il à mon nom ?", en: "Is the website in my name?" },
         reponse: {
-          pt: "Não. Pode ficar só com o site e tratar do alojamento por conta própria. A mensalidade é para quem não se quer preocupar com nada.",
-          fr: "Non. Vous pouvez garder uniquement le site et gérer l'hébergement vous-même. L'abonnement, c'est pour ne s'occuper de rien.",
-          en: "No. You can keep just the website and handle hosting yourself. The monthly plan is for people who'd rather not deal with any of it."
+          pt: "Sim. O domínio e o site são seus.",
+          fr: "Oui. Le nom de domaine et le site vous appartiennent.",
+          en: "Yes. The domain and the website are yours."
         }
       },
       {
-        question: {
-          pt: "Já tenho Facebook ou Instagram. Preciso de um site?",
-          fr: "J'ai déjà Facebook ou Instagram. Ai-je besoin d'un site ?",
-          en: "I already have Facebook or Instagram. Do I need a website?"
-        },
+        question: { pt: "Posso pagar em prestações?", fr: "Puis-je payer en plusieurs fois ?", en: "Can I pay in instalments?" },
         reponse: {
-          pt: "As redes sociais ajudam, mas nem todos os clientes as usam. Quem procura no Google encontra sites e fichas do Google Maps. E no seu site é você que decide o que aparece.",
-          fr: "Les réseaux sociaux aident, mais tous vos clients ne les utilisent pas. Ceux qui cherchent sur Google tombent sur des sites et des fiches Google Maps. Et sur votre site, c'est vous qui décidez de ce qui s'affiche.",
-          en: "Social media helps, but not every customer uses it. People searching on Google find websites and Google Maps listings. And on your own site, you decide what shows."
+          pt: "Sim. Sites: 50% no início e 50% na entrega. Redes sociais: pagamento mensal.",
+          fr: "Oui. Sites : 50 % au début et 50 % à la livraison. Réseaux sociaux : paiement mensuel.",
+          en: "Yes. Websites: 50% upfront and 50% on delivery. Social media: billed monthly."
         }
       }
     ]
@@ -420,16 +538,19 @@ window.CONTENU = {
      11. CONTACT
      ------------------------------------------------------------------- */
   contact: {
-    titre: { pt: "Vamos falar do seu negócio?", fr: "On parle de votre commerce ?", en: "Shall we talk about your business?" },
+    lignes: [
+      { pt: "Vamos", fr: "Parlons", en: "Let's" },
+      { pt: "criar.", fr: "projet.", en: "create." }
+    ],
     texte: {
-      pt: "Escreva-me por WhatsApp ou preencha o formulário. Respondo no mesmo dia.",
-      fr: "Écrivez-moi sur WhatsApp ou remplissez le formulaire. Je réponds dans la journée.",
-      en: "Message me on WhatsApp or fill in the form. I reply the same day."
+      pt: "Orçamento gratuito em 24 h. Escreva-nos por WhatsApp, por mensagem no Instagram ou pelo formulário.",
+      fr: "Devis gratuit sous 24 h. Écrivez-nous sur WhatsApp, en message privé sur Instagram ou via le formulaire.",
+      en: "Free quote within 24 hours. Message us on WhatsApp, by Instagram DM or through the form."
     },
     zone: {
-      pt: "Lisboa e arredores. À distância em todo o país.",
-      fr: "Lisbonne et ses environs. À distance dans tout le pays.",
-      en: "Lisbon area. Remotely anywhere in Portugal."
+      pt: "Portugal & França · também à distância",
+      fr: "Portugal & France · aussi à distance",
+      en: "Portugal & France · remote too"
     }
   },
 
@@ -437,62 +558,70 @@ window.CONTENU = {
      12. PIED DE PAGE
      ------------------------------------------------------------------- */
   pied: {
-    slogan: {
-      pt: "Sites para pequenos negócios em Portugal.",
-      fr: "Sites web pour les petits commerces au Portugal.",
-      en: "Websites for small businesses in Portugal."
-    },
-    cookies: {
-      pt: "Este site não usa cookies.",
-      fr: "Ce site n'utilise pas de cookies.",
-      en: "This website uses no cookies."
-    }
+    cookies: { pt: "Este site não usa cookies.", fr: "Ce site n'utilise pas de cookies.", en: "This website uses no cookies." }
   },
 
   /* -------------------------------------------------------------------
      13. PETITS TEXTES (boutons, formulaire, messages WhatsApp)
-     Dans les messages, {nom}, {commerce}, {message} et {formule}
+     {nom}, {commerce}, {service}, {message}, {formule}, {detail}
      sont remplacés automatiquement : ne les traduis pas.
      ------------------------------------------------------------------- */
   textes: {
+    desde:           { pt: "desde", fr: "dès", en: "from" },
+    chiffreWeb:      { pt: "Site web", fr: "Site web", en: "Website" },
+    chiffreSocial:   { pt: "Redes sociais", fr: "Réseaux sociaux", en: "Social media" },
+    chiffreVideo:    { pt: "Reel", fr: "Reel", en: "Reel" },
     populaire:       { pt: "Mais escolhido", fr: "Le plus choisi", en: "Most popular" },
-    choisir:         { pt: "Quero este", fr: "Je veux celui-ci", en: "I want this one" },
-    voirDemo:        { pt: "Ver o site", fr: "Voir le site", en: "View the site" },
-    exempleFictif:   { pt: "Negócio fictício", fr: "Commerce fictif", en: "Made-up business" },
-    etape:           { pt: "Passo", fr: "Étape", en: "Step" },
-    whatsapp:        { pt: "Falar no WhatsApp", fr: "Écrire sur WhatsApp", en: "Chat on WhatsApp" },
-    telephone:       { pt: "Telefone", fr: "Téléphone", en: "Phone" },
+    choisir:         { pt: "Escolher", fr: "Choisir", en: "Choose" },
+    voirTarifs:      { pt: "Ver preços", fr: "Voir les prix", en: "See prices" },
+    demander:        { pt: "Pedir", fr: "Demander", en: "Ask" },
+    voirSite:        { pt: "Ver o site", fr: "Voir le site", en: "View site" },
+    fictif:          { pt: "Fictício", fr: "Fictif", en: "Made-up" },
+    calcTitre:       { pt: "Monte o seu pack", fr: "Composez votre pack", en: "Build your pack" },
+    calcTexte:       { pt: "Escolha o que precisa por mês. O preço atualiza-se na hora.", fr: "Choisissez ce qu'il vous faut chaque mois. Le prix se met à jour en direct.", en: "Pick what you need each month. The price updates live." },
+    calcPhotos:      { pt: "Publicações foto / carrossel", fr: "Publications photo / carrousel", en: "Photo / carousel posts" },
+    calcReels:       { pt: "Reels", fr: "Reels", en: "Reels" },
+    calcReseaux:     { pt: "Redes sociais", fr: "Réseaux sociaux", en: "Social networks" },
+    calcTotal:       { pt: "O seu pack", fr: "Votre pack", en: "Your pack" },
+    calcConseil:     { pt: "O pacote {formule} inclui tudo isto por {prix}. Poupa {economie}.", fr: "Le forfait {formule} inclut tout ça pour {prix}. Vous économisez {economie}.", en: "The {formule} package covers all of this for {prix}. You save {economie}." },
+    calcBouton:      { pt: "Pedir este pack", fr: "Demander ce pack", en: "Request this pack" },
+    economie:        { pt: "Poupa", fr: "Économisez", en: "Save" },
+    au_lieu_de:      { pt: "em vez de", fr: "au lieu de", en: "instead of" },
+    whatsapp:        { pt: "WhatsApp", fr: "WhatsApp", en: "WhatsApp" },
     email:           { pt: "Email", fr: "E-mail", en: "Email" },
-    zone:            { pt: "Onde trabalho", fr: "Où je travaille", en: "Where I work" },
-    menuOuvrir:      { pt: "Menu", fr: "Menu", en: "Menu" },
-    champNom:        { pt: "O seu nome", fr: "Votre nom", en: "Your name" },
-    champCommerce:   { pt: "O seu negócio", fr: "Votre commerce", en: "Your business" },
-    exempleCommerce: { pt: "Ex.: café em Almada", fr: "Ex. : café à Almada", en: "E.g. café in Almada" },
+    menu:            { pt: "Menu", fr: "Menu", en: "Menu" },
+    champNom:        { pt: "Nome", fr: "Nom", en: "Name" },
+    champCommerce:   { pt: "Empresa / marca", fr: "Entreprise / marque", en: "Business / brand" },
+    champService:    { pt: "Serviço", fr: "Service", en: "Service" },
     champMessage:    { pt: "Mensagem (opcional)", fr: "Message (facultatif)", en: "Message (optional)" },
-    exempleMessage:  { pt: "Conte-me o que precisa", fr: "Dites-moi ce dont vous avez besoin", en: "Tell me what you need" },
     envoyer:         { pt: "Enviar por WhatsApp", fr: "Envoyer sur WhatsApp", en: "Send on WhatsApp" },
-    ouEmail:         { pt: "Prefere email? Enviar por email", fr: "Vous préférez l'e-mail ? Envoyer par e-mail", en: "Prefer email? Send by email" },
-    champManquant:   { pt: "Indique o seu nome e o seu negócio.", fr: "Indiquez votre nom et votre commerce.", en: "Please enter your name and your business." },
+    ouEmail:         { pt: "ou enviar por email", fr: "ou envoyer par e-mail", en: "or send by email" },
+    champManquant:   { pt: "Indique o seu nome e a sua empresa.", fr: "Indiquez votre nom et votre entreprise.", en: "Please enter your name and business." },
     livro:           { pt: "Livro de Reclamações", fr: "Livre de réclamations", en: "Complaints Book" },
     messageGeneral: {
-      pt: "Olá! Gostava de saber mais sobre um site para o meu negócio.",
-      fr: "Bonjour ! J'aimerais en savoir plus sur un site pour mon commerce.",
-      en: "Hello! I'd like to know more about a website for my business."
+      pt: "Olá HEGO STUDIO! Gostava de pedir um orçamento.",
+      fr: "Bonjour HEGO STUDIO ! J'aimerais demander un devis.",
+      en: "Hello HEGO STUDIO! I'd like to request a quote."
     },
     messageFormule: {
       pt: "Olá! Tenho interesse no pacote {formule}. Podemos falar?",
-      fr: "Bonjour ! La formule {formule} m'intéresse. On peut en parler ?",
+      fr: "Bonjour ! Le forfait {formule} m'intéresse. On peut en parler ?",
       en: "Hello! I'm interested in the {formule} package. Can we talk?"
     },
+    messageCalcul: {
+      pt: "Olá! Montei um pack de redes sociais no vosso site: {detail}. Podemos falar?",
+      fr: "Bonjour ! J'ai composé un pack réseaux sociaux sur votre site : {detail}. On peut en parler ?",
+      en: "Hello! I built a social media pack on your website: {detail}. Can we talk?"
+    },
     messageFormulaire: {
-      pt: "Olá! Sou {nom}, do negócio {commerce}. Gostava de saber mais sobre um site. {message}",
-      fr: "Bonjour ! Je suis {nom}, de {commerce}. J'aimerais en savoir plus sur un site. {message}",
-      en: "Hello! I'm {nom} from {commerce}. I'd like to know more about a website. {message}"
+      pt: "Olá! Sou {nom}, de {commerce}. Interesse: {service}. {message}",
+      fr: "Bonjour ! Je suis {nom}, de {commerce}. Intéressé(e) par : {service}. {message}",
+      en: "Hello! I'm {nom} from {commerce}. Interested in: {service}. {message}"
     },
     messageDemo: {
-      pt: "Olá! Vi o exemplo “{commerce}” no seu site e gostava de um site assim para o meu negócio.",
-      fr: "Bonjour ! J'ai vu l'exemple « {commerce} » sur votre site et j'aimerais un site comme ça pour mon commerce.",
-      en: "Hello! I saw the “{commerce}” example on your website and I'd like a site like that for my business."
+      pt: "Olá! Vi o exemplo “{commerce}” no vosso site e gostava de um site assim.",
+      fr: "Bonjour ! J'ai vu l'exemple « {commerce} » sur votre site et j'aimerais un site comme ça.",
+      en: "Hello! I saw the “{commerce}” example on your website and I'd like a site like that."
     }
   }
 };

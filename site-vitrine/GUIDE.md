@@ -1,152 +1,120 @@
-# Ton site vitrine : mode d'emploi
+# HEGO STUDIO · Mode d'emploi du site
 
-Ce dossier contient ton site complet, prêt à mettre en ligne. Il est en **portugais** par défaut, avec une version **française** et **anglaise** (boutons PT / FR / EN en haut).
+Le site est en **portugais** par défaut, avec **français** et **anglais** (boutons PT / FR / EN en haut). Il prend automatiquement la langue du téléphone du visiteur. Pour forcer une langue dans un lien :
 
-Le site choisit tout seul la langue du téléphone du visiteur. Pour forcer une langue dans un lien que tu envoies :
-
-- `https://ton-site.pt/?lang=pt` → portugais
-- `https://ton-site.pt/?lang=fr` → français (pratique pour les commerçants français au Portugal)
-- `https://ton-site.pt/?lang=en` → anglais
+- `https://ton-site/?lang=pt` · `?lang=fr` · `?lang=en`
 
 ---
 
-## 1. Ce qu'il y a dans le dossier
+## 1. Mettre le site en ligne en 2 minutes (avec le zip)
 
-| Fichier | À quoi il sert | Tu y touches ? |
-|---|---|---|
-| `contenu.js` | **Tous les textes, prix, ton téléphone, tes couleurs** | **Oui, c'est le seul** |
-| `index.html` | La page (et l'aperçu quand tu partages le lien) | Une fois, voir étape 3 |
-| `images/` | Ta photo, les captures des exemples, l'image d'aperçu | Pour ajouter ta photo |
-| `exemples/` | 3 faux sites (boulangerie, barbier, restaurant) à montrer aux clients | Non |
-| `style.css`, `script.js`, `polices/` | Le design et le moteur | Non |
+### Vercel Drop (recommandé)
+
+1. Va sur **vercel.com/drop** et connecte-toi (ou crée un compte gratuit).
+2. **Glisse le fichier `hego-studio-site.zip`** dans la zone. Inutile de le décompresser.
+3. Choisis un nom de projet, par exemple `hego-studio`, puis clique sur **Deploy**.
+4. Ton site est en ligne à une adresse du type `hego-studio.vercel.app`.
+
+**Pour mettre à jour le site :** dans le tableau de bord Vercel, ouvre ton projet et glisse le nouveau zip dessus. Ne repasse pas par vercel.com/drop, sinon ça crée un deuxième projet.
+
+### Autres hébergeurs gratuits qui acceptent un glisser-déposer
+
+- **Netlify Drop** : app.netlify.com/drop. Décompresse le zip et glisse le **dossier**, c'est ce que conseille Netlify.
+- **Cloudflare Pages** : Workers & Pages → Create → « Drag and drop your files ». Accepte le zip.
 
 ---
 
-## 2. Modifier ton site (sans rien installer)
+## 2. Modifier le site
 
-Tout se fait sur **github.com**, depuis un ordinateur ou ton téléphone :
+Tout ce qui s'affiche (textes, prix, numéro, e-mail, forfaits, FAQ) est dans **un seul fichier : `contenu.js`**.
 
-1. Ouvre ton dépôt sur GitHub, puis le fichier `contenu.js`.
-2. Clique sur le **crayon ✏️** (« Edit this file »).
-3. Modifie le texte **entre les guillemets** `"..."`.
-4. Clique sur **« Commit changes »** (en vert), puis encore **« Commit changes »**.
-5. Le site en ligne se met à jour tout seul en 1 minute environ.
+1. Décompresse le zip.
+2. Ouvre `contenu.js` avec un éditeur de texte : **TextEdit** sur Mac (Format → « Convertir au format texte »), **Bloc-notes** sur Windows, ou mieux, **VS Code** (gratuit).
+3. Modifie uniquement le texte **entre guillemets** `"..."`.
+4. Enregistre, recompresse le dossier en zip, puis redépose-le sur Vercel (étape 1).
+
+Pour vérifier avant de publier : double-clique sur `index.html`, le site s'ouvre dans ton navigateur. En local, certains navigateurs affichent une police de remplacement : c'est normal, les vraies polices s'affichent une fois le site en ligne.
 
 ### Les 4 règles pour ne rien casser
 
 - Ne modifie que ce qui est **entre guillemets**.
 - Garde la **virgule** à la fin des lignes.
 - Ne supprime pas les `{ }` et `[ ]`.
-- Si ton texte contient un guillemet `"`, utilise plutôt les guillemets typographiques « » ou “ ”.
+- Pour un guillemet dans un texte, utilise « » ou “ ”.
 
-Pour surligner un mot en jaune : entoure-le d'étoiles, ex. `"A montra do seu negócio, *aberta 24 horas.*"`
+Astuce : `*entre étoiles*` affiche le texte en italique élégant (la police Bodoni du site).
 
-### La page est devenue blanche ?
-
-Le site affiche alors un message « Le fichier contenu.js contient une erreur ». C'est presque toujours une virgule ou un guillemet oublié. Sur GitHub, ouvre `contenu.js` → bouton **History** → reviens à la version précédente, ou corrige la ligne que tu viens de modifier.
+**Page avec un message d'erreur rouge ?** Il manque une virgule ou un guillemet près de ta dernière modification. Corrige-la ou reprends le `contenu.js` du zip d'origine.
 
 ---
 
-## 3. À remplacer avant de montrer le site (liste de contrôle)
+## 3. À remplacer AVANT de diffuser le lien
 
-Dans **`contenu.js`** (tout en haut) :
+Dans `contenu.js`, tout en haut :
 
-- [ ] `marque` : le nom de ton activité (actuellement « Montra », c'est un exemple)
-- [ ] `nom` : ton prénom et nom (actuellement « Nome Apelido »)
-- [ ] `telephone` : ton numéro tel qu'il s'affiche, ex. `"+351 912 345 678"`
-- [ ] `whatsapp` : **le même numéro**, chiffres seulement, ex. `"351912345678"`
+- [ ] `telephone` : ton numéro tel qu'il s'affiche, par exemple `"+351 912 345 678"`.
+- [ ] `whatsapp` : le **même numéro**, en chiffres seulement, par exemple `"351912345678"`.
 - [ ] `email`
-- [ ] `photo` : voir étape 4
-- [ ] Section **9. QUI SUIS-JE** : vérifie que les phrases te correspondent (pays d'origine, langues parlées…)
-- [ ] Section **11. CONTACT** → `zone` : ta ville / ta région
-- [ ] Section **6. TARIFS** : tes vrais prix
-- [ ] Section **2. OFFRE** : garde, modifie ou cache le bandeau (`afficher: false`)
+- [ ] `instagram` : le lien de ton compte, par exemple `"https://instagram.com/tonpseudo"`.
+- [ ] `instagramPseudo` : par exemple `"@tonpseudo"`.
+- [ ] Section **9. LE STUDIO** : vérifie que les phrases te correspondent (langues parlées…).
+- [ ] Section **7. RÉALISATIONS** : remplace les 4 images Vila Haritza par tes fichiers en **haute définition** (voir étape 5).
 
-Dans **`index.html`** (le bloc encadré tout en haut, une seule fois) :
+Dans `index.html`, dans le bloc encadré tout en haut :
 
-- [ ] Remplace `Montra` par ta marque dans les lignes `title` et `og:title`
-- [ ] Remplace `https://example.com` par l'adresse de ton site (2 endroits) : c'est ce qui affiche la belle image d'aperçu quand tu envoies le lien sur WhatsApp
+- [ ] Remplace `https://example.com` par l'adresse de ton site (2 endroits). C'est ce qui affiche la belle image d'aperçu quand tu envoies le lien sur WhatsApp ou Instagram.
 
 ---
 
-## 4. Ajouter ta photo
+## 4. La stratégie de prix (déjà intégrée, modifiable dans `contenu.js`)
 
-1. Prends une photo carrée, souriante, bien éclairée (format JPG, idéalement moins de 300 Ko).
-2. Sur GitHub, ouvre le dossier `images/` → **Add file** → **Upload files** → dépose la photo, nommée par exemple `moi.jpg` → **Commit changes**.
-3. Dans `contenu.js`, mets : `photo: "images/moi.jpg",`
+| Offre | Prix | Pourquoi |
+|---|---|---|
+| **Site Vitrine** | 349 € | Prix d'appel, sous la barre psychologique des 350 € |
+| **Site Pro** (le plus choisi) | 690 € | L'offre que tu veux vendre, mise en avant en noir |
+| **Boutique en ligne** | dès 1 290 € | Ancre haute : elle fait paraître le Site Pro raisonnable |
+| Hébergement & maintenance | 15 €/mois | Revenu récurrent, facultatif |
+| **Réseaux sociaux Essentiel** | 149 €/mois | 6 photos + 2 reels + 1 tournage |
+| **Réseaux sociaux Croissance** (le plus choisi) | 249 €/mois | 8 photos + 4 reels + stories, 2 réseaux |
+| **Réseaux sociaux Premium** | 449 €/mois | 12 photos + 8 reels, 3 réseaux, pubs |
+| Reel à l'unité | 69 € | Porte d'entrée pour tester ton travail |
+| Pack 4 reels | 229 € | Au lieu de 276 € : pousse à prendre plus |
+| **Pack Lancement** | 599 € | Site + 3 mois de réseaux, au lieu de 796 € |
 
-Sans photo, le site affiche tes initiales sur un motif d'azulejo.
+**Le calculateur « Composez votre pack »** : le client choisit son nombre de photos, de reels et de réseaux, et voit son prix en direct. Les prix à l'unité du calculateur (49 € de base + 10 €/photo + 30 €/reel + 25 €/réseau en plus) sont **volontairement un peu plus chers que les forfaits**. Le site affiche alors : « Le forfait Croissance inclut tout ça pour 249 €. Vous économisez 25 € ». Le client voit qu'il fait une affaire en prenant un forfait.
 
----
+Si tu changes les forfaits, garde cette règle : le calculateur doit toujours donner un peu plus cher que le forfait équivalent.
 
-## 5. Mettre le site en ligne (gratuit)
-
-### Option A : Vercel (recommandé, tu l'utilises déjà)
-
-1. Va sur **vercel.com** → **Add New… → Project**.
-2. Choisis ton dépôt GitHub qui contient le dossier `site-vitrine`.
-3. Dans **Root Directory**, clique **Edit** et choisis `site-vitrine`.
-4. **Framework Preset** : « Other ». Ne touche à rien d'autre → **Deploy**.
-5. Ton site est en ligne à une adresse du type `ton-projet.vercel.app`.
-
-Chaque modification sur GitHub met le site à jour automatiquement.
-
-> Conseil : à terme, mets ce dossier dans **son propre dépôt GitHub** (ex. `mon-site-vitrine`), séparé de tes autres projets. Crée un dépôt vide et dis-le-moi, je peux y copier le site.
-
-### Option B : Netlify
-
-**app.netlify.com** → **Add new site → Import an existing project** → GitHub → ton dépôt → **Base directory** : `site-vitrine` → **Deploy**.
+Les montants « dès 349 € / 149 €/mois / 69 € » du haut de page se calculent **tout seuls** à partir des tarifs.
 
 ---
 
-## 6. Ton propre nom de domaine (.pt)
+## 5. Remplacer les photos
 
-Une adresse comme `montra.pt` fait beaucoup plus pro que `xxx.vercel.app`.
+- **Réalisations :** mets tes photos HD (format vertical 4:5, en JPG, moins de 400 Ko chacune) dans `images/realisations/`, puis indique leur nom dans `contenu.js` → section 7 → `images: [...]`. Les photos actuelles sont des captures de ton Instagram, donc en basse définition.
+- **Pour ajouter un projet :** copie le bloc `{ client: "Vila Haritza", ... }`, colle-le juste après (avec une virgule entre les deux) et change les textes et les images.
+- **Logo :** les fichiers vectoriels sont dans `images/` (`logo-hego-lettres.svg`, `logo-hego-rond.svg`, `logo-hego-rond-blanc.svg`). Tu peux aussi les utiliser ailleurs (cartes de visite, signature e-mail).
 
-1. Achète le domaine chez un registraire portugais ou européen (ex. PTisp, Amen.pt, OVHcloud). Compte environ 10 à 20 € par an, à vérifier selon le registraire.
-2. Dans Vercel : ton projet → **Settings → Domains** → ajoute ton domaine. Vercel t'indique les 1 ou 2 réglages DNS à copier chez le registraire.
+---
+
+## 6. Nom de domaine
+
+Une adresse comme `hegostudio.pt` ou `hego.studio` fait plus pro que `xxx.vercel.app`.
+
+1. Achète le domaine chez un registraire (PTisp, Amen.pt, OVHcloud…). Compte environ 10 à 30 € par an selon l'extension, à vérifier.
+2. Dans Vercel : ton projet → **Settings → Domains** → ajoute le domaine. Vercel t'indique les réglages DNS à recopier chez le registraire.
 3. Mets à jour l'adresse dans `index.html` (étape 3).
 
-C'est aussi exactement ce que tu feras pour tes clients.
-
 ---
 
-## 7. Quand tu auras tes premiers clients
+## 7. Ce que fait le site pour toi
 
-Dans `contenu.js`, section **7. EXEMPLES**, remplace un exemple fictif par un vrai site :
+- **Chaque bouton** (« Choisir », « Demander ce pack », le formulaire…) ouvre WhatsApp avec un message déjà écrit qui précise l'offre choisie, dans la langue du client.
+- **Les 3 sites d'exemple** (boulangerie, barbier, restaurant) montrent aux commerçants ce qu'ils peuvent obtenir. Un bandeau en haut renvoie vers toi.
+- **Aucun cookie, polices hébergées sur le site** : pas besoin de bandeau cookies (RGPD).
 
-```js
-{
-  nom: "Café Central",
-  type: { pt: "Café", fr: "Café", en: "Café" },
-  lien: "https://cafecentral.pt",
-  image: "images/cafe-central.jpg"
-},
-```
+## 8. À vérifier côté administratif (avec un comptable)
 
-L'étiquette « Negócio fictício » disparaît toute seule pour les vrais liens (ceux qui commencent par `https://`).
-
----
-
-## 8. Ce que fait le site pour toi
-
-- **Tous les boutons WhatsApp** ouvrent une conversation avec toi, avec un message déjà écrit dans la langue du visiteur.
-- **Les boutons « Quero este » des tarifs** précisent la formule qui intéresse le client.
-- **Le formulaire** n'a pas besoin de serveur : il ouvre WhatsApp (ou l'e-mail) avec le nom et le commerce du client déjà remplis.
-- **Les 3 exemples** montrent le résultat sur téléphone. Si un commerçant clique sur « Encomendar » dans un exemple, une bulle lui explique que sur son vrai site, ce bouton l'enverrait vers lui, avec un bouton pour te contacter.
-- **Aucun cookie, aucun traceur, polices hébergées sur le site** : pas besoin de bandeau cookies (RGPD).
-
----
-
-## 9. Conseils pour démarcher
-
-- **Montre les exemples sur ton téléphone**, en vrai, au comptoir. C'est le plus convaincant.
-- Avant d'entrer, **cherche le commerce sur Google Maps** : souvent la fiche est incomplète (pas d'horaires, pas de photos, pas de site). C'est ton argument d'ouverture.
-- Laisse une **petite carte avec un QR code** vers ton site (n'importe quel générateur de QR code gratuit fait l'affaire).
-- Utilise l'**offre de lancement** pour signer tes premiers clients, puis demande-leur l'autorisation de les afficher comme exemples.
-
-### À vérifier côté administratif au Portugal (avec un comptable)
-
-- Ouvrir ton activité aux Finanças (trabalhador independente, recibos verdes).
-- Le régime de TVA (IVA) : une exonération existe pour les petits chiffres d'affaires (article 53.º do CIVA). Si tu factures avec TVA, indique-le près des prix.
-- Le **Livro de Reclamações** électronique : le lien est déjà en bas de page, il faut aussi t'inscrire sur livroreclamacoes.pt.
+- Statut au Portugal (trabalhador independente / recibos verdes) ou en France (micro-entreprise).
+- **TVA :** les prix affichés n'en parlent pas. Si tu factures la TVA (IVA), ajoute « + IVA » ou « IVA incluído » dans les notes de prix.
+- **Livro de Reclamações** électronique : le lien est déjà en bas de page, inscris-toi aussi sur livroreclamacoes.pt.

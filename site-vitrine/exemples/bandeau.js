@@ -25,18 +25,18 @@
   var style = document.createElement("style");
   style.textContent =
     ".demo-bandeau{position:relative;z-index:50;display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;justify-content:space-between;" +
-    "padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:#0f1b33;color:#e9eef8;" +
-    "font:600 13px/1.35 Figtree,system-ui,sans-serif}" +
+    "padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:#0b0b0c;color:#e9eef8;" +
+    "font:600 12px/1.35 Figtree,system-ui,sans-serif;letter-spacing:.04em}" +
     ".demo-bandeau a{color:#fff;text-decoration:none;font-weight:700;white-space:nowrap}" +
     ".demo-bandeau a:hover{text-decoration:underline}" +
     ".demo-bandeau span{flex:1 1 220px}" +
-    ".demo-bandeau .demo-cta{background:#f2b705;color:#0f1b33;padding:7px 12px;border-radius:999px}" +
+    ".demo-bandeau .demo-cta{background:#f4f4f2;color:#0b0b0c;padding:7px 12px;border-radius:0}" +
     ".demo-toast{position:fixed;z-index:60;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);" +
-    "width:min(440px,calc(100% - 32px));background:#0f1b33;color:#fff;border-radius:14px;padding:16px 18px;" +
+    "width:min(440px,calc(100% - 32px));background:#0b0b0c;color:#fff;border-radius:0;padding:16px 18px;" +
     "box-shadow:0 20px 40px -12px rgba(0,0,0,.5);font:500 15px/1.45 Figtree,system-ui,sans-serif;display:grid;gap:12px}" +
     ".demo-toast div{display:flex;gap:10px;flex-wrap:wrap}" +
-    ".demo-toast a,.demo-toast button{font:700 14px/1 Figtree,system-ui,sans-serif;border-radius:999px;padding:10px 14px;cursor:pointer;text-decoration:none}" +
-    ".demo-toast a{background:#f2b705;color:#0f1b33}" +
+    ".demo-toast a,.demo-toast button{font:700 14px/1 Figtree,system-ui,sans-serif;border-radius:0;padding:10px 14px;cursor:pointer;text-decoration:none}" +
+    ".demo-toast a{background:#f4f4f2;color:#0b0b0c}" +
     ".demo-toast button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}";
   document.head.appendChild(style);
 
