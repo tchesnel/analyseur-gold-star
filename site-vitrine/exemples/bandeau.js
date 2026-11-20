@@ -41,7 +41,7 @@
   var b = document.createElement("div");
   b.className = "demo-bandeau";
   b.innerHTML =
-    '<a href="../index.html#exemples">← ' + esc(L.retour) + "</a>" +
+    '<a href="../index.html">← ' + esc(L.retour) + "</a>" +
     "<span>" + esc(L.texte) + " <b>" + esc(C.marque || "") + "</b> · " + esc(L.fictif) + "</span>" +
     '<a class="demo-cta" href="' + wa + '">' + esc(L.cta) + "</a>";
   document.body.insertBefore(b, document.body.firstChild);

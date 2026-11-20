@@ -32,8 +32,8 @@ window.CONTENU = {
   formulaireCode: "",
   formulaireSujet: "Nouvelle demande de devis",   // objet des e-mails que tu reçois
 
-  instagram: "",                   // À REMPLACER : ex. "https://instagram.com/hegostudio" (vide = caché)
-  instagramPseudo: "",             // ex. "@hegostudio"
+  instagram: "https://www.instagram.com/hego_studio/",
+  instagramPseudo: "@hego_studio",
   nif: "",                         // ton numéro fiscal (NIF), affiché en bas de page (obligation légale) : ex. "123456789"
   livroReclamacoes: true,          // lien "Livro de Reclamações" en bas de page (obligatoire au Portugal)
 
@@ -415,6 +415,42 @@ window.CONTENU = {
         image: "images/realisations/vila-haritza.jpg"
       }
     ],
+    // Avis clients (affichés sous les réalisations)
+    temoignagesTitre: { pt: "O que dizem os clientes", fr: "Ce que disent nos clients", en: "What our clients say" },
+    temoignages: [
+      {
+        nom: "Marie",
+        entreprise: "Cysta",
+        texte: {
+          pt: "Um grande agradecimento pelo nosso site Cysta, que nos ajudou realmente a ganhar visibilidade e a ter sucesso.",
+          fr: "Merci pour notre site web Cysta, qui nous a réellement aidés pour notre visibilité et notre réussite.",
+          en: "Thank you for our Cysta website, which genuinely helped our visibility and our success."
+        }
+      },
+      {
+        nom: "Mathieu",
+        entreprise: "Loggio",
+        texte: {
+          pt: "Um site muito profissional, uma equipa muito rápida a responder e os nossos pedidos respeitados à letra. Um grande obrigado por tudo!",
+          fr: "Merci pour notre site web : très pro, très réactif, et nos demandes respectées à la lettre. Merci pour tout !",
+          en: "Thank you for our website: very professional, very responsive and our requests followed to the letter. Thanks for everything!"
+        }
+      },
+      {
+        nom: "Antoine",
+        entreprise: "Vila Haritza",
+        texte: {
+          pt: "Uma campanha incrível e um site fantástico. Um grande obrigado à HEGO STUDIO pelo profissionalismo!",
+          fr: "Merci pour cette superbe campagne et ce merveilleux site web. Merci à HEGO STUDIO pour leur professionnalisme !",
+          en: "Thank you for this superb campaign and this wonderful website. Thank you to HEGO STUDIO for their professionalism!"
+        }
+      }
+    ],
+
+    // Sites d'exemple fictifs (boulangerie, barbier, restaurant) : masqués sur la page
+    // d'accueil, mais toujours en ligne pour les montrer en prospection :
+    // ton-site/exemples/padaria.html · barbearia.html · tasca.html
+    afficherExemples: false,
     exemplesTitre: { pt: "Exemplos para comércio local", fr: "Exemples pour le commerce de proximité", en: "Examples for local businesses" },
     exemplesTexte: {
       pt: "Três sites de demonstração. Os negócios são fictícios.",
@@ -474,18 +510,20 @@ window.CONTENU = {
      9. QUI SOMMES-NOUS : vérifie que ces phrases te correspondent
      ------------------------------------------------------------------- */
   studio: {
-    surtitre: { pt: "Quem somos", fr: "Qui sommes-nous", en: "About" },
-    titre: { pt: "HEGO STUDIO", fr: "HEGO STUDIO", en: "HEGO STUDIO" },
+    surtitre: { pt: "Quem somos", fr: "Qui sommes-nous", en: "About us" },
+    titre: "Thomas & Lydia",
+    photo: "images/thomas-lydia.jpg",
+    legende: { pt: "Fundadores da HEGO STUDIO", fr: "Fondateurs de HEGO STUDIO", en: "Founders of HEGO STUDIO" },
     paragraphes: [
       {
-        pt: "A HEGO STUDIO trabalha entre Portugal e França. Fazemos sites, gerimos redes sociais e produzimos fotografia e vídeo para restaurantes, lojas, marcas e profissionais independentes.",
-        fr: "HEGO STUDIO travaille entre le Portugal et la France. Nous créons des sites, gérons des réseaux sociaux et produisons photos et vidéos pour des restaurants, boutiques, marques et indépendants.",
-        en: "HEGO STUDIO works between Portugal and France. We build websites, run social media and produce photos and video for restaurants, shops, brands and independent professionals."
+        pt: "Somos Thomas e Lydia, os fundadores da HEGO STUDIO. Trabalhamos entre Portugal e França: fazemos sites, gerimos redes sociais e produzimos fotografia e vídeo para restaurantes, lojas, marcas e profissionais independentes.",
+        fr: "Nous sommes Thomas et Lydia, les fondateurs de HEGO STUDIO. Nous travaillons entre le Portugal et la France : nous créons des sites, gérons des réseaux sociaux et produisons photos et vidéos pour des restaurants, boutiques, marques et indépendants.",
+        en: "We're Thomas and Lydia, the founders of HEGO STUDIO. We work between Portugal and France, building websites, running social media and producing photos and video for restaurants, shops, brands and independent professionals."
       },
       {
-        pt: "Trabalhamos com poucos clientes de cada vez, para responder depressa e acompanhar cada projeto de perto. Fala sempre com a mesma pessoa, do primeiro contacto à entrega.",
-        fr: "Nous travaillons avec peu de clients à la fois, pour répondre vite et suivre chaque projet de près. Vous parlez toujours à la même personne, du premier contact à la livraison.",
-        en: "We take on a few clients at a time, so we can reply quickly and follow each project closely. You always speak to the same person, from first contact to delivery."
+        pt: "Trabalhamos com poucos clientes de cada vez, para responder depressa e acompanhar cada projeto de perto. Fala sempre connosco diretamente, do primeiro contacto à entrega.",
+        fr: "Nous travaillons avec peu de clients à la fois, pour répondre vite et suivre chaque projet de près. Vous parlez toujours directement avec nous, du premier contact à la livraison.",
+        en: "We take on a few clients at a time, so we can reply quickly and follow each project closely. You always deal with us directly, from first contact to delivery."
       }
     ],
     langues: {
@@ -591,6 +629,7 @@ window.CONTENU = {
     populaire:       { pt: "Mais escolhido", fr: "Le plus choisi", en: "Most popular" },
     choisir:         { pt: "Pedir orçamento", fr: "Demander un devis", en: "Get a quote" },
     voirSite:        { pt: "Ver o site", fr: "Voir le site", en: "View site" },
+    voirTarifs:      { pt: "Ver preços", fr: "Voir les tarifs", en: "See pricing" },
     fictif:          { pt: "Fictício", fr: "Fictif", en: "Made-up" },
     economie:        { pt: "Poupa", fr: "Économisez", en: "Save" },
     email:           { pt: "Email", fr: "E-mail", en: "Email" },

@@ -155,7 +155,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .tags { display: flex; flex-wrap: wrap; gap: 6px 14px; list-style: none; margin: 0; padding: 0; font: 400 .72rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
 .tags li + li::before { content: "/"; margin-right: 14px; opacity: .45; }
 .service-prix { display: grid; justify-items: end; gap: 8px; text-align: right; }
-.service-prix small { font: 400 .72rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+.service-prix small { font: 400 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
 .service-prix strong { font: 800 clamp(1.4rem, 1rem + 1.2vw, 2.1rem)/1 var(--f-large); font-stretch: 125%; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .service-prix .ico { width: 26px; height: 26px; margin-top: 6px; transition: transform .35s var(--courbe); }
 .service:hover .service-prix .ico { transform: translateX(6px); }
@@ -250,6 +250,20 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .exemple-lien .ico { transition: transform .3s var(--courbe); }
 .exemple:hover .exemple-lien .ico { transform: translateX(5px); }
 
+/* Avis clients */
+.avis { margin-top: clamp(80px, 10vw, 130px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--trait); }
+.avis-titre { font-size: clamp(1.5rem, 1rem + 2vw, 2.4rem); letter-spacing: -0.02em; margin-bottom: clamp(28px, 4vw, 48px); }
+.avis-grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); }
+.temoignage { margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 3px solid var(--texte); }
+.temoignage blockquote { margin: 0; }
+.temoignage blockquote p { font: italic 400 clamp(1.25rem, 1rem + .8vw, 1.6rem)/1.3 var(--f-serif); letter-spacing: -0.01em; }
+.temoignage blockquote p::before { content: "« "; }
+.temoignage blockquote p::after { content: " »"; }
+html[lang="en"] .temoignage blockquote p::before { content: "“"; }
+html[lang="en"] .temoignage blockquote p::after { content: "”"; }
+.temoignage figcaption { font: 400 .78rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--doux); }
+.temoignage figcaption strong { font-weight: 400; color: var(--texte); }
+
 /* Méthode */
 .etapes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
 .etape { display: grid; gap: 14px; align-content: start; padding-top: 26px; border-top: 1px solid var(--trait); position: relative; }
@@ -261,6 +275,9 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 /* Qui sommes-nous */
 .studio .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(40px, 7vw, 120px); align-items: center; }
 .studio-logo { width: min(400px, 100%); aspect-ratio: 1; justify-self: center; }
+.studio-photo { margin: 0; width: min(460px, 100%); justify-self: center; display: grid; gap: 12px; }
+.studio-photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; }
+.studio-photo figcaption { font: 400 .74rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--doux); }
 .studio-logo img { width: 100%; height: 100%; }
 .studio-texte { display: grid; gap: 22px; min-width: 0; }
 .studio-texte p:not(.surtitre) { font-size: 1.1rem; color: var(--doux); max-width: 58ch; }
@@ -366,6 +383,8 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
   .projet:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
   .projet:nth-child(even) .projet-visuel { order: 0; }
   .studio .wrap, .faq .wrap { grid-template-columns: minmax(0, 1fr); }
+  .avis-grille { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .studio-photo { justify-self: start; width: min(420px, 100%); }
   .studio-logo { width: min(260px, 60%); justify-self: start; }
 }
 

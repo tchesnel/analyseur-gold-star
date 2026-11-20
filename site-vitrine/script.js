@@ -148,23 +148,16 @@
 
   function services() {
     var S = C.services;
-    var prixMin = {
-      web: moinsCher(T.web && T.web.formules),
-      social: moinsCher(T.social && T.social.formules),
-      video: moinsCher(T.video && T.video.liste)
-    };
     return (
       '<section class="bande clair services" id="services"><div class="wrap">' + tete(null, S.titre) +
       '<div class="services-liste">' +
       (S.liste || []).map(function (s) {
-        var p = prixMin[s.onglet];
-        var unite = s.onglet === "social" ? t(T.social.unite) : "";
         return (
           '<a class="service" href="#tarifs" data-onglet="' + esc(s.onglet) + '">' +
           '<h3 class="large service-nom">' + esc(t(s.nom)) + "</h3>" +
           '<div class="service-desc"><p>' + riche(s.texte) + '</p><ul class="tags">' +
             (s.tags || []).map(function (g) { return "<li>" + esc(t(g)) + "</li>"; }).join("") + "</ul></div>" +
-          '<div class="service-prix">' + (p ? "<small>" + esc(t(X.desde)) + "</small><strong>" + esc(affPrix(p.prix)) + esc(unite) + "</strong>" : "") + ico("fleche") + "</div>" +
+          '<div class="service-prix"><small>' + esc(t(X.voirTarifs)) + "</small>" + ico("fleche") + "</div>" +
           "</a>"
         );
       }).join("") +
@@ -245,7 +238,14 @@
         "</div></article>"
       );
     }).join("");
-    var exemples = (R.exemples || []).length
+    var avis = (R.temoignages || []).length
+      ? '<div class="avis"><h3 class="avis-titre">' + riche(R.temoignagesTitre) + '</h3><div class="avis-grille">' +
+        R.temoignages.map(function (a) {
+          return '<figure class="temoignage"><blockquote><p>' + riche(a.texte) + "</p></blockquote>" +
+            "<figcaption><strong>" + esc(t(a.nom)) + "</strong>" + (a.entreprise ? " · " + esc(t(a.entreprise)) : "") + "</figcaption></figure>";
+        }).join("") + "</div></div>"
+      : "";
+    var exemples = R.afficherExemples && (R.exemples || []).length
       ? '<div class="exemples-tete" id="exemples"><h3>' + riche(R.exemplesTitre) + '</h3><p class="doux">' + riche(R.exemplesTexte) + "</p></div>" +
         '<div class="exemples-grille">' + R.exemples.map(function (x) {
           var vrai = String(x.lien || "").indexOf("http") === 0;
@@ -256,7 +256,7 @@
         }).join("") + "</div>"
       : "";
     return '<section class="bande sombre realisations" id="realisations"><div class="wrap">' + tete(null, R.titre) +
-      '<div class="projets">' + projets + "</div>" + exemples + "</div></section>";
+      '<div class="projets">' + projets + "</div>" + avis + exemples + "</div></section>";
   }
 
   function methode() {
@@ -273,7 +273,10 @@
     var S = C.studio;
     return (
       '<section class="bande beton studio" id="studio"><div class="wrap">' +
-      '<div class="studio-logo"><img src="images/logo-hego-rond.svg" alt="' + esc(C.marque) + '"></div>' +
+      (S.photo
+        ? '<figure class="studio-photo"><img src="' + esc(S.photo) + '" alt="' + esc(t(S.titre)) + '" width="960" height="1200" loading="lazy" decoding="async">' +
+          (t(S.legende) ? "<figcaption>" + esc(t(S.titre)) + " · " + esc(t(S.legende)) + "</figcaption>" : "") + "</figure>"
+        : '<div class="studio-logo"><img src="images/logo-hego-rond.svg" alt="' + esc(C.marque) + '"></div>') +
       '<div class="studio-texte"><p class="surtitre">' + esc(t(S.surtitre)) + "</p><h2>" + riche(S.titre) + "</h2>" +
       (S.paragraphes || []).map(function (p) { return "<p>" + riche(p) + "</p>"; }).join("") +
       (t(S.langues) ? '<p class="langues-parlees">' + esc(t(S.langues)) + "</p>" : "") +

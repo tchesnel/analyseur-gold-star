@@ -55,8 +55,8 @@ Pour vérifier avant de publier, double-clique sur `index.html` : le site s'ouvr
 Dans `contenu.js`, tout en haut :
 
 - [x] `email` : déjà réglé sur `hello.hegostudio@gmail.com` (c'est aussi l'adresse qui reçoit les demandes).
-- [ ] `instagram` et `instagramPseudo` : le lien de ton compte et ton pseudo, pour que les clients puissent t'écrire en message privé.
-- [ ] Le formulaire : à activer une fois le site en ligne (voir l'étape 4 ci-dessous).
+- [x] `instagram` : @hego_studio, affiché dans le contact et en bas de page.
+- [x] Le formulaire : activé.
 - [ ] `nif` : ton numéro fiscal, affiché en bas de page (identification obligatoire d'un professionnel).
 - [ ] `privacidade.html` : relis la politique de confidentialité (déjà rédigée en PT, FR et EN).
 
@@ -147,3 +147,16 @@ Les montants « dès… » en haut de page se mettent à jour tout seuls quand t
 - **Les 3 sites d'exemple** (boulangerie, barbier, restaurant) montrent aux commerçants ce qu'ils peuvent obtenir.
 - **Aucun cookie et polices hébergées sur le site** : pas besoin de bandeau cookies (RGPD).
 - **Bandeau d'offre** : prêt à l'emploi dans `contenu.js` → section 2 (`afficher: true` pour l'activer).
+
+---
+
+## 9. Avis clients, photo et sites d'exemple
+
+- **Avis clients** : `contenu.js` → section 7 → `temoignages`. Pour en ajouter un, copie un bloc `{ nom: "Marie", ... }` et colle-le après le dernier (avec une virgule entre les deux).
+- **Votre photo** : `images/thomas-lydia.jpg`. Pour la changer, remplace le fichier en gardant le même nom (format vertical 4:5 de préférence).
+- **Sites d'exemple fictifs** (boulangerie, barbier, restaurant) : ils ne sont plus affichés sur la page d'accueil, pour garder le site premium avec vos vrais projets. Ils restent en ligne pour la prospection, à envoyer directement aux commerçants :
+  - `https://hego-studio-site.vercel.app/exemples/padaria.html`
+  - `https://hego-studio-site.vercel.app/exemples/barbearia.html`
+  - `https://hego-studio-site.vercel.app/exemples/tasca.html`
+
+  Pour les réafficher sur la page d'accueil : `afficherExemples: true` dans `contenu.js`.
