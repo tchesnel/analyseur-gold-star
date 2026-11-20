@@ -16,7 +16,11 @@ Le site est en **portugais** par défaut, avec **français** et **anglais** (bou
 
 **Pour une mise à jour :** ouvre le projet → **Create deployment** → glisse le nouveau zip.
 
-### Pourquoi pas Vercel gratuit ?
+### Ton site est sur Vercel (hego-studio-site.vercel.app)
+
+**Pour le mettre à jour :** va sur vercel.com → ouvre le projet **hego-studio-site** → onglet **Deployments**, puis glisse le nouveau zip dessus. Ne repasse pas par vercel.com/drop : ça créerait un deuxième projet.
+
+### À savoir sur Vercel gratuit
 
 L'offre gratuite de Vercel (Hobby) est réservée à un usage **personnel et non commercial**. Pour un site d'entreprise, il faut leur offre payante (Pro). Cloudflare Pages n'a pas cette restriction sur son offre gratuite, d'après les comparatifs consultés. Vérifie leurs conditions d'utilisation avant de t'engager.
 
@@ -71,7 +75,7 @@ Le formulaire utilise **FormSubmit** (formsubmit.co), un service gratuit et sans
 
 **À faire une seule fois, juste après la mise en ligne :**
 
-1. Ouvre ton site en ligne et envoie-toi une demande de test avec le formulaire. La toute première fois, le site affichera peut-être un message d'erreur : c'est normal.
+1. Ouvre ton site en ligne et envoie-toi une demande de test avec le formulaire. La toute première fois, le site affiche « Le formulaire n'est pas encore activé » ou « L'envoi automatique n'a pas fonctionné » : c'est normal, FormSubmit attend ta confirmation.
 2. Dans Gmail, tu reçois un e-mail de FormSubmit intitulé « Activate Form » (regarde aussi dans **Spam** ou **Promotions**).
 3. Clique sur **Activate Form**.
 4. Renvoie un test : la demande arrive dans ta boîte, avec un tableau propre (nom, e-mail, entreprise, service, message).

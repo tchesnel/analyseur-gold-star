@@ -304,6 +304,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; font-str
 .champ textarea { min-height: 90px; resize: vertical; }
 .erreur { color: #ff9b90; font-size: .92rem; }
 .formulaire .btn { width: 100%; }
+.erreur .lien-secours { display: inline-block; margin-top: 10px; color: var(--texte); font: 400 .78rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; }
 .formulaire .btn:disabled { opacity: .6; cursor: wait; }
 .mentions { font-size: .82rem; color: var(--doux); }
 .piege { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }

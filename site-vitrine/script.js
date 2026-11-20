@@ -412,7 +412,10 @@
     var err = document.getElementById("f-erreur");
     var bouton = document.getElementById("f-envoyer");
     var merci = document.getElementById("f-merci");
-    function erreur(texte) { err.textContent = texte; err.hidden = false; }
+    function erreur(texte, lienSecours) {
+      err.innerHTML = esc(texte) + (lienSecours ? ' <a class="lien-secours" href="' + esc(lienSecours) + '">' + esc(t(X.secours)) + "</a>" : "");
+      err.hidden = false;
+    }
     form.addEventListener("input", function () { err.hidden = true; });
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
@@ -455,10 +458,14 @@
             throw new Error(res.j && res.j.message);
           }
         })
-        .catch(function () {
+        .catch(function (e) {
+          var info = String((e && e.message) || "");
+          if (window.console) console.warn("Formulaire :", info || e);
           bouton.disabled = false;
           bouton.innerHTML = esc(t(X.envoyer)) + ico("fleche");
-          erreur(remplir(X.echec, { email: C.email }));
+          var corps = ["Nom : " + v.nom, "E-mail : " + v.email, "Entreprise : " + (v.commerce || "—"), "Service : " + v.service, "", v.message].join("\n");
+          var secours = "mailto:" + C.email + "?subject=" + encodeURIComponent(donnees._subject) + "&body=" + encodeURIComponent(corps);
+          erreur(remplir(/activ/i.test(info) ? X.activation : X.echec, { email: C.email }), secours);
         });
     });
   }

@@ -617,10 +617,16 @@ window.CONTENU = {
     },
     champManquant:   { pt: "Indique o seu nome e um email válido.", fr: "Indiquez votre nom et une adresse e-mail valide.", en: "Please enter your name and a valid email address." },
     echec: {
-      pt: "O envio não funcionou. Escreva-nos diretamente para {email}.",
-      fr: "L'envoi n'a pas fonctionné. Écrivez-nous directement à {email}.",
-      en: "Sending didn't work. Please email us directly at {email}."
+      pt: "O envio automático não funcionou. Pode enviar-nos o seu pedido por email:",
+      fr: "L'envoi automatique n'a pas fonctionné. Vous pouvez nous envoyer votre demande par e-mail :",
+      en: "Automatic sending didn't work. You can send us your request by email:"
     },
+    activation: {
+      pt: "O formulário ainda não está ativado: abra o email “Activate Form” recebido em {email} e clique no botão. Entretanto, pode enviar o pedido por email:",
+      fr: "Le formulaire n'est pas encore activé : ouvrez l'e-mail « Activate Form » reçu sur {email} et cliquez sur le bouton. En attendant, vous pouvez envoyer la demande par e-mail :",
+      en: "The form isn't activated yet: open the “Activate Form” email sent to {email} and click the button. Meanwhile, you can send the request by email:"
+    },
+    secours:         { pt: "Enviar por email", fr: "Envoyer par e-mail", en: "Send by email" },
     livro:           { pt: "Livro de Reclamações", fr: "Livre de réclamations", en: "Complaints Book" },
     messageFormule: {
       pt: "Olá! Tenho interesse no {formule}.",
