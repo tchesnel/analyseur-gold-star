@@ -350,30 +350,70 @@ window.CONTENU = {
 
   /* -------------------------------------------------------------------
      7. RÉALISATIONS
-     Remplace les images par tes fichiers HD (dossier images/realisations/).
+     Pour ajouter un projet : copie un bloc { nom: ... }, colle-le après
+     le dernier (avec une virgule entre les deux) et change les textes.
+     Image : capture au format paysage, dans images/realisations/
      ------------------------------------------------------------------- */
   realisations: {
-    surtitre: { pt: "Trabalhos", fr: "Réalisations", en: "Work" },
     titre: { pt: "Trabalhos recentes", fr: "Réalisations récentes", en: "Recent work" },
     projets: [
       {
-        client: "Vila Haritza",
-        titre: { pt: "Lançamento da coleção Verão 2024", fr: "Lancement de la collection Été 2024", en: "Summer 2024 collection launch" },
-        type: { pt: "Reels, fotografia e bastidores", fr: "Reels, photo et coulisses", en: "Reels, photography and behind the scenes" },
-        lien: "",   // ex. lien vers le reel Instagram
-        images: [
-          "images/realisations/vila-haritza-1.jpg",
-          "images/realisations/vila-haritza-3.jpg",
-          "images/realisations/vila-haritza-2.jpg",
-          "images/realisations/vila-haritza-4.jpg"
-        ]
+        nom: "Cysta",
+        categorie: { pt: "Aplicação web · SOP", fr: "Application web · SOPK", en: "Web app · PCOS" },
+        phrase: {
+          pt: "O acompanhamento do ciclo, todos os dias.",
+          fr: "Le suivi du cycle au quotidien.",
+          en: "Everyday cycle tracking."
+        },
+        texte: {
+          pt: "Aplicação para mulheres com síndrome do ovário poliquístico: registo diário em 60 segundos, previsões de ciclo e relatório para o ginecologista.",
+          fr: "Application pour les femmes atteintes du SOPK : check-in quotidien en 60 secondes, prédictions du cycle et rapport pour le gynécologue.",
+          en: "An app for women with PCOS: a 60-second daily check-in, cycle predictions and a report for their gynaecologist."
+        },
+        lien: "https://cysta-app.com",
+        lienTexte: "cysta-app.com",
+        image: "images/realisations/cysta.jpg"
+      },
+      {
+        nom: "Loggio",
+        categorie: { pt: "Plataforma imobiliária", fr: "Plateforme immobilière", en: "Real estate platform" },
+        phrase: {
+          pt: "Procurar ou arrendar um imóvel.",
+          fr: "Chercher ou louer son bien.",
+          en: "Find a home or rent one out."
+        },
+        texte: {
+          pt: "Arrendamento entre particulares com identidades verificadas, candidaturas autenticadas e contrato assinado online.",
+          fr: "Location entre particuliers avec identités vérifiées, dossiers authentifiés et bail signé en ligne.",
+          en: "Peer-to-peer rentals with verified identities, authenticated applications and leases signed online."
+        },
+        lien: "https://loggio.fr",
+        lienTexte: "loggio.fr",
+        image: "images/realisations/loggio.jpg"
+      },
+      {
+        nom: "Vila Haritza",
+        categorie: { pt: "Marca de roupa", fr: "Marque de vêtements", en: "Clothing brand" },
+        phrase: {
+          pt: "Criação do site e gestão das redes sociais.",
+          fr: "Création du site web et gestion des réseaux sociaux.",
+          en: "Website and social media management."
+        },
+        texte: {
+          pt: "Lançamento da coleção Verão 2024: reels, fotografia e bastidores das sessões na praia.",
+          fr: "Lancement de la collection Été 2024 : reels, photos et coulisses des tournages à la plage.",
+          en: "Summer 2024 collection launch: reels, photography and behind the scenes of the beach shoots."
+        },
+        lien: "https://instagram.com/vila.haritza",
+        lienTexte: "@vila.haritza",
+        image: "images/realisations/vila-haritza.jpg"
       }
     ],
-    exemplesTitre: { pt: "Exemplos de sites", fr: "Exemples de sites", en: "Website examples" },
+    exemplesTitre: { pt: "Exemplos para comércio local", fr: "Exemples pour le commerce de proximité", en: "Examples for local businesses" },
     exemplesTexte: {
-      pt: "Três exemplos para comércio local. Os negócios são fictícios.",
-      fr: "Trois exemples pour le commerce de proximité. Les commerces sont fictifs.",
-      en: "Three examples for local businesses. The businesses are made up."
+      pt: "Três sites de demonstração. Os negócios são fictícios.",
+      fr: "Trois sites de démonstration. Les commerces sont fictifs.",
+      en: "Three demo websites. The businesses are made up."
     },
     exemples: [
       { nom: "Padaria do Bairro", type: { pt: "Padaria", fr: "Boulangerie", en: "Bakery" }, lien: "exemples/padaria.html", image: "images/exemplo-padaria.jpg" },

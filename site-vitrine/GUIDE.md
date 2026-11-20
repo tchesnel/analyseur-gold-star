@@ -55,7 +55,7 @@ Dans `contenu.js`, tout en haut :
 - [ ] `email`
 - [ ] `instagram` et `instagramPseudo`
 - [ ] Section **9. QUI SOMMES-NOUS** : vérifie que les phrases te correspondent (langues parlées, façon de travailler).
-- [ ] Section **7. RÉALISATIONS** : remplace les 4 images Vila Haritza par tes fichiers en haute définition (voir étape 5).
+- [ ] Section **7. RÉALISATIONS** : vérifie les textes de Cysta, Loggio et Vila Haritza.
 - [ ] Section **6. TARIFS** → `note` : adapte la mention de TVA à ton statut (à voir avec ton comptable).
 
 Dans `index.html`, dans le bloc encadré tout en haut :
@@ -105,8 +105,8 @@ Les montants « dès… » en haut de page se mettent à jour tout seuls quand t
 
 ## 5. Remplacer les photos
 
-- **Réalisations :** mets tes photos HD (format vertical 4:5, en JPG, moins de 400 Ko chacune) dans `images/realisations/`, puis indique leurs noms dans `contenu.js` → section 7 → `images: [...]`.
-- **Pour ajouter un projet :** copie le bloc `{ client: "Vila Haritza", ... }`, colle-le juste après (avec une virgule entre les deux), puis change les textes et les images.
+- **Réalisations :** chaque projet a une capture au format paysage (environ 1000 × 700 px, en JPG) dans `images/realisations/`. Le nom du fichier se règle dans `contenu.js` → section 7 → `image`.
+- **Pour ajouter un projet :** copie un bloc `{ nom: "Cysta", ... }`, colle-le après le dernier (avec une virgule entre les deux), puis change les textes, le lien et l'image. Les projets s'affichent en alternance gauche / droite.
 - **Logo :** les fichiers vectoriels sont dans `images/` (`logo-hego-lettres.svg`, `logo-hego-rond.svg`, `logo-hego-rond-blanc.svg`).
 
 ---

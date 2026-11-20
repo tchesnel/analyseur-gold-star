@@ -104,9 +104,11 @@
     return (
       (C.offre && C.offre.afficher ? '<div class="offre">' + esc(t(C.offre.texte)) + "</div>" : "") +
       '<header class="entete" id="entete"><div class="wrap">' +
-      '<a class="logo" href="#top"><img class="logo-lettres" src="images/logo-hego-lettres-blanc.svg" alt="' + esc(C.marque) + '" width="92" height="31"></a>' +
-      '<nav class="nav" id="nav">' + liens + "</nav>" +
-      '<div class="entete-actions">' + choix +
+      '<a class="logo" href="#top"><img class="logo-lettres" src="images/logo-hego-lettres.svg" alt="' + esc(C.marque) + '" width="92" height="31"></a>' +
+      '<nav class="nav" id="nav">' + liens +
+        '<div class="nav-extra">' + choix + '<a class="btn btn--plein" href="#contact">' + esc(t(C.accueil.boutonPrincipal)) + ico("fleche") + "</a></div>" +
+      "</nav>" +
+      '<div class="entete-actions"><div class="langues-entete">' + choix + "</div>" +
       '<a class="btn btn--plein btn--petit" href="#contact">' + esc(t(C.accueil.boutonPrincipal)) + "</a>" +
       '<button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="' + esc(t(X.menu)) + '">' + ico("menu") + "</button>" +
       "</div></div></header>"
@@ -124,7 +126,7 @@
       vid && { onglet: "video", prix: affPrix(vid.prix), unite: "", legende: X.chiffreVideo }
     ].filter(Boolean);
     return (
-      '<section class="hero" id="top"><div class="wrap">' +
+      '<section class="hero clair" id="top"><div class="wrap">' +
       '<div class="hero-haut"><span>' + esc(C.marque) + " · " + esc(t(C.activite)) + "</span><span>" + esc(C.pays) + "</span></div>" +
       decale(A.lignes, "hero-mots") +
       '<div class="hero-bas"><div>' +
@@ -151,7 +153,7 @@
       video: moinsCher(T.video && T.video.liste)
     };
     return (
-      '<section class="bande" id="services"><div class="wrap">' + tete(null, S.titre) +
+      '<section class="bande clair services" id="services"><div class="wrap">' + tete(null, S.titre) +
       '<div class="services-liste">' +
       (S.liste || []).map(function (s) {
         var p = prixMin[s.onglet];
@@ -175,7 +177,7 @@
       ? '<p class="carte-mensuel">+ ' + esc(affPrix(f.mensuel)) + esc(t(W.unite)) + " <span>" + esc(t(W.libelleMensuel)) + "</span></p>"
       : "";
     return (
-      '<article class="carte' + (f.populaire ? " carte--populaire" : "") + '">' +
+      '<article class="carte' + (f.populaire ? " carte--populaire sombre" : "") + '">' +
       '<div class="carte-tete"><h3 class="carte-nom">' + esc(nom) + "</h3>" + (f.populaire ? '<span class="badge">' + esc(t(X.populaire)) + "</span>" : "") + "</div>" +
       '<div><div class="prix">' + (t(f.prefixe) ? "<small>" + esc(t(f.prefixe)) + "</small>" : "") + "<strong>" + esc(affPrix(f.prix)) + "</strong>" +
         (unite ? "<small>" + esc(unite) + "</small>" : "") + "</div>" + mensuel + "</div>" +
@@ -206,7 +208,7 @@
       '<div class="panneau-action"><a class="btn btn--plein"' + ext(lienWa(t(X.messageGeneral))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div>";
 
     var pack = P && P.afficher
-      ? '<div class="pack"><div><p class="surtitre">' + esc(t(P.etiquette)) + "</p><h3>" + riche(P.titre) + '</h3><p class="pack-texte">' + riche(P.texte) + "</p></div>" +
+      ? '<div class="pack sombre"><div><p class="surtitre">' + esc(t(P.etiquette)) + "</p><h3>" + riche(P.titre) + '</h3><p class="pack-texte">' + riche(P.texte) + "</p></div>" +
         '<div class="pack-prix"><div class="prix"><strong>' + esc(affPrix(P.prix)) + "</strong>" + (P.ancienPrix ? "<del>" + esc(affPrix(P.ancienPrix)) + "</del>" : "") + "</div>" +
         (P.ancienPrix ? '<span class="pack-economie">' + esc(t(X.economie)) + " " + euros(nombre(P.ancienPrix) - nombre(P.prix)) + "</span>" : "") +
         '<a class="btn btn--plein"' + ext(lienWa(remplir(X.messageFormule, { formule: t(P.etiquette) }))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div></div>"
@@ -214,7 +216,7 @@
 
     var panneaux = [["web", panWeb], ["social", panSocial], ["video", panVideo]];
     return (
-      '<section class="bande clair" id="tarifs"><div class="wrap">' + tete(null, T.titre, T.texte) +
+      '<section class="bande beton" id="tarifs"><div class="wrap">' + tete(null, T.titre, T.texte) +
       '<div class="onglets" role="tablist">' + panneaux.map(function (p) {
         return '<button type="button" role="tab" id="tab-' + p[0] + '" aria-controls="pan-' + p[0] + '" aria-selected="' + (p[0] === ongletActif) + '" data-onglet="' + p[0] + '">' + esc(t(O[p[0]])) + "</button>";
       }).join("") + "</div>" +
@@ -230,13 +232,16 @@
   function realisations() {
     var R = C.realisations;
     var projets = (R.projets || []).map(function (p) {
+      var lien = p.lien ? "<a" + ext(p.lien) + ">" + esc(t(p.lienTexte) || p.lien) + ico("diagonale") + "</a>" : "";
       return (
-        '<article class="projet"><div class="projet-tete"><h3 class="large projet-client">' + esc(t(p.client)) + "</h3>" +
-        '<div class="projet-infos"><p>' + riche(p.titre) + '</p><p class="doux">' + riche(p.type) + "</p>" +
-        (p.lien ? '<p><a class="exemple-lien"' + ext(p.lien) + ">Instagram" + ico("diagonale") + "</a></p>" : "") + "</div></div>" +
-        '<div class="galerie">' + (p.images || []).map(function (src) {
-          return '<figure><img src="' + esc(src) + '" alt="' + esc(t(p.client)) + '"></figure>';
-        }).join("") + "</div></article>"
+        '<article class="projet">' +
+        '<div class="projet-visuel">' + (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(t(p.nom)) + '" width="965" height="699">' : "") + "</div>" +
+        '<div class="projet-texte"><p class="projet-cat">' + esc(t(p.categorie)) + "</p>" +
+        '<h3 class="projet-nom">' + esc(t(p.nom)) + "</h3>" +
+        '<p class="projet-phrase">' + riche(p.phrase) + "</p>" +
+        '<p class="projet-desc">' + riche(p.texte) + "</p>" +
+        (lien ? '<p class="projet-lien">' + lien + "</p>" : "") +
+        "</div></article>"
       );
     }).join("");
     var exemples = (R.exemples || []).length
@@ -249,13 +254,14 @@
             '<span class="exemple-lien">' + esc(t(X.voirSite)) + ico("fleche") + "</span></a>";
         }).join("") + "</div>"
       : "";
-    return '<section class="bande" id="realisations"><div class="wrap">' + tete(null, R.titre) + projets + exemples + "</div></section>";
+    return '<section class="bande sombre realisations" id="realisations"><div class="wrap">' + tete(null, R.titre) +
+      '<div class="projets">' + projets + "</div>" + exemples + "</div></section>";
   }
 
   function methode() {
     var M = C.processus;
     return (
-      '<section class="bande methode" id="methode"><div class="wrap">' + tete(null, M.titre) +
+      '<section class="bande clair methode" id="methode"><div class="wrap">' + tete(null, M.titre) +
       '<ol class="etapes">' + (M.etapes || []).map(function (e, i) {
         return '<li class="etape"><span class="etape-num">' + (i + 1) + ".</span><h3>" + riche(e.titre) + "</h3><p>" + riche(e.texte) + "</p></li>";
       }).join("") + "</ol></div></section>"
@@ -265,7 +271,7 @@
   function studio() {
     var S = C.studio;
     return (
-      '<section class="bande clair studio" id="studio"><div class="wrap">' +
+      '<section class="bande beton studio" id="studio"><div class="wrap">' +
       '<div class="studio-logo"><img src="images/logo-hego-rond.svg" alt="' + esc(C.marque) + '"></div>' +
       '<div class="studio-texte"><p class="surtitre">' + esc(t(S.surtitre)) + "</p><h2>" + riche(S.titre) + "</h2>" +
       (S.paragraphes || []).map(function (p) { return "<p>" + riche(p) + "</p>"; }).join("") +
@@ -296,7 +302,7 @@
     var options = [t(O.web), t(O.social), t(O.video), T.pack && T.pack.afficher ? t(T.pack.etiquette) : ""].filter(Boolean)
       .map(function (o) { return "<option>" + esc(o) + "</option>"; }).join("");
     return (
-      '<section class="bande contact" id="contact"><div class="wrap">' +
+      '<section class="bande sombre contact" id="contact"><div class="wrap">' +
       '<div class="contact-grille"><div>' + tete(null, K.titre, K.texte) + '<ul class="canaux">' + canaux + "</ul></div>" +
       '<form class="formulaire" id="formulaire" novalidate>' +
         '<div class="champ"><label for="f-nom">' + esc(t(X.champNom)) + '</label><input id="f-nom" name="nom" autocomplete="name"></div>' +
@@ -312,7 +318,7 @@
 
   function pied() {
     return (
-      '<footer class="pied"><div class="wrap">' +
+      '<footer class="pied sombre"><div class="wrap">' +
       '<div class="pied-marque"><img src="images/logo-hego-rond-blanc.svg" alt=""><div><strong>' + esc(C.marque) + "</strong>" + esc(t(C.activite)) + "</div></div>" +
       '<div class="pied-liens">' +
       (C.instagram ? "<a" + ext(C.instagram) + ">Instagram</a>" : "") +
@@ -349,6 +355,7 @@
       b.addEventListener("click", function () {
         lang = b.getAttribute("data-lang");
         try { localStorage.setItem("langue", lang); } catch (e) {}
+        document.documentElement.classList.remove("menu-ouvert");
         var y = window.scrollY;
         afficher();
         window.scrollTo(0, y);
@@ -358,12 +365,15 @@
     // Menu mobile
     var ent = document.getElementById("entete");
     var btn = document.getElementById("menuBtn");
-    function fermer() { ent.classList.remove("ouvert"); btn.setAttribute("aria-expanded", "false"); }
-    btn.addEventListener("click", function () {
-      var ouvert = ent.classList.toggle("ouvert");
+    function basculer(ouvert) {
+      ent.classList.toggle("ouvert", ouvert);
+      document.documentElement.classList.toggle("menu-ouvert", ouvert);
       btn.setAttribute("aria-expanded", String(ouvert));
-    });
-    Array.prototype.forEach.call(document.querySelectorAll("#nav a"), function (a) { a.addEventListener("click", fermer); });
+    }
+    btn.addEventListener("click", function () { basculer(!ent.classList.contains("ouvert")); });
+    Array.prototype.forEach.call(document.querySelectorAll("#nav a"), function (a) { a.addEventListener("click", function () { basculer(false); }); });
+    document.onkeydown = function (ev) { if (ev.key === "Escape") basculer(false); };
+    window.onresize = function () { if (window.innerWidth > 1100) basculer(false); };
 
     // Onglets des tarifs (+ liens qui ouvrent le bon onglet)
     Array.prototype.forEach.call(document.querySelectorAll("[data-onglet]"), function (el) {
