@@ -61,7 +61,7 @@ Dans `contenu.js`, tout en haut :
 - [ ] `privacidade.html` : relis la politique de confidentialité (déjà rédigée en PT, FR et EN).
 
 Aucun numéro de téléphone n'apparaît sur le site.
-- [ ] Section **9. QUI SOMMES-NOUS** : vérifie que les phrases te correspondent (langues parlées, façon de travailler).
+- [ ] Section **9. QUI SOMMES-NOUS** : vérifie que les phrases te correspondent.
 - [ ] Section **7. RÉALISATIONS** : vérifie les textes de Cysta, Loggio et Vila Haritza.
 - [ ] Section **6. TARIFS** → `note` : adapte la mention de TVA à ton statut (à voir avec ton comptable).
 

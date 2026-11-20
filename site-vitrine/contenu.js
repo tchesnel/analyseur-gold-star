@@ -525,12 +525,7 @@ window.CONTENU = {
         fr: "Nous travaillons avec peu de clients à la fois, pour répondre vite et suivre chaque projet de près. Vous parlez toujours directement avec nous, du premier contact à la livraison.",
         en: "We take on a few clients at a time, so we can reply quickly and follow each project closely. You always deal with us directly, from first contact to delivery."
       }
-    ],
-    langues: {
-      pt: "Falamos português, francês e inglês.",
-      fr: "Nous parlons portugais, français et anglais.",
-      en: "We speak Portuguese, French and English."
-    }
+    ]
   },
 
   /* -------------------------------------------------------------------
