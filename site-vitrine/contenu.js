@@ -438,7 +438,7 @@ window.CONTENU = {
       },
       {
         nom: "Antoine",
-        entreprise: "Vila Haritza",
+        entreprise: "Agir pour Tarnos",
         texte: {
           pt: "Uma campanha incrível e um site fantástico. Um grande obrigado à HEGO STUDIO pelo profissionalismo!",
           fr: "Merci pour cette superbe campagne et ce merveilleux site web. Merci à HEGO STUDIO pour leur professionnalisme !",
