@@ -37,13 +37,13 @@
   function remplir(modele, valeurs) {
     return t(modele).replace(/\{(\w+)\}/g, function (_, k) { return valeurs[k] != null ? valeurs[k] : ""; }).replace(/\s+/g, " ").trim();
   }
-  function euros(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f") + "\u00a0€"; }
+  function euros(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €"; }
   function nombre(prix) {
     if (typeof prix === "number") return prix;
     var n = parseInt(String(t(prix)).replace(/[^\d]/g, ""), 10);
     return isNaN(n) ? Infinity : n;
   }
-  function affPrix(prix) { return typeof prix === "number" ? euros(prix) : t(prix); }
+  function affPrix(prix) { return typeof prix === "number" ? euros(prix) : t(prix).replace(/ €$/, " €"); }
   function lienWa(message) {
     return "https://wa.me/" + String(C.whatsapp || "").replace(/\D/g, "") + (message ? "?text=" + encodeURIComponent(message) : "");
   }
@@ -64,6 +64,10 @@
     (liste || []).forEach(function (x) { if (!min || nombre(x.prix) < nombre(min.prix)) min = x; });
     return min;
   }
+  function tete(surtitre, titre, texte) {
+    return '<div class="tete">' + (t(surtitre) ? '<p class="surtitre">' + esc(t(surtitre)) + "</p>" : "") +
+      "<h2>" + riche(titre) + "</h2>" + (t(texte) ? '<p class="doux">' + riche(texte) + "</p>" : "") + "</div>";
+  }
 
   /* ---------- Icônes ---------- */
   var traces = {
@@ -76,16 +80,14 @@
     return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true">' + traces[nom] + "</svg>";
   }
 
-  /* Titre décalé comme le logo : mot + barre / barre + mot */
-  function decale(lignes, classe, balise) {
-    balise = balise || "div";
-    var texte = (lignes || []).map(t).join(" ");
-    return "<" + balise + ' class="large decale ' + classe + '" aria-label="' + esc(texte) + '">' +
+  /* Mots décalés comme le logo : mot + barre / barre + mot */
+  function decale(lignes, classe) {
+    return '<div class="large decale ' + classe + '" aria-hidden="true">' +
       (lignes || []).map(function (l, i) {
-        var mot = '<span class="mot" aria-hidden="true">' + esc(t(l)) + "</span>";
-        var barre = '<span class="barre" aria-hidden="true"></span>';
+        var mot = '<span class="mot">' + esc(t(l)) + "</span>";
+        var barre = '<span class="barre"></span>';
         return '<span class="ligne">' + (i % 2 ? barre + mot : mot + barre) + "</span>";
-      }).join("") + "</" + balise + ">";
+      }).join("") + "</div>";
   }
 
   /* ---------- Sections ---------- */
@@ -105,7 +107,7 @@
       '<a class="logo" href="#top"><img class="logo-lettres" src="images/logo-hego-lettres-blanc.svg" alt="' + esc(C.marque) + '" width="92" height="31"></a>' +
       '<nav class="nav" id="nav">' + liens + "</nav>" +
       '<div class="entete-actions">' + choix +
-      '<a class="btn btn--plein btn--petit"' + ext(lienWa(t(X.messageGeneral))) + ">" + esc(t(C.accueil.boutonSecondaire)) + "</a>" +
+      '<a class="btn btn--plein btn--petit" href="#contact">' + esc(t(C.accueil.boutonPrincipal)) + "</a>" +
       '<button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="' + esc(t(X.menu)) + '">' + ico("menu") + "</button>" +
       "</div></div></header>"
     );
@@ -123,14 +125,14 @@
     ].filter(Boolean);
     return (
       '<section class="hero" id="top"><div class="wrap">' +
-      '<div class="hero-haut"><span>' + esc(C.marque) + " — " + esc(t(C.activite)) + "</span><span>" + esc(C.pays) + "</span></div>" +
-      decale(A.lignes, "hero-titre", "h1") +
+      '<div class="hero-haut"><span>' + esc(C.marque) + " · " + esc(t(C.activite)) + "</span><span>" + esc(C.pays) + "</span></div>" +
+      decale(A.lignes, "hero-mots") +
       '<div class="hero-bas"><div>' +
-        '<p class="these">' + riche(A.phrase) + "</p>" +
+        '<h1 class="hero-titre">' + riche(A.titre) + "</h1>" +
         '<p class="hero-texte">' + riche(A.texte) + "</p>" +
         '<div class="hero-boutons">' +
-          '<a class="btn btn--plein" href="#tarifs">' + esc(t(A.boutonPrincipal)) + ico("fleche") + "</a>" +
-          '<a class="btn btn--ligne"' + ext(lienWa(t(X.messageGeneral))) + ">" + ico("message") + esc(t(A.boutonSecondaire)) + "</a>" +
+          '<a class="btn btn--plein" href="#contact">' + esc(t(A.boutonPrincipal)) + ico("fleche") + "</a>" +
+          '<a class="btn btn--ligne" href="#tarifs">' + esc(t(A.boutonSecondaire)) + "</a>" +
         "</div></div>" +
         '<div class="chiffres">' + chiffres.map(function (c) {
           return '<a class="chiffre" href="#tarifs" data-onglet="' + c.onglet + '"><small>' + esc(t(X.desde)) + "</small>" +
@@ -141,12 +143,6 @@
     );
   }
 
-  function defilement() {
-    var mots = (C.defilement || []).map(function (m) { return "<span>" + esc(t(m)) + "</span>"; }).join("");
-    if (!mots) return "";
-    return '<div class="defile" aria-hidden="true"><div class="defile-piste">' + mots + mots + mots + mots + "</div></div>";
-  }
-
   function services() {
     var S = C.services;
     var prixMin = {
@@ -155,8 +151,7 @@
       video: moinsCher(T.video && T.video.liste)
     };
     return (
-      '<section class="bande" id="services"><div class="wrap">' +
-      '<div class="tete"><p class="surtitre">' + esc(t(S.surtitre)) + "</p><h2>" + riche(S.titre) + "</h2></div>" +
+      '<section class="bande" id="services"><div class="wrap">' + tete(null, S.titre) +
       '<div class="services-liste">' +
       (S.liste || []).map(function (s) {
         var p = prixMin[s.onglet];
@@ -174,64 +169,52 @@
     );
   }
 
-  function carte(f, unite) {
+  function carte(f, unite, W) {
     var nom = t(f.nom);
+    var mensuel = f.mensuel && W
+      ? '<p class="carte-mensuel">+ ' + esc(affPrix(f.mensuel)) + esc(t(W.unite)) + " <span>" + esc(t(W.libelleMensuel)) + "</span></p>"
+      : "";
     return (
       '<article class="carte' + (f.populaire ? " carte--populaire" : "") + '">' +
       '<div class="carte-tete"><h3 class="carte-nom">' + esc(nom) + "</h3>" + (f.populaire ? '<span class="badge">' + esc(t(X.populaire)) + "</span>" : "") + "</div>" +
-      '<div class="prix">' + (t(f.prefixe) ? "<small>" + esc(t(f.prefixe)) + "</small>" : "") + "<strong>" + esc(affPrix(f.prix)) + "</strong>" + (unite ? "<small>" + esc(unite) + "</small>" : "") + "</div>" +
+      '<div><div class="prix">' + (t(f.prefixe) ? "<small>" + esc(t(f.prefixe)) + "</small>" : "") + "<strong>" + esc(affPrix(f.prix)) + "</strong>" +
+        (unite ? "<small>" + esc(unite) + "</small>" : "") + "</div>" + mensuel + "</div>" +
       "<p>" + riche(f.description) + "</p>" +
       '<ul class="inclus">' + (f.inclus || []).map(function (i) { return "<li>" + riche(i) + "</li>"; }).join("") + "</ul>" +
+      (t(f.note) ? '<p class="carte-note">' + riche(f.note) + "</p>" : "") +
       '<a class="btn btn--ligne"' + ext(lienWa(remplir(X.messageFormule, { formule: nom }))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a>" +
       "</article>"
     );
   }
 
-  function curseur(id, label, reglage) {
-    return (
-      '<div class="curseur"><div class="curseur-tete"><label for="' + id + '">' + esc(t(label)) + '</label><output id="' + id + '-val" for="' + id + '">' + reglage.depart + "</output></div>" +
-      '<input type="range" id="' + id + '" min="' + reglage.min + '" max="' + reglage.max + '" step="1" value="' + reglage.depart + '"></div>'
-    );
-  }
-
   function tarifs() {
     var O = T.onglets || {};
-    var W = T.web || {}, S = T.social || {}, V = T.video || {}, P = T.pack;
-    var K = S.calculateur;
+    var W = T.web || {}, S = T.social || {}, V = T.video || {}, P = T.pack, M = W.maintenance;
 
-    var panWeb = '<div class="cartes">' + (W.formules || []).map(function (f) { return carte(f, ""); }).join("") + "</div>" +
-      (W.mensualite && W.mensualite.afficher
-        ? '<div class="ligne-info"><div><h3>' + riche(W.mensualite.titre) + '</h3><p class="doux">' + riche(W.mensualite.texte) + "</p></div>" +
-          '<div class="prix"><strong>' + esc(t(W.mensualite.prix)) + "</strong><small>" + esc(t(W.mensualite.unite)) + "</small></div></div>"
-        : "");
+    var panWeb = '<div class="cartes">' + (W.formules || []).map(function (f) { return carte(f, "", W); }).join("") + "</div>" +
+      (M ? '<div class="maintenance"><h3>' + riche(M.titre) + '</h3><ul>' +
+        (M.elements || []).map(function (e) { return "<li>" + riche(e) + "</li>"; }).join("") + "</ul>" +
+        (t(M.texte) ? '<p class="doux">' + riche(M.texte) + "</p>" : "") + "</div>" : "");
 
-    var calc = K && K.afficher
-      ? '<div class="calc"><div><h3>' + esc(t(X.calcTitre)) + '</h3><p class="doux">' + esc(t(X.calcTexte)) + "</p>" +
-          '<div class="calc-champs">' + curseur("c-photos", X.calcPhotos, K.photos) + curseur("c-reels", X.calcReels, K.reels) + curseur("c-reseaux", X.calcReseaux, K.reseaux) + "</div></div>" +
-        '<div class="calc-resultat"><div><p class="surtitre">' + esc(t(X.calcTotal)) + '</p><div class="prix" style="margin-top:18px"><strong id="c-total">—</strong><small>' + esc(t(S.unite)) + "</small></div></div>" +
-          '<p class="calc-conseil" id="c-conseil" aria-live="polite"></p>' +
-          '<a class="btn btn--plein" id="c-bouton" href="#" target="_blank" rel="noopener">' + esc(t(X.calcBouton)) + ico("fleche") + "</a></div></div>"
-      : "";
     var panSocial = '<div class="cartes">' + (S.formules || []).map(function (f) { return carte(f, t(S.unite)); }).join("") + "</div>" +
-      (t(S.note) ? '<p class="note">' + riche(S.note) + "</p>" : "") + calc;
+      (t(S.note) ? '<p class="note">' + riche(S.note) + "</p>" : "");
 
     var panVideo = '<div class="liste-prix">' + (V.liste || []).map(function (v) {
       return "<div><h3>" + esc(t(v.nom)) + "</h3><p>" + riche(v.detail) + '</p><div class="prix">' +
         (t(v.prefixe) ? "<small>" + esc(t(v.prefixe)) + "</small>" : "") + "<strong>" + esc(affPrix(v.prix)) + "</strong></div></div>";
     }).join("") + "</div>" +
-      '<div class="panneau-action"><a class="btn btn--plein"' + ext(lienWa(t(X.messageGeneral))) + ">" + esc(t(C.accueil.boutonSecondaire)) + ico("fleche") + "</a></div>";
+      '<div class="panneau-action"><a class="btn btn--plein"' + ext(lienWa(t(X.messageGeneral))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div>";
 
     var pack = P && P.afficher
       ? '<div class="pack"><div><p class="surtitre">' + esc(t(P.etiquette)) + "</p><h3>" + riche(P.titre) + '</h3><p class="pack-texte">' + riche(P.texte) + "</p></div>" +
-        '<div class="pack-prix"><div class="prix"><strong>' + esc(t(P.prix)) + "</strong>" + (P.ancienPrix ? "<del>" + esc(t(P.ancienPrix)) + "</del>" : "") + "</div>" +
+        '<div class="pack-prix"><div class="prix"><strong>' + esc(affPrix(P.prix)) + "</strong>" + (P.ancienPrix ? "<del>" + esc(affPrix(P.ancienPrix)) + "</del>" : "") + "</div>" +
         (P.ancienPrix ? '<span class="pack-economie">' + esc(t(X.economie)) + " " + euros(nombre(P.ancienPrix) - nombre(P.prix)) + "</span>" : "") +
         '<a class="btn btn--plein"' + ext(lienWa(remplir(X.messageFormule, { formule: t(P.etiquette) }))) + ">" + esc(t(X.choisir)) + ico("fleche") + "</a></div></div>"
       : "";
 
     var panneaux = [["web", panWeb], ["social", panSocial], ["video", panVideo]];
     return (
-      '<section class="bande clair" id="tarifs"><div class="wrap">' +
-      '<div class="tete"><p class="surtitre">' + esc(t(T.surtitre)) + "</p><h2>" + riche(T.titre) + '</h2><p class="doux">' + riche(T.texte) + "</p></div>" +
+      '<section class="bande clair" id="tarifs"><div class="wrap">' + tete(null, T.titre, T.texte) +
       '<div class="onglets" role="tablist">' + panneaux.map(function (p) {
         return '<button type="button" role="tab" id="tab-' + p[0] + '" aria-controls="pan-' + p[0] + '" aria-selected="' + (p[0] === ongletActif) + '" data-onglet="' + p[0] + '">' + esc(t(O[p[0]])) + "</button>";
       }).join("") + "</div>" +
@@ -252,7 +235,7 @@
         '<div class="projet-infos"><p>' + riche(p.titre) + '</p><p class="doux">' + riche(p.type) + "</p>" +
         (p.lien ? '<p><a class="exemple-lien"' + ext(p.lien) + ">Instagram" + ico("diagonale") + "</a></p>" : "") + "</div></div>" +
         '<div class="galerie">' + (p.images || []).map(function (src) {
-          return '<figure><img src="' + esc(src) + '" alt="' + esc(t(p.client)) + '" loading="lazy"></figure>';
+          return '<figure><img src="' + esc(src) + '" alt="' + esc(t(p.client)) + '"></figure>';
         }).join("") + "</div></article>"
       );
     }).join("");
@@ -261,23 +244,18 @@
         '<div class="exemples-grille">' + R.exemples.map(function (x) {
           var vrai = String(x.lien || "").indexOf("http") === 0;
           return '<a class="exemple" href="' + esc(x.lien) + '"' + (vrai ? ' target="_blank" rel="noopener"' : "") + ">" +
-            '<div class="exemple-image">' + (x.image ? '<img src="' + esc(x.image) + '" alt="" loading="lazy">' : "") + "</div>" +
+            '<div class="exemple-image">' + (x.image ? '<img src="' + esc(x.image) + '" alt="">' : "") + "</div>" +
             '<div class="exemple-infos"><h4>' + esc(t(x.nom)) + "</h4><span>" + esc(t(x.type)) + (vrai ? "" : " · " + esc(t(X.fictif))) + "</span></div>" +
             '<span class="exemple-lien">' + esc(t(X.voirSite)) + ico("fleche") + "</span></a>";
         }).join("") + "</div>"
       : "";
-    return (
-      '<section class="bande" id="realisations"><div class="wrap">' +
-      '<div class="tete"><p class="surtitre">' + esc(t(R.surtitre)) + "</p><h2>" + riche(R.titre) + "</h2></div>" +
-      projets + exemples + "</div></section>"
-    );
+    return '<section class="bande" id="realisations"><div class="wrap">' + tete(null, R.titre) + projets + exemples + "</div></section>";
   }
 
   function methode() {
     var M = C.processus;
     return (
-      '<section class="bande methode" id="methode"><div class="wrap">' +
-      '<div class="tete"><p class="surtitre">' + esc(t(M.surtitre)) + "</p></div>" +
+      '<section class="bande methode" id="methode"><div class="wrap">' + tete(null, M.titre) +
       '<ol class="etapes">' + (M.etapes || []).map(function (e, i) {
         return '<li class="etape"><span class="etape-num">' + (i + 1) + ".</span><h3>" + riche(e.titre) + "</h3><p>" + riche(e.texte) + "</p></li>";
       }).join("") + "</ol></div></section>"
@@ -300,7 +278,7 @@
     var F = C.faq;
     return (
       '<section class="bande clair faq" id="faq"><div class="wrap">' +
-      '<div><p class="surtitre">' + esc(t(F.surtitre)) + "</p></div>" +
+      '<div><h2>' + riche(F.titre) + "</h2></div>" +
       '<div class="questions">' + (F.liste || []).map(function (q) {
         return "<details><summary>" + riche(q.question) + '<span class="plus" aria-hidden="true"></span></summary><p>' + riche(q.reponse) + "</p></details>";
       }).join("") + "</div></div></section>"
@@ -314,13 +292,12 @@
       '<li><a' + ext(lienWa(t(X.messageGeneral))) + "><small>" + esc(t(X.whatsapp)) + "</small><strong>" + esc(C.telephone) + "</strong>" + ico("diagonale") + "</a></li>" +
       (C.instagram ? '<li><a' + ext(C.instagram) + "><small>Instagram</small><strong>" + esc(C.instagramPseudo || "Instagram") + "</strong>" + ico("diagonale") + "</a></li>" : "") +
       '<li><a href="mailto:' + esc(C.email) + '"><small>' + esc(t(X.email)) + "</small><strong>" + esc(C.email) + "</strong>" + ico("diagonale") + "</a></li>" +
-      '<li><div class="canal"><small>' + esc(C.pays) + "</small><strong>" + esc(t(K.zone)) + "</strong></div></li>";
+      '<li><div class="canal"><small>' + esc(t(X.zone)) + "</small><strong>" + esc(t(K.zone)) + "</strong></div></li>";
     var options = [t(O.web), t(O.social), t(O.video), T.pack && T.pack.afficher ? t(T.pack.etiquette) : ""].filter(Boolean)
       .map(function (o) { return "<option>" + esc(o) + "</option>"; }).join("");
     return (
       '<section class="bande contact" id="contact"><div class="wrap">' +
-      decale(K.lignes, "contact-titre", "h2") +
-      '<div class="contact-grille"><div><p class="contact-intro">' + riche(K.texte) + '</p><ul class="canaux">' + canaux + "</ul></div>" +
+      '<div class="contact-grille"><div>' + tete(null, K.titre, K.texte) + '<ul class="canaux">' + canaux + "</ul></div>" +
       '<form class="formulaire" id="formulaire" novalidate>' +
         '<div class="champ"><label for="f-nom">' + esc(t(X.champNom)) + '</label><input id="f-nom" name="nom" autocomplete="name"></div>' +
         '<div class="champ"><label for="f-commerce">' + esc(t(X.champCommerce)) + '</label><input id="f-commerce" name="commerce" autocomplete="organization"></div>' +
@@ -351,7 +328,7 @@
   function afficher() {
     document.documentElement.lang = lang;
     document.title = C.marque + " · " + t(C.activite) + " · " + C.pays;
-    racine.innerHTML = entete() + "<main>" + accueil() + defilement() + services() + tarifs() + realisations() + methode() + studio() + faq() + contact() + "</main>" + pied();
+    racine.innerHTML = entete() + "<main>" + accueil() + services() + tarifs() + realisations() + methode() + studio() + faq() + contact() + "</main>" + pied();
     brancher();
   }
 
@@ -397,37 +374,6 @@
         choisirOnglet(id, true);
       });
     });
-
-    // Calculateur
-    var K = T.social && T.social.calculateur;
-    if (K && K.afficher && document.getElementById("c-photos")) {
-      var champs = { photos: "c-photos", reels: "c-reels", reseaux: "c-reseaux" };
-      var calculer = function () {
-        var v = {};
-        Object.keys(champs).forEach(function (k) {
-          var el = document.getElementById(champs[k]);
-          v[k] = parseInt(el.value, 10);
-          document.getElementById(champs[k] + "-val").textContent = v[k];
-          el.style.setProperty("--rempli", ((el.value - el.min) / (el.max - el.min) * 100) + "%");
-        });
-        var total = K.base + v.photos * K.prixPhoto + v.reels * K.prixReel + Math.max(0, v.reseaux - 1) * K.prixReseau;
-        document.getElementById("c-total").textContent = euros(total);
-        var meilleur = null;
-        (T.social.formules || []).forEach(function (f) {
-          if (f.photos >= v.photos && f.reels >= v.reels && f.reseaux >= v.reseaux && f.prix < total) {
-            if (!meilleur || f.prix < meilleur.prix) meilleur = f;
-          }
-        });
-        var conseil = document.getElementById("c-conseil");
-        conseil.innerHTML = meilleur
-          ? esc(remplir(X.calcConseil, { formule: "§", prix: euros(meilleur.prix), economie: euros(total - meilleur.prix) })).replace("§", "<em>" + esc(t(meilleur.nom)) + "</em>")
-          : "";
-        var detail = v.photos + " " + t(X.calcPhotos).toLowerCase() + ", " + v.reels + " reels, " + v.reseaux + " " + t(X.calcReseaux).toLowerCase() + " (" + euros(total) + t(T.social.unite) + ")";
-        document.getElementById("c-bouton").href = lienWa(remplir(X.messageCalcul, { detail: detail }));
-      };
-      Object.keys(champs).forEach(function (k) { document.getElementById(champs[k]).addEventListener("input", calculer); });
-      calculer();
-    }
 
     // Formulaire → WhatsApp (ou e-mail)
     var form = document.getElementById("formulaire");
