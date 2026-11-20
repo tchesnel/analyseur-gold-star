@@ -70,9 +70,9 @@ Dans `index.html`, dans le bloc encadré tout en haut :
 
 | Offre | Création | Maintenance |
 |---|---|---|
-| Site Essentiel (1 page) | 490 € | 25 €/mois |
-| Site Professionnel (jusqu'à 6 pages, mis en avant) | 990 € | 35 €/mois |
-| Boutique en ligne | dès 1 690 € | 49 €/mois |
+| Site Essentiel (1 page) | 390 € | 19 €/mois |
+| Site Professionnel (jusqu'à 6 pages, mis en avant) | 690 € | 25 €/mois |
+| Boutique en ligne | dès 990 € | 35 €/mois |
 
 La maintenance comprend l'hébergement, le nom de domaine, la sécurité, les sauvegardes, jusqu'à 1 heure de modifications par mois et l'assistance WhatsApp. Pour une boutique, l'abonnement à la plateforme de vente est payé directement par le client.
 
@@ -80,22 +80,22 @@ La maintenance comprend l'hébergement, le nom de domaine, la sécurité, les sa
 
 | Forfait | Prix | Contenu |
 |---|---|---|
-| Présence | 249 €/mois | 1 réseau, 8 publications dont 2 reels, 1 séance par mois |
-| Croissance (mis en avant) | 449 €/mois | Instagram + Facebook, 12 publications dont 4 reels, stories, rapport |
-| Premium | 790 €/mois | 3 réseaux, 20 publications dont 8 reels, 2 séances, publicités |
+| Présence | 179 €/mois | 1 réseau, 8 publications dont 2 reels, 1 séance par mois |
+| Croissance (mis en avant) | 299 €/mois | Instagram + Facebook, 12 publications dont 4 reels, stories, rapport |
+| Premium | 549 €/mois | 3 réseaux, 20 publications dont 8 reels, 2 séances, publicités |
 
 **Photo et vidéo à l'unité**
 
 | Prestation | Prix |
 |---|---|
-| Reel | 120 € |
-| 4 reels | 390 € |
-| Séance photo (1 h) | 190 € |
-| Photo produit (20 produits) | 250 € |
-| Film de marque | dès 590 € |
-| Couverture d'événement | dès 450 € |
+| Reel | 79 € |
+| 4 reels | 249 € |
+| Séance photo (1 h) | 129 € |
+| Photo produit (20 produits) | 169 € |
+| Film de marque | dès 390 € |
+| Couverture d'événement | dès 290 € |
 
-**Pack Démarrage** : Site Essentiel, 3 mois de forfait Présence, 1 séance photo et 3 mois de maintenance, pour **1 190 €** au lieu de 1 502 €.
+**Pack Démarrage** : Site Essentiel, 3 mois de forfait Présence, 1 séance photo et 3 mois de maintenance, pour **890 €** au lieu de 1 113 €.
 
 **Paiement** : création 50 % à la commande et 50 % à la livraison, ou en 3 fois sans frais. Abonnements en début de mois.
 

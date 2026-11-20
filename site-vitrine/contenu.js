@@ -148,8 +148,8 @@ window.CONTENU = {
       formules: [
         {
           nom: { pt: "Site Essencial", fr: "Site Essentiel", en: "Essential Site" },
-          prix: "490 €",
-          mensuel: "25 €",
+          prix: "390 €",
+          mensuel: "19 €",
           description: {
             pt: "Uma página completa para apresentar o seu negócio.",
             fr: "Une page complète pour présenter votre activité.",
@@ -166,8 +166,8 @@ window.CONTENU = {
         {
           nom: { pt: "Site Profissional", fr: "Site Professionnel", en: "Professional Site" },
           populaire: true,
-          prix: "990 €",
-          mensuel: "35 €",
+          prix: "690 €",
+          mensuel: "25 €",
           description: {
             pt: "Várias páginas para mostrar tudo o que faz.",
             fr: "Plusieurs pages pour montrer tout ce que vous faites.",
@@ -185,8 +185,8 @@ window.CONTENU = {
         {
           nom: { pt: "Loja Online", fr: "Boutique en ligne", en: "Online Shop" },
           prefixe: { pt: "desde", fr: "dès", en: "from" },
-          prix: "1 690 €",
-          mensuel: "49 €",
+          prix: "990 €",
+          mensuel: "35 €",
           description: {
             pt: "Para vender os seus produtos na internet.",
             fr: "Pour vendre vos produits sur internet.",
@@ -230,7 +230,7 @@ window.CONTENU = {
       formules: [
         {
           nom: { pt: "Presença", fr: "Présence", en: "Presence" },
-          prix: 249,
+          prix: 179,
           description: {
             pt: "Para publicar com regularidade numa rede.",
             fr: "Pour publier régulièrement sur un réseau.",
@@ -246,7 +246,7 @@ window.CONTENU = {
         {
           nom: { pt: "Crescimento", fr: "Croissance", en: "Growth" },
           populaire: true,
-          prix: 449,
+          prix: 299,
           description: {
             pt: "Para crescer nas redes e trazer mais clientes.",
             fr: "Pour grandir sur les réseaux et attirer plus de clients.",
@@ -262,7 +262,7 @@ window.CONTENU = {
         },
         {
           nom: { pt: "Premium", fr: "Premium", en: "Premium" },
-          prix: 790,
+          prix: 549,
           description: {
             pt: "Para marcas que querem estar presentes todos os dias.",
             fr: "Pour les marques qui veulent être présentes chaque jour.",
@@ -291,34 +291,34 @@ window.CONTENU = {
         {
           nom: { pt: "Reel", fr: "Reel", en: "Reel" },
           detail: { pt: "Filmagem e edição, até 30 segundos", fr: "Tournage et montage, jusqu'à 30 secondes", en: "Shoot and edit, up to 30 seconds" },
-          prix: "120 €"
+          prix: "79 €"
         },
         {
           nom: { pt: "4 reels", fr: "4 reels", en: "4 reels" },
           detail: { pt: "Filmados no mesmo dia", fr: "Tournés le même jour", en: "Shot on the same day" },
-          prix: "390 €"
+          prix: "249 €"
         },
         {
           nom: { pt: "Sessão fotográfica", fr: "Séance photo", en: "Photo shoot" },
           detail: { pt: "1 hora, 20 fotografias editadas", fr: "1 heure, 20 photos retouchées", en: "1 hour, 20 edited photos" },
-          prix: "190 €"
+          prix: "129 €"
         },
         {
           nom: { pt: "Fotografia de produto", fr: "Photo produit", en: "Product photography" },
           detail: { pt: "Até 20 produtos, fundo neutro", fr: "Jusqu'à 20 produits, fond neutre", en: "Up to 20 products, plain background" },
-          prix: "250 €"
+          prix: "169 €"
         },
         {
           nom: { pt: "Vídeo de marca", fr: "Film de marque", en: "Brand film" },
           detail: { pt: "60 a 90 segundos, guião, filmagem e edição", fr: "60 à 90 secondes, script, tournage et montage", en: "60 to 90 seconds, script, shoot and edit" },
           prefixe: { pt: "desde", fr: "dès", en: "from" },
-          prix: "590 €"
+          prix: "390 €"
         },
         {
           nom: { pt: "Cobertura de evento", fr: "Couverture d'événement", en: "Event coverage" },
           detail: { pt: "Meio dia, fotografias e vídeo resumo", fr: "Demi-journée, photos et vidéo résumé", en: "Half day, photos and highlight video" },
           prefixe: { pt: "desde", fr: "dès", en: "from" },
-          prix: "450 €"
+          prix: "290 €"
         }
       ]
     },
@@ -337,8 +337,8 @@ window.CONTENU = {
         fr: "Tout ce qu'il faut pour bien démarrer. Maintenance du site incluse les 3 premiers mois.",
         en: "Everything you need to start well. Website maintenance included for the first 3 months."
       },
-      prix: "1 190 €",
-      ancienPrix: "1 502 €"
+      prix: "890 €",
+      ancienPrix: "1 113 €"
     },
 
     note: {
