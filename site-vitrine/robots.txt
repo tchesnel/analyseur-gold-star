@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /exemples/
+
+Sitemap: https://hego-studio-site.vercel.app/sitemap.xml

@@ -6,30 +6,55 @@
 
   <!-- ===============================================================
        APERÇU QUAND TU ENVOIES LE LIEN (WhatsApp, Instagram, Google)
-       Remplace https://example.com par l'adresse de ton site (2 fois).
+       Si tu changes d'adresse (nom de domaine), remplace
+       https://hego-studio-site.vercel.app partout dans ce bloc,
+       ainsi que dans robots.txt et sitemap.xml.
        =============================================================== -->
   <title>HEGO STUDIO · Web & Social Media · Portugal & France</title>
   <meta name="description" content="Criamos o site e gerimos as redes sociais do seu negócio. Sites, Instagram, Facebook, fotografia e vídeo em Portugal e em França. Preço fechado antes de começar.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="HEGO STUDIO · Web & Social Media">
   <meta property="og:description" content="Criamos o site e gerimos as redes sociais do seu negócio.">
-  <meta property="og:image" content="https://example.com/images/apercu.jpg">
-  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://hego-studio-site.vercel.app/images/apercu.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://hego-studio-site.vercel.app/">
+  <link rel="canonical" href="https://hego-studio-site.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "HEGO STUDIO",
+    "url": "https://hego-studio-site.vercel.app/",
+    "email": "hello.hegostudio@gmail.com",
+    "image": "https://hego-studio-site.vercel.app/images/apercu.jpg",
+    "logo": "https://hego-studio-site.vercel.app/images/apple-touch-icon.png",
+    "description": "Criação de sites, gestão de redes sociais, fotografia e vídeo para empresas em Portugal e em França.",
+    "areaServed": ["PT", "FR"],
+    "knowsLanguage": ["pt", "fr", "en"],
+    "priceRange": "€€"
+  }
+  </script>
   <!-- =============================================================== -->
 
   <meta name="theme-color" content="#0b0b0c">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preload" href="polices/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="polices/bodoni-moda-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="site"></div>
+  <div id="site">
+    <!-- Version simple affichée avant le chargement (et lue par Google). Remplacée automatiquement. -->
+    <main class="wrap" style="padding-block:48px">
+      <h1>HEGO STUDIO · Criamos o site e gerimos as redes sociais do seu negócio.</h1>
+      <p>Sites web, gestão de Instagram, Facebook e TikTok, fotografia e vídeo para restaurantes, lojas, marcas e profissionais em Portugal e em França.</p>
+      <p>Pedidos de orçamento: <a href="mailto:hello.hegostudio@gmail.com">hello.hegostudio@gmail.com</a></p>
+    </main>
+  </div>
 
-  <noscript>
-    <p style="padding:24px;font-family:sans-serif;color:#fff;background:#0b0b0c">HEGO STUDIO · Web & Social Media</p>
-  </noscript>
 
   <!-- 1. le contenu (le fichier à modifier)  2. le moteur qui l'affiche -->
   <script src="contenu.js"></script>

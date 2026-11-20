@@ -94,7 +94,7 @@
   /* ---------- Sections ---------- */
   function entete() {
     var M = C.menu || {};
-    var liens = ["services", "tarifs", "realisations", "studio", "contact"].map(function (k) {
+    var liens = ["realisations", "services", "tarifs", "studio", "contact"].map(function (k) {
       return M[k] ? '<a href="#' + k + '">' + esc(t(M[k])) + "</a>" : "";
     }).join("");
     var choix = langues.length > 1
@@ -236,7 +236,7 @@
       var lien = p.lien ? "<a" + ext(p.lien) + ">" + esc(t(p.lienTexte) || p.lien) + ico("diagonale") + "</a>" : "";
       return (
         '<article class="projet">' +
-        '<div class="projet-visuel">' + (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(t(p.nom)) + '" width="965" height="699">' : "") + "</div>" +
+        '<div class="projet-visuel">' + (p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(t(p.nom)) + '" width="965" height="699" loading="lazy" decoding="async">' : "") + "</div>" +
         '<div class="projet-texte"><p class="projet-cat">' + esc(t(p.categorie)) + "</p>" +
         '<h3 class="projet-nom">' + esc(t(p.nom)) + "</h3>" +
         '<p class="projet-phrase">' + riche(p.phrase) + "</p>" +
@@ -246,11 +246,11 @@
       );
     }).join("");
     var exemples = (R.exemples || []).length
-      ? '<div class="exemples-tete"><h3>' + riche(R.exemplesTitre) + '</h3><p class="doux">' + riche(R.exemplesTexte) + "</p></div>" +
+      ? '<div class="exemples-tete" id="exemples"><h3>' + riche(R.exemplesTitre) + '</h3><p class="doux">' + riche(R.exemplesTexte) + "</p></div>" +
         '<div class="exemples-grille">' + R.exemples.map(function (x) {
           var vrai = String(x.lien || "").indexOf("http") === 0;
           return '<a class="exemple" href="' + esc(x.lien) + '"' + (vrai ? ' target="_blank" rel="noopener"' : "") + ">" +
-            '<div class="exemple-image">' + (x.image ? '<img src="' + esc(x.image) + '" alt="">' : "") + "</div>" +
+            '<div class="exemple-image">' + (x.image ? '<img src="' + esc(x.image) + '" alt="" width="800" height="600" loading="lazy" decoding="async">' : "") + "</div>" +
             '<div class="exemple-infos"><h4>' + esc(t(x.nom)) + "</h4><span>" + esc(t(x.type)) + (vrai ? "" : " · " + esc(t(X.fictif))) + "</span></div>" +
             '<span class="exemple-lien">' + esc(t(X.voirSite)) + ico("fleche") + "</span></a>";
         }).join("") + "</div>"
@@ -314,7 +314,7 @@
         '<input class="piege" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
         '<p class="erreur" id="f-erreur" role="alert" hidden></p>' +
         '<button class="btn btn--plein" type="submit" id="f-envoyer">' + esc(t(X.envoyer)) + ico("fleche") + "</button>" +
-        '<p class="mentions">' + esc(t(X.confidentialite)) + "</p>" +
+        '<p class="mentions">' + esc(t(X.confidentialite)) + ' <a href="privacidade.html">' + esc(t(X.politique)) + "</a></p>" +
       "</form>" +
       '<div class="merci" id="f-merci" role="status" hidden><p class="surtitre">' + esc(C.marque) + "</p><h3>" + esc(t(X.merciTitre)) + '</h3><p class="doux">' + esc(t(X.merciTexte)) + "</p></div>" +
       "</div></div></section>"
@@ -328,8 +328,9 @@
       '<div class="pied-liens">' +
       (C.instagram ? "<a" + ext(C.instagram) + ">Instagram</a>" : "") +
       (C.livroReclamacoes ? "<a" + ext("https://www.livroreclamacoes.pt") + ">" + esc(t(X.livro)) + "</a>" : "") +
+      '<a href="privacidade.html">' + esc(t(X.politique)) + "</a>" +
       "<span>" + esc(t(C.pied.cookies)) + "</span></div>" +
-      "<span>© " + new Date().getFullYear() + " " + esc(C.marque) + "</span>" +
+      "<span>© " + new Date().getFullYear() + " " + esc(C.marque) + (C.nif ? " · NIF " + esc(C.nif) : "") + "</span>" +
       "</div></footer>"
     );
   }
@@ -338,7 +339,7 @@
   function afficher() {
     document.documentElement.lang = lang;
     document.title = C.marque + " · " + t(C.activite) + " · " + C.pays;
-    racine.innerHTML = entete() + "<main>" + accueil() + services() + tarifs() + realisations() + methode() + studio() + faq() + contact() + "</main>" + pied();
+    racine.innerHTML = entete() + "<main>" + accueil() + realisations() + services() + tarifs() + methode() + studio() + faq() + contact() + "</main>" + pied();
     brancher();
   }
 
@@ -387,6 +388,22 @@
         ev.preventDefault();
         choisirOnglet(id, true);
       });
+    });
+
+    // Onglets : navigation au clavier (flèches)
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.onglets [role="tab"]'));
+    tabs.forEach(function (tab, i) {
+      tab.setAttribute("tabindex", tab.getAttribute("aria-selected") === "true" ? "0" : "-1");
+      tab.addEventListener("keydown", function (ev) {
+        var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        ev.preventDefault();
+        var suivant = tabs[(i + d + tabs.length) % tabs.length];
+        choisirOnglet(suivant.getAttribute("data-onglet"), false);
+        tabs.forEach(function (x) { x.setAttribute("tabindex", x === suivant ? "0" : "-1"); });
+        suivant.focus();
+      });
+      tab.addEventListener("click", function () { tabs.forEach(function (x) { x.setAttribute("tabindex", x === tab ? "0" : "-1"); }); });
     });
 
     // Boutons "Demander un devis" → formulaire prérempli

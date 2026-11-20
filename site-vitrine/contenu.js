@@ -34,6 +34,7 @@ window.CONTENU = {
 
   instagram: "",                   // À REMPLACER : ex. "https://instagram.com/hegostudio" (vide = caché)
   instagramPseudo: "",             // ex. "@hegostudio"
+  nif: "",                         // ton numéro fiscal (NIF), affiché en bas de page (obligation légale) : ex. "123456789"
   livroReclamacoes: true,          // lien "Livro de Reclamações" en bas de page (obligatoire au Portugal)
 
   // Langues proposées, la première est celle par défaut. ["pt"] = portugais uniquement.
@@ -609,6 +610,7 @@ window.CONTENU = {
       fr: "Vos données servent uniquement à répondre à votre demande.",
       en: "Your details are only used to reply to your request."
     },
+    politique:       { pt: "Política de privacidade", fr: "Politique de confidentialité", en: "Privacy policy" },
     merciTitre:      { pt: "Pedido enviado. Obrigado!", fr: "Demande envoyée. Merci !", en: "Request sent. Thank you!" },
     merciTexte: {
       pt: "Recebemos a sua mensagem e respondemos por email em 24 horas.",

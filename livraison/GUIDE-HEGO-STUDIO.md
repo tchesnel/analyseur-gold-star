@@ -57,16 +57,15 @@ Dans `contenu.js`, tout en haut :
 - [x] `email` : déjà réglé sur `hello.hegostudio@gmail.com` (c'est aussi l'adresse qui reçoit les demandes).
 - [ ] `instagram` et `instagramPseudo` : le lien de ton compte et ton pseudo, pour que les clients puissent t'écrire en message privé.
 - [ ] Le formulaire : à activer une fois le site en ligne (voir l'étape 4 ci-dessous).
+- [ ] `nif` : ton numéro fiscal, affiché en bas de page (identification obligatoire d'un professionnel).
+- [ ] `privacidade.html` : relis la politique de confidentialité (déjà rédigée en PT, FR et EN).
 
 Aucun numéro de téléphone n'apparaît sur le site.
 - [ ] Section **9. QUI SOMMES-NOUS** : vérifie que les phrases te correspondent (langues parlées, façon de travailler).
 - [ ] Section **7. RÉALISATIONS** : vérifie les textes de Cysta, Loggio et Vila Haritza.
 - [ ] Section **6. TARIFS** → `note` : adapte la mention de TVA à ton statut (à voir avec ton comptable).
 
-Dans `index.html`, dans le bloc encadré tout en haut :
-
-- [ ] Remplace `https://example.com` par l'adresse de ton site (2 endroits). C'est ce qui affiche l'image d'aperçu quand tu partages le lien (Instagram, WhatsApp, e-mail).
-
+Si tu passes sur ton propre nom de domaine : remplace `https://hego-studio-site.vercel.app` dans le bloc encadré en haut d'`index.html`, dans `robots.txt` et dans `sitemap.xml`.
 ---
 
 ## 4. Recevoir les demandes du formulaire par e-mail
