@@ -432,6 +432,8 @@
     try {
       var demo = new URLSearchParams(location.search).get("demo");
       if (demo) { form.service.value = "web"; form.message.value = remplir(X.messageDemo, { commerce: demo }); }
+      var maquette = new URLSearchParams(location.search).get("maquette");
+      if (maquette) { form.service.value = "web"; form.message.value = remplir(X.messageMaquette, { commerce: maquette }); }
     } catch (e) {}
 
     // Envoi du formulaire → e-mail (FormSubmit)

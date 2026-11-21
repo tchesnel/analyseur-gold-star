@@ -669,6 +669,11 @@ window.CONTENU = {
       fr: "Bonjour ! Je suis intéressé(e) par l'offre {formule}.",
       en: "Hello! I'm interested in the {formule}."
     },
+    messageMaquette: {
+      pt: "Olá! Vi a maquete do site para {commerce} e gostava de falar convosco.",
+      fr: "Bonjour ! J'ai vu la maquette du site pour {commerce} et j'aimerais en parler avec vous.",
+      en: "Hello! I saw the website mockup for {commerce} and I'd like to talk about it."
+    },
     messageDemo: {
       pt: "Olá! Vi o exemplo “{commerce}” no vosso site e gostava de um site assim.",
       fr: "Bonjour ! J'ai vu l'exemple « {commerce} » sur votre site et j'aimerais un site comme ça.",

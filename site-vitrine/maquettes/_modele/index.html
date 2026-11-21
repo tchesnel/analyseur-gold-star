@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Maquette</title>
+  <link rel="stylesheet" href="../maquette.css">
+</head>
+<body>
+  <div id="maquette"></div>
+  <script>
+    /* MODÈLE DE MAQUETTE : copie ce dossier, renomme-le (ex. maquettes/cafe-central/),
+       mets les photos dans le dossier, puis remplis les infos ci-dessous. */
+    window.MAQUETTE = {
+      langue: "pt",                        // "pt", "fr" ou "en"
+      nom: "Nome do negócio",
+      type: "Cabeleireiro",                // activité, affichée au-dessus du nom
+      ville: "Lisboa",
+      slogan: "Uma frase curta que resume o negócio.",
+      instagram: "",                       // pseudo sans @ (bouton « Suivre sur Instagram »)
+      telephone: "",                       // seulement s'il est public, sinon ""
+      adresse: "",
+      bouton: { texte: "Marcar por mensagem", lien: "" },   // lien vide = Instagram du commerce
+      couleurs: { fond: "#faf8f4", fond2: "#f0ece4", texte: "#1d1a17", doux: "#6b6359", accent: "#8a5a3b", surAccent: "#ffffff" },
+      police: "serif",                     // "serif", "elegante", "condensee", "classique" ou "moderne"
+      photos: {
+        logo: "",                          // photo de profil (ronde)
+        hero: "",                          // grande photo d'accueil
+        apropos: "",
+        galerie: []                        // 3 ou 6 photos
+      },
+      apropos: { titre: "", textes: ["Texto de apresentação."] },
+      services: { titre: "Serviços", liste: [ { nom: "Serviço", detail: "", prix: "" } ] },
+      horaires: [ ["Segunda a sexta", "09:00 – 19:00"], ["Sábado", "09:00 – 13:00"], ["Domingo", ""] ]
+    };
+  </script>
+  <script src="../maquette.js"></script>
+</body>
+</html>

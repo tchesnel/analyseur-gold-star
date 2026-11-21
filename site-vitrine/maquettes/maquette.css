@@ -1,0 +1,94 @@
+/* Modèle de maquette pour prospects (HEGO STUDIO).
+   Les couleurs et la police viennent de la configuration de chaque maquette. */
+@font-face { font-family: "Young Serif"; src: url("../polices/young-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../polices/figtree.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+@font-face { font-family: "Oswald"; src: url("../polices/oswald.woff2") format("woff2"); font-weight: 200 700; font-display: swap; }
+@font-face { font-family: "Alegreya"; src: url("../polices/alegreya.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url("../polices/bodoni-moda-italic.woff2") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url("../polices/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("../polices/plex-mono.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+
+:root {
+  --fond: #faf8f4; --fond-2: #f0ece4; --texte: #1d1a17; --doux: #6b6359; --accent: #8a5a3b; --sur-accent: #fff;
+  --trait: color-mix(in srgb, var(--texte) 14%, transparent);
+  --f-titre: "Young Serif", Georgia, serif; --style-titre: normal; --poids-titre: 400; --casse-titre: none; --etirement: 100%;
+  --f-texte: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gouttiere-g: max(20px, env(safe-area-inset-left, 0px)); --gouttiere-d: max(20px, env(safe-area-inset-right, 0px));
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--fond); color: var(--texte); font: 400 17px/1.6 var(--f-texte); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--f-titre); font-style: var(--style-titre); font-weight: var(--poids-titre); text-transform: var(--casse-titre); font-stretch: var(--etirement); line-height: 1.05; text-wrap: balance; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-left: var(--gouttiere-g); padding-right: var(--gouttiere-d); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 700 15px/1 var(--f-texte); padding: 15px 22px; border-radius: 999px; text-decoration: none; border: 2px solid var(--texte); background: transparent; color: var(--texte); cursor: pointer; }
+.btn--accent { background: var(--accent); border-color: var(--accent); color: var(--sur-accent); }
+
+/* Bandeau HEGO (identifie la maquette) */
+.hego { background: #0e0e0f; color: #f5f5f2; font: 400 12px/1.4 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+.hego .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; min-height: 44px; padding-block: 8px; }
+.hego a { color: #0e0e0f; background: #f5f5f2; text-decoration: none; padding: 8px 12px; white-space: nowrap; }
+
+/* En-tête */
+.entete { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--fond) 92%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--trait); }
+.entete .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.marque { display: flex; align-items: center; gap: 10px; text-decoration: none; font: var(--poids-titre) 22px/1.1 var(--f-titre); font-style: var(--style-titre); text-transform: var(--casse-titre); font-stretch: var(--etirement); }
+.marque img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.entete nav { display: flex; gap: 22px; font-weight: 600; font-size: 15px; }
+.entete nav a { text-decoration: none; color: var(--doux); }
+.entete nav a:hover { color: var(--texte); }
+.entete .btn { padding: 11px 18px; font-size: 14px; }
+
+/* Accueil */
+.hero { padding-block: 16px 56px; }
+.hero-boite { position: relative; border-radius: 24px; overflow: hidden; min-height: min(78vh, 640px); display: grid; align-items: end; background: var(--fond-2); }
+.hero-boite > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-boite::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.08) 15%, rgba(0,0,0,.74) 100%); }
+.hero-texte { position: relative; z-index: 1; padding: clamp(24px, 5vw, 56px); color: #fff; display: grid; gap: 16px; max-width: 760px; }
+.hero-texte small { font: 400 12px/1 "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+.hero-texte h1 { font-size: clamp(40px, 7vw, 84px); }
+.hero-texte p { font-size: 18px; max-width: 46ch; opacity: .95; }
+.hero-texte .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.hero-texte .btn:not(.btn--accent) { border-color: #fff; color: #fff; }
+.sans-photo .hero-boite::after { display: none; }
+.sans-photo .hero-texte { color: var(--texte); }
+.sans-photo .hero-texte .btn:not(.btn--accent) { border-color: var(--texte); color: var(--texte); }
+
+/* Sections */
+section.bloc { padding-block: clamp(56px, 8vw, 96px); }
+section.bloc:nth-of-type(even) { background: var(--fond-2); }
+.titre-section { font-size: clamp(32px, 4.4vw, 52px); margin-bottom: 28px; }
+.apropos .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.apropos img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 20px; }
+.apropos p { color: var(--doux); font-size: 18px; }
+.apropos p + p { margin-top: 14px; }
+.liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+.liste li { display: flex; align-items: baseline; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--trait); }
+.liste li::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted var(--trait); transform: translateY(-4px); }
+.liste li > span { min-width: 0; }
+.liste b { order: 2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.liste small { display: block; color: var(--doux); font-size: 14px; }
+.galerie { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.galerie img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; }
+.infos .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); }
+.infos h3 { font-size: 26px; margin-bottom: 14px; }
+.infos table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.infos td { padding: 8px 0; border-bottom: 1px solid var(--trait); }
+.infos td:last-child { text-align: right; font-weight: 700; }
+.infos p { color: var(--doux); }
+.infos .btn { margin-top: 16px; }
+footer { padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: var(--doux); border-top: 1px solid var(--trait); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; }
+
+@media (max-width: 760px) {
+  .entete nav { display: none; }
+  .apropos .wrap, .infos .wrap { grid-template-columns: minmax(0, 1fr); }
+  .liste { grid-template-columns: minmax(0, 1fr); }
+  .galerie { gap: 6px; }
+  .hero-texte .actions .btn { flex: 1 1 100%; }
+  .hego .wrap { justify-content: center; text-align: center; }
+}
