@@ -58,6 +58,13 @@ h1, h2, h3 { margin: 0; font-family: var(--f-titre); font-style: var(--style-tit
 .sans-photo .hero-texte { color: var(--texte); }
 .sans-photo .hero-texte .btn:not(.btn--accent) { border-color: var(--texte); color: var(--texte); }
 
+/* Accueil en photo verticale (photos Instagram) */
+.hero--portrait .hero-boite { min-height: 0; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; background: var(--fond-2); }
+.hero--portrait .hero-boite > img { position: static; order: 2; width: 100%; height: 100%; max-height: 620px; aspect-ratio: 4 / 5; object-fit: cover; }
+.hero--portrait .hero-boite::after { display: none; }
+.hero--portrait .hero-texte { color: var(--texte); }
+.hero--portrait .hero-texte .btn:not(.btn--accent) { border-color: var(--texte); color: var(--texte); }
+
 /* Sections */
 section.bloc { padding-block: clamp(56px, 8vw, 96px); }
 section.bloc:nth-of-type(even) { background: var(--fond-2); }
@@ -68,12 +75,18 @@ section.bloc:nth-of-type(even) { background: var(--fond-2); }
 .apropos p + p { margin-top: 14px; }
 .liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
 .liste li { display: flex; align-items: baseline; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--trait); }
+.liste li.sans-prix::after { display: none; }
 .liste li::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted var(--trait); transform: translateY(-4px); }
 .liste li > span { min-width: 0; }
 .liste b { order: 2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .liste small { display: block; color: var(--doux); font-size: 14px; }
 .galerie { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .galerie img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; }
+.avis-grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.avis figure { margin: 0; padding: 26px; background: var(--fond); border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+section.avis:nth-of-type(odd) figure { background: var(--fond-2); }
+.avis blockquote { margin: 0; font: var(--style-titre) var(--poids-titre) 21px/1.35 var(--f-titre); }
+.avis figcaption { font: 400 12px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--doux); }
 .infos .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); }
 .infos h3 { font-size: 26px; margin-bottom: 14px; }
 .infos table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
@@ -89,6 +102,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .apropos .wrap, .infos .wrap { grid-template-columns: minmax(0, 1fr); }
   .liste { grid-template-columns: minmax(0, 1fr); }
   .galerie { gap: 6px; }
+  .avis-grille { grid-template-columns: minmax(0, 1fr); }
+  .hero--portrait .hero-boite { grid-template-columns: minmax(0, 1fr); }
+  .hero--portrait .hero-boite > img { order: 0; max-height: 460px; }
   .hero-texte .actions .btn { flex: 1 1 100%; }
   .hego .wrap { justify-content: center; text-align: center; }
 }
